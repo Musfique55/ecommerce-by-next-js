@@ -1,0 +1,242 @@
+[
+    {
+        "category": "Speaker",
+        "title": "Echo Dot 4th Gen",
+        "price": 49.99,
+        "ratings": 4.7,
+        "stocks": 120,
+        "image": "https://example.com/echo-dot.jpg"
+    },
+    {
+        "category": "Speaker",
+        "title": "Bose SoundLink Revolve",
+        "price": 199.99,
+        "ratings": 4.8,
+        "stocks": 50,
+        "image": "https://example.com/bose-soundlink.jpg"
+    },
+    {
+        "category": "Speaker",
+        "title": "Sonos One",
+        "price": 219.99,
+        "ratings": 4.6,
+        "stocks": 80,
+        "image": "https://example.com/sonos-one.jpg"
+    },
+    {
+        "category": "Speaker",
+        "title": "JBL Flip 5",
+        "price": 99.99,
+        "ratings": 4.5,
+        "stocks": 200,
+        "image": "https://example.com/jbl-flip-5.jpg"
+    },
+    {
+        "category": "Speaker",
+        "title": "Ultimate Ears Boom 3",
+        "price": 149.99,
+        "ratings": 4.4,
+        "stocks": 100,
+        "image": "https://example.com/ue-boom-3.jpg"
+    },
+    {
+        "category": "Smart Watch",
+        "title": "Apple Watch Series 8",
+        "price": 399.99,
+        "ratings": 4.9,
+        "stocks": 30,
+        "image": "https://example.com/apple-watch-series-8.jpg"
+    },
+    {
+        "category": "Smart Watch",
+        "title": "Samsung Galaxy Watch 6",
+        "price": 329.99,
+        "ratings": 4.6,
+        "stocks": 60,
+        "image": "https://example.com/galaxy-watch-6.jpg"
+    },
+    {
+        "category": "Smart Watch",
+        "title": "Fitbit Sense 2",
+        "price": 299.99,
+        "ratings": 4.5,
+        "stocks": 80,
+        "image": "https://example.com/fitbit-sense-2.jpg"
+    },
+    {
+        "category": "Smart Watch",
+        "title": "Garmin Venu 2 Plus",
+        "price": 449.99,
+        "ratings": 4.7,
+        "stocks": 40,
+        "image": "https://example.com/garmin-venu-2-plus.jpg"
+    },
+    {
+        "category": "Smart Watch",
+        "title": "Fossil Gen 6",
+        "price": 299.99,
+        "ratings": 4.4,
+        "stocks": 70,
+        "image": "https://example.com/fossil-gen-6.jpg"
+    },
+    {
+        "category": "Camera",
+        "title": "Canon EOS R5",
+        "price": 3899.99,
+        "ratings": 4.9,
+        "stocks": 15,
+        "image": "https://example.com/canon-eos-r5.jpg"
+    },
+    {
+        "category": "Camera",
+        "title": "Sony Alpha A7 IV",
+        "price": 2499.99,
+        "ratings": 4.8,
+        "stocks": 25,
+        "image": "https://example.com/sony-alpha-a7-iv.jpg"
+    },
+    {
+        "category": "Camera",
+        "title": "Nikon Z6 II",
+        "price": 1999.99,
+        "ratings": 4.7,
+        "stocks": 30,
+        "image": "https://example.com/nikon-z6-ii.jpg"
+    },
+    {
+        "category": "Camera",
+        "title": "GoPro HERO 11 Black",
+        "price": 399.99,
+        "ratings": 4.6,
+        "stocks": 150,
+        "image": "https://example.com/gopro-hero-11.jpg"
+    },
+    {
+        "category": "Camera",
+        "title": "DJI Osmo Pocket",
+        "price": 349.99,
+        "ratings": 4.5,
+        "stocks": 100,
+        "image": "https://example.com/dji-osmo-pocket.jpg"
+    },
+    {
+        "category": "Smart Phone",
+        "title": "iPhone 14 Pro Max",
+        "price": 1199.99,
+        "ratings": 4.9,
+        "stocks": 45,
+        "image": "https://example.com/iphone-14-pro-max.jpg"
+    },
+    {
+        "category": "Smart Phone",
+        "title": "Samsung Galaxy S23 Ultra",
+        "price": 1299.99,
+        "ratings": 4.8,
+        "stocks": 40,
+        "image": "https://example.com/samsung-galaxy-s23-ultra.jpg"
+    },
+    {
+        "category": "Smart Phone",
+        "title": "Google Pixel 8 Pro",
+        "price": 999.99,
+        "ratings": 4.7,
+        "stocks": 55,
+        "image": "https://example.com/google-pixel-8-pro.jpg"
+    },
+    {
+        "category": "Smart Phone",
+        "title": "OnePlus 11 5G",
+        "price": 799.99,
+        "ratings": 4.6,
+        "stocks": 70,
+        "image": "https://example.com/oneplus-11.jpg"
+    },
+    {
+        "category": "Smart Phone",
+        "title": "Xiaomi Mi 13",
+        "price": 899.99,
+        "ratings": 4.5,
+        "stocks": 65,
+        "image": "https://example.com/xiaomi-mi-13.jpg"
+    },
+    {
+        "category": "Virtual Accessories",
+        "title": "Oculus Quest 3",
+        "price": 499.99,
+        "ratings": 4.8,
+        "stocks": 100,
+        "image": "https://example.com/oculus-quest-3.jpg"
+    },
+    {
+        "category": "Virtual Accessories",
+        "title": "PlayStation VR2",
+        "price": 549.99,
+        "ratings": 4.7,
+        "stocks": 80,
+        "image": "https://example.com/psvr2.jpg"
+    },
+    {
+        "category": "Virtual Accessories",
+        "title": "HTC Vive Pro 2",
+        "price": 749.99,
+        "ratings": 4.6,
+        "stocks": 60,
+        "image": "https://example.com/htc-vive-pro-2.jpg"
+    },
+    {
+        "category": "Virtual Accessories",
+        "title": "Valve Index",
+        "price": 999.99,
+        "ratings": 4.7,
+        "stocks": 45,
+        "image": "https://example.com/valve-index.jpg"
+    },
+    {
+        "category": "Virtual Accessories",
+        "title": "HP Reverb G2",
+        "price": 599.99,
+        "ratings": 4.5,
+        "stocks": 50,
+        "image": "https://example.com/hp-reverb-g2.jpg"
+    },
+    {
+        "category": "Smart Buds",
+        "title": "Apple AirPods Pro 2",
+        "price": 249.99,
+        "ratings": 4.8,
+        "stocks": 150,
+        "image": "https://example.com/airpods-pro-2.jpg"
+    },
+    {
+        "category": "Smart Buds",
+        "title": "Sony WF-1000XM5",
+        "price": 299.99,
+        "ratings": 4.7,
+        "stocks": 100,
+        "image": "https://example.com/sony-wf-1000xm5.jpg"
+    },
+    {
+        "category": "Smart Buds",
+        "title": "Samsung Galaxy Buds 2 Pro",
+        "price": 229.99,
+        "ratings": 4.6,
+        "stocks": 120,
+        "image": "https://example.com/galaxy-buds-2-pro.jpg"
+    },
+    {
+        "category": "Smart Buds",
+        "title": "Beats Fit Pro",
+        "price": 199.99,
+        "ratings": 4.5,
+        "stocks": 90,
+        "image": "https://example.com/beats-fit-pro.jpg"
+    },
+    {
+        "category": "Smart Buds",
+        "title": "Jabra Elite 7 Pro",
+        "price": 179.99,
+        "ratings": 4.4,
+        "stocks": 110,
+        "image": "https://example.com/jabra-elite-7-pro.jpg"
+    }
+]
