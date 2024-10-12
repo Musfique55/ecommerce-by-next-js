@@ -5,7 +5,7 @@
         "price": 49.99,
         "ratings": 4.7,
         "stocks": 120,
-        "image": "https://example.com/echo-dot.jpg"
+        "image": "https://www.ryans.com/storage/products/small/amazon-echo-dot-4th-gen-smart-speaker-with-clock-11647844611.webp"
     },
     {
         "category": "Speaker",
@@ -13,7 +13,7 @@
         "price": 199.99,
         "ratings": 4.8,
         "stocks": 50,
-        "image": "https://example.com/bose-soundlink.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/2636-92027.jpg"
     },
     {
         "category": "Speaker",
@@ -21,7 +21,7 @@
         "price": 219.99,
         "ratings": 4.6,
         "stocks": 80,
-        "image": "https://example.com/sonos-one.jpg"
+        "image": "https://cdn.dxomark.com/wp-content/uploads/medias/post-54033/Sonos-One-Hero1.jpg"
     },
     {
         "category": "Speaker",
@@ -29,7 +29,7 @@
         "price": 99.99,
         "ratings": 4.5,
         "stocks": 200,
-        "image": "https://example.com/jbl-flip-5.jpg"
+        "image": "https://www.shopz.com.bd/wp-content/uploads/2021/09/JBL-Flip-5-Eco-Edition.jpg"
     },
     {
         "category": "Speaker",
@@ -37,7 +37,7 @@
         "price": 149.99,
         "ratings": 4.4,
         "stocks": 100,
-        "image": "https://example.com/ue-boom-3.jpg"
+        "image": "https://www.shopz.com.bd/wp-content/uploads/2023/09/Ultimate-Ears-Boom-3-Portable-Waterproof-Bluetooth-Speaker-1.jpg"
     },
     {
         "category": "Smart Watch",
@@ -45,7 +45,7 @@
         "price": 399.99,
         "ratings": 4.9,
         "stocks": 30,
-        "image": "https://example.com/apple-watch-series-8.jpg"
+        "image": "https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png"
     },
     {
         "category": "Smart Watch",
@@ -53,7 +53,7 @@
         "price": 329.99,
         "ratings": 4.6,
         "stocks": 60,
-        "image": "https://example.com/galaxy-watch-6.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Galaxy-Watch6-Gold-5232.jpg"
     },
     {
         "category": "Smart Watch",
@@ -61,7 +61,7 @@
         "price": 299.99,
         "ratings": 4.5,
         "stocks": 80,
-        "image": "https://example.com/fitbit-sense-2.jpg"
+        "image": "https://gadgetoo.com.bd/wp-content/uploads/2022/12/prod0-2.png"
     },
     {
         "category": "Smart Watch",
@@ -69,7 +69,7 @@
         "price": 449.99,
         "ratings": 4.7,
         "stocks": 40,
-        "image": "https://example.com/garmin-venu-2-plus.jpg"
+        "image": "https://www.startech.com.bd/image/cache/catalog/smart-watch/garmin/venu-2-plus/venu-2-plus-silver-01-500x500.webp"
     },
     {
         "category": "Smart Watch",
@@ -77,7 +77,7 @@
         "price": 299.99,
         "ratings": 4.4,
         "stocks": 70,
-        "image": "https://example.com/fossil-gen-6.jpg"
+        "image": "https://storage.googleapis.com/pickaboo-prod/media/catalog/product/cache/90e3b9f4120fc209bf60003e3b0e1323/f/o/fossil-ftw4062v--2.jpg"
     },
     {
         "category": "Camera",
@@ -85,7 +85,7 @@
         "price": 3899.99,
         "ratings": 4.9,
         "stocks": 15,
-        "image": "https://example.com/canon-eos-r5.jpg"
+        "image": "https://i1.adis.ws/i/canon/eos-r5-c-fsl_range-page_06_306bc724fef64cc5a06bc8e97299cd91"
     },
     {
         "category": "Camera",
@@ -93,7 +93,7 @@
         "price": 2499.99,
         "ratings": 4.8,
         "stocks": 25,
-        "image": "https://example.com/sony-alpha-a7-iv.jpg"
+        "image": "https://www.shopz.com.bd/wp-content/uploads/2023/02/Sony-Alpha-7-IV-Mirrorless-Full-Frame-Hybrid-Camera-With-28-70mm-Zoom-Lens.jpg"
     },
     {
         "category": "Camera",
@@ -101,7 +101,7 @@
         "price": 1999.99,
         "ratings": 4.7,
         "stocks": 30,
-        "image": "https://example.com/nikon-z6-ii.jpg"
+        "image": "https://digitalshopbd.com/public/uploads/all/RBn060tpipVupEFkc4uoIFNn03Q8itjKM29pN84w.jpg"
     },
     {
         "category": "Camera",
@@ -109,7 +109,7 @@
         "price": 399.99,
         "ratings": 4.6,
         "stocks": 150,
-        "image": "https://example.com/gopro-hero-11.jpg"
+        "image": "https://camerabazar.net/wp-content/uploads/2022/09/New-Project-27.webp"
     },
     {
         "category": "Camera",
@@ -117,7 +117,7 @@
         "price": 349.99,
         "ratings": 4.5,
         "stocks": 100,
-        "image": "https://example.com/dji-osmo-pocket.jpg"
+        "image": "https://www-cdn.djiits.com/cms/uploads/8c6ec9b0dc4e170120dfd4ebf9f0ffd6@374*374.png"
     },
     {
         "category": "Smart Phone",
@@ -125,7 +125,7 @@
         "price": 1199.99,
         "ratings": 4.9,
         "stocks": 45,
-        "image": "https://example.com/iphone-14-pro-max.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/iPhone-14-Pro-Deep-Purple-7300.jpg"
     },
     {
         "category": "Smart Phone",
@@ -133,7 +133,7 @@
         "price": 1299.99,
         "ratings": 4.8,
         "stocks": 40,
-        "image": "https://example.com/samsung-galaxy-s23-ultra.jpg"
+        "image": "https://d61s2hjse0ytn.cloudfront.net/color/864/Titanium_Gray_S24_Ultra_1.webp"
     },
     {
         "category": "Smart Phone",
@@ -141,7 +141,7 @@
         "price": 999.99,
         "ratings": 4.7,
         "stocks": 55,
-        "image": "https://example.com/google-pixel-8-pro.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Pixel-8-Pro-Bay-1840.jpg"
     },
     {
         "category": "Smart Phone",
@@ -149,7 +149,7 @@
         "price": 799.99,
         "ratings": 4.6,
         "stocks": 70,
-        "image": "https://example.com/oneplus-11.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/OnePlus-11-(3)-4957.jpg"
     },
     {
         "category": "Smart Phone",
@@ -157,7 +157,7 @@
         "price": 899.99,
         "ratings": 4.5,
         "stocks": 65,
-        "image": "https://example.com/xiaomi-mi-13.jpg"
+        "image": "https://mobilebuzzbd.com/wp-content/uploads/2023/07/Mi-13.jpg"
     },
     {
         "category": "Virtual Accessories",
@@ -165,7 +165,7 @@
         "price": 499.99,
         "ratings": 4.8,
         "stocks": 100,
-        "image": "https://example.com/oculus-quest-3.jpg"
+        "image": "https://game4u.co.za/wp-content/uploads/2024/04/Oculus-Quest-3-3.jpg"
     },
     {
         "category": "Virtual Accessories",
@@ -173,7 +173,7 @@
         "price": 549.99,
         "ratings": 4.7,
         "stocks": 80,
-        "image": "https://example.com/psvr2.jpg"
+        "image": "https://www.startech.com.bd/image/cache/catalog/vr-set/sony/playstation-vr2/playstation-vr2-01-500x500.webp"
     },
     {
         "category": "Virtual Accessories",
@@ -181,7 +181,7 @@
         "price": 749.99,
         "ratings": 4.6,
         "stocks": 60,
-        "image": "https://example.com/htc-vive-pro-2.jpg"
+        "image": "https://m.media-amazon.com/images/I/51JMfyICY5L._SL1200_.jpg"
     },
     {
         "category": "Virtual Accessories",
@@ -189,7 +189,7 @@
         "price": 999.99,
         "ratings": 4.7,
         "stocks": 45,
-        "image": "https://example.com/valve-index.jpg"
+        "image": "https://vr-compare.com/img/headsets/valveindex.png"
     },
     {
         "category": "Virtual Accessories",
@@ -197,7 +197,7 @@
         "price": 599.99,
         "ratings": 4.5,
         "stocks": 50,
-        "image": "https://example.com/hp-reverb-g2.jpg"
+        "image": "https://www.virtualrealityexp.co.uk/wp-content/uploads/2020/10/hp-reverb-g2-vre.jpg"
     },
     {
         "category": "Smart Buds",
@@ -205,7 +205,7 @@
         "price": 249.99,
         "ratings": 4.8,
         "stocks": 150,
-        "image": "https://example.com/airpods-pro-2.jpg"
+        "image": "https://www.gadgetstyler.com/wp-content/uploads/2023/11/MTJV3.jpg"
     },
     {
         "category": "Smart Buds",
@@ -213,7 +213,7 @@
         "price": 299.99,
         "ratings": 4.7,
         "stocks": 100,
-        "image": "https://example.com/sony-wf-1000xm5.jpg"
+        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Sony-WF-1000XM5-Wireless-Noise-Cancelling-Headphones-Black-1353.jpg"
     },
     {
         "category": "Smart Buds",
@@ -221,7 +221,7 @@
         "price": 229.99,
         "ratings": 4.6,
         "stocks": 120,
-        "image": "https://example.com/galaxy-buds-2-pro.jpg"
+        "image": "https://www.techlandbd.com/image/catalog/products_2024/samsung-galaxy-buds2-pro-earbuds-2.jpg"
     },
     {
         "category": "Smart Buds",
@@ -229,7 +229,7 @@
         "price": 199.99,
         "ratings": 4.5,
         "stocks": 90,
-        "image": "https://example.com/beats-fit-pro.jpg"
+        "image":"https://store.bellestoreinc.com/wp-content/uploads/2024/05/MW6C3.jpeg"
     },
     {
         "category": "Smart Buds",
@@ -237,6 +237,6 @@
         "price": 179.99,
         "ratings": 4.4,
         "stocks": 110,
-        "image": "https://example.com/jabra-elite-7-pro.jpg"
+        "image":"https://ryans.com/storage/products/main/jabra-elite-7-pro-bluetooth-titanium-black-11656938789.webp"
     }
 ]
