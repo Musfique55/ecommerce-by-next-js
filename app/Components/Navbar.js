@@ -1,9 +1,11 @@
+'use client'
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { CiGrid41 } from "react-icons/ci";
 import { RiMenu4Fill } from "react-icons/ri";
 
 const Navbar = () => {
+    const [isOpen,setIsOpen] = useState(false);
 const navItems = [
     {
         title : 'Products',
@@ -76,6 +78,7 @@ const navItems = [
 
 
         {/* mobile menu */}
+        <div className='relative'>
         <div className='  border-t p-5 flex justify-between lg:hidden items-center gap-10 md:px-12 md:hidden '>
             <Link href={'/'}>
             <div className='flex  items-center gap-3'>
@@ -83,17 +86,21 @@ const navItems = [
                 <p className='font-medium'>All Categories</p>
             </div>
             </Link>
-            <div className='flex '>
-                <div className='hidden gap-5 border-l-2 border-gray-300'>
-                {
-                    navItems.map((item,idx) => {
-                        return <Link key={idx} href={item.link} className={`text-gray-600 dark:text-white ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
-                    })
-                }
-                </div>
+            <div onClick={() => setIsOpen(!isOpen)}>
+                
                 <RiMenu4Fill className='text-white text-right text-xl'/>
             </div>
-        
+            
+        </div>
+            {
+                isOpen && <div className='bg-white flex flex-col space-y-3 text-black p-5 transition ease-in-out'>
+                {
+                        navItems.map((item,idx) => {
+                            return <Link onClick={() => setIsOpen(!isOpen)} key={idx} href={item.link} className={`text-gray-600 dark:text-black `}>{item.title}</Link>
+                        })
+                    }
+                </div>
+            }
         </div>
         </>
     );
