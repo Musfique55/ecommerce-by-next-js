@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { useState } from 'react';
+import Heading from '../CustomHooks/heading';
 
 const RecommendedProducts = ({categories,products}) => {
     const trendingProducts = categories.slice(2).reverse();
@@ -13,12 +14,12 @@ const RecommendedProducts = ({categories,products}) => {
       );
     return (
         <div className="mt-12">
-            <h3 className="text-3xl font-semibold mb-5">Recommended for you</h3>
+          <Heading title={'Recommended for you'}/>
             <Tabs >
                 <TabList className="flex gap-5 mb-10 flex-wrap">
                 {
                     trendingProducts.map((cat,idx) => {
-                        return <Tab onClick={() => {setIndex(idx);setCurrentCategory(cat)}} key={idx} className={`text-lg  cursor-pointer outline-none ${index === idx ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]" : ''}`}>
+                        return <Tab onClick={() => {setIndex(idx);setCurrentCategory(cat)}} key={idx} className={`text-lg  cursor-pointer outline-none ${index === idx ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]" : 'text-black'}`}>
                             {cat}
                         </Tab>
                     })
@@ -47,7 +48,7 @@ const RecommendedProducts = ({categories,products}) => {
                                   In stock {product.stocks} Items
                                 </p>
         
-                                <h3 className="text-lg font-medium mb-2">
+                                <h3 className="text-lg font-medium mb-2 text-black">
                                   {product.title}
                                 </h3>
         

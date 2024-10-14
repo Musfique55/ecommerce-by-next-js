@@ -4,6 +4,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Image from "next/image";
 import { Rating } from "@smastrom/react-rating";
 import '@smastrom/react-rating/style.css'
+import Heading from "../CustomHooks/heading";
 const TrendingProducts = ({products,filteredProducts,setCurrentCategory,categories}) => {
   const [index, setIndex] = useState(0);
 
@@ -29,10 +30,10 @@ const TrendingProducts = ({products,filteredProducts,setCurrentCategory,categori
 
   return (
     <div className="mt-12">
-      <h2 className="text-3xl font-semibold">Trending Products</h2>
+      <Heading  title={'Trending Products'}/>
 
       <Tabs className="mt-5">
-        <TabList className="flex flex-wrap gap-5 mb-5 md:flex-nowrap">
+        <TabList className="flex flex-wrap gap-5 mb-5 md:flex-wrap lg:flex-nowrap">
           {categories.map((category, idx) => {
             return (
               <Tab
@@ -44,7 +45,7 @@ const TrendingProducts = ({products,filteredProducts,setCurrentCategory,categori
                 className={`text-lg  cursor-pointer outline-none ${
                   index === idx
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
-                    : ""
+                    : "text-black"
                 }`}
               >
                 {category}
@@ -70,13 +71,12 @@ const TrendingProducts = ({products,filteredProducts,setCurrentCategory,categori
                         width='256'
                         alt = "mobile-phone"  
                         />
-                        {/* <img src={product.image} alt="" lazyLoad={true}/> */}
 
                         <p className="text-[#1A1A7E] text-sm mb-2">
                           In stock {product.stocks} Items
                         </p>
 
-                        <h3 className="text-lg font-medium mb-2">
+                        <h3 className="text-lg font-medium mb-2 text-black">
                           {product.title}
                         </h3>
 

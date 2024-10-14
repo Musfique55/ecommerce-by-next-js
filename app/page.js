@@ -6,6 +6,11 @@ import HeroSlider from "./Components/HeroSlider";
 import TrendingProducts from './Components/TrendingProducts';
 import products from "/products.json";
 import RecommendedProducts from './Components/RecommendedProducts';
+import TrendingWeekProducts from './Components/TrendingWeekProducts';
+import FourthSectionBanner from './Components/FourthSectionBanner';
+import Collection from './Components/Collection';
+import Header from './Components/Header';
+import Sponsors from './Components/Sponsors';
 export default function Home() {
   const categories = [...new Set(products.map((product) => product.category))];
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
@@ -17,6 +22,9 @@ export default function Home() {
       <HeroSlider slides={SLIDES_DATA}/>
       <TrendingProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
       <BestDeals products={products}/>
+      <FourthSectionBanner />
+      <Collection products={products}/>
+      <TrendingWeekProducts products={products} filteredProducts={filteredProducts}/>
       <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/>
     </div>
   );
