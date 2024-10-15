@@ -1,31 +1,15 @@
 import React from 'react';
 import Heading from '../CustomHooks/heading';
-import { Rating } from '@smastrom/react-rating';
+import ReactStars from "react-rating-stars-component";
 import Image from 'next/image';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';
+import useStore from '../CustomHooks/useStore';
 
 const TrendingWeekProducts = ({products}) => {
     const filteredProducts = products.filter(product => product.category === 'Speaker');
-    const myStyles = {
-        itemShapes : [
-            <svg key="star1"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1A1A7E" width="24" height="24">
-                <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l5.46 4.73-1.64 7.03L12 17.27z" />
-            </svg> , 
-            <svg key="star2"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1A1A7E" width="24" height="24">
-                <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l5.46 4.73-1.64 7.03L12 17.27z" />
-            </svg>  ,
-            <svg key="star3"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1A1A7E" width="24" height="24">
-                <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l5.46 4.73-1.64 7.03L12 17.27z" />
-            </svg>  ,
-            <svg key="star4"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1A1A7E" width="24" height="24">
-                <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l5.46 4.73-1.64 7.03L12 17.27z" />
-            </svg>  ,
-            <svg key="star5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1A1A7E" width="24" height="24">
-                <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l5.46 4.73-1.64 7.03L12 17.27z" />
-            </svg>  
-        ]
-    }
+    const {handleCart} = useStore();
+    
     return (
         <div className='mt-10'>
             <div className="flex flex-wrap  items-center md:flex-nowrap md:justify-between">
@@ -38,12 +22,13 @@ const TrendingWeekProducts = ({products}) => {
                 filteredProducts.length > 0 ? (
                     filteredProducts.map((product, idx) => {
                       return (
-                        <div
-                          key={idx}
-                          className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
-                        >
+                        <Link
+                        key={idx}
+                        href={`products/${product.title}`}
+                        className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
+                      >
                           <Image
-                          src={product?.image}
+                          src={product?.image[0]}
                           height='256'
                           width='256'
                           alt = "mobile-phone"  
@@ -62,20 +47,26 @@ const TrendingWeekProducts = ({products}) => {
                           </p>
   
                           <div className="flex items-center  mb-4">
-                            
-                            <Rating 
-                            style={{ maxWidth: 100 }}
-                             value={product.ratings}
-                             readOnly
-                             itemStyles={myStyles}
-                            />  
-                            <p className="ml-2 mt-1 block text-gray-600 ">({product.ratings})</p>
+                          <ReactStars
+                            count={5}
+                            edit={false}
+                            size={24}
+                            value={product.ratings}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#1A1A7E"
+                          />
+                          <p className="ml-2 mt-1 block text-gray-600 ">
+                            ({product.ratings})
+                          </p>
                           </div>
   
-                          <button className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
+                          <button onClick={() => handleCart(product)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
                             Order Now
                           </button>
-                        </div>
+                        </Link>
                       );
                     })
                   ) : (

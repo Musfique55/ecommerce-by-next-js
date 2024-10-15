@@ -4,11 +4,14 @@ import React from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { useState } from 'react';
 import Heading from '../CustomHooks/heading';
+import useStore from '../CustomHooks/useStore';
+import Link from 'next/link';
 
 const RecommendedProducts = ({categories,products}) => {
     const trendingProducts = categories.slice(2).reverse();
     const [currentCategory,setCurrentCategory] = useState(trendingProducts[0]);
     const [index, setIndex] = useState(0);
+    const {handleCart} = useStore();
     const filteredProducts = products.filter(
         (product) => product.category === currentCategory
       );
@@ -31,12 +34,13 @@ const RecommendedProducts = ({categories,products}) => {
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                         {filteredProducts.length > 0 ? 
                             filteredProducts.map((product,idx) => {
-                                return <div
+                                return <Link
                                 key={idx}
-                                className="  bg-white border-gray-200 flex p-5 gap-5 items-center justify-around border rounded-lg"
+                                href={`products/${product.title}`}
+                                className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
                               >
                                 <Image
-                                src={product?.image}
+                                src={product?.image[0]}
                                 height='150'
                                 width='150'
                                 alt = "mobile-phone"  
@@ -56,11 +60,11 @@ const RecommendedProducts = ({categories,products}) => {
                                   ${product.price}
                                 </p>
         
-                                <button className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
+                                <button onClick={() => handleCart(product)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
                                   Order Now
                                 </button>
                                 </div>
-                              </div>
+                              </Link>
                             })
                             : (
                                 <p>No products found</p>

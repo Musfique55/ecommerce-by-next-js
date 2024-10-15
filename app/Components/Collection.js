@@ -22,7 +22,7 @@ const Collection = ({products}) => {
                         className='rounded-full'
                         />
                         </div>
-                        <h3 className='text-xl font-semibol'>{item.category}</h3>
+                        <h3 className='text-xl font-semibol text-black'>{item.category}</h3>
                         <p className='text-gray-500 font-semibold text-sm'>{products.filter(items => items.category === item.category).length} Items</p>
                     </div>
                     </Link>

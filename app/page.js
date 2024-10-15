@@ -9,8 +9,7 @@ import RecommendedProducts from './Components/RecommendedProducts';
 import TrendingWeekProducts from './Components/TrendingWeekProducts';
 import FourthSectionBanner from './Components/FourthSectionBanner';
 import Collection from './Components/Collection';
-import Header from './Components/Header';
-import Sponsors from './Components/Sponsors';
+
 export default function Home() {
   const categories = [...new Set(products.map((product) => product.category))];
   const [currentCategory, setCurrentCategory] = useState(categories[0]);

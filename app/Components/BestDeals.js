@@ -1,10 +1,14 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 import Heading from '../CustomHooks/heading';
+import { storeContext } from '../StoreContext/store';
+import useStore from '../CustomHooks/useStore';
+import Link from 'next/link';
 
 const BestDeals = ({products}) => {
     const filteredProducts = products.filter((product) => product.category === 'Smart Watch');
+    const {handleCart} = useStore();
     return (
         <div className="mt-12">
           <Heading title={'Best Deals'}/>
@@ -17,7 +21,7 @@ const BestDeals = ({products}) => {
                         <button className="flex items-center gap-3 text-black bg-white font-semibold px-4 py-3 rounded-md ">Shop Now <span className="text-black"><FaArrowRight /></span></button>
                     </div>
                     <Image
-                    src={filteredProducts[0].image}
+                    src={filteredProducts[0].image[0]}
                     width="500"
                     height="500"
                     className="static md:absolute md:transform md:left-1/2 md:-translate-x-1/2 md:bottom-4"
@@ -29,12 +33,13 @@ const BestDeals = ({products}) => {
                 {
                     filteredProducts.length > 0 ? 
                     filteredProducts.map((product,idx) => {
-                        return ( <div
-                            key={idx}
-                            className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg col-span-1"
-                          >
+                        return ( <Link
+                          key={idx}
+                          href={`products/${product.title}`}
+                          className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
+                        >
                             <Image
-                            src={product?.image}
+                            src={product?.image[0]}
                             height='200'
                             width='200'
                             alt = "mobile-phone"  
@@ -54,10 +59,10 @@ const BestDeals = ({products}) => {
                               ${product.price}
                             </p>
     
-                            <button className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
+                            <button onClick={() => handleCart(product)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
                               Order Now
                             </button>
-                          </div>)
+                          </Link>)
                     })
                     : <p>No products found</p>
                 }

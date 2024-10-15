@@ -5,7 +5,7 @@
         "price": 49.99,
         "ratings": 4.7,
         "stocks": 120,
-        "image": "https://www.ryans.com/storage/products/small/amazon-echo-dot-4th-gen-smart-speaker-with-clock-11647844611.webp"
+        "image": ["https://www.ryans.com/storage/products/small/amazon-echo-dot-4th-gen-smart-speaker-with-clock-11647844611.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Speaker",
@@ -13,7 +13,7 @@
         "price": 199.99,
         "ratings": 4.8,
         "stocks": 50,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/2636-92027.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/2636-92027.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Speaker",
@@ -21,7 +21,7 @@
         "price": 219.99,
         "ratings": 4.6,
         "stocks": 80,
-        "image": "https://cdn.dxomark.com/wp-content/uploads/medias/post-54033/Sonos-One-Hero1.jpg"
+        "image": ["https://cdn.dxomark.com/wp-content/uploads/medias/post-54033/Sonos-One-Hero1.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Speaker",
@@ -29,7 +29,7 @@
         "price": 99.99,
         "ratings": 4.5,
         "stocks": 200,
-        "image": "https://www.shopz.com.bd/wp-content/uploads/2021/09/JBL-Flip-5-Eco-Edition.jpg"
+        "image":[ "https://www.shopz.com.bd/wp-content/uploads/2021/09/JBL-Flip-5-Eco-Edition.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Speaker",
@@ -37,7 +37,7 @@
         "price": 149.99,
         "ratings": 4.4,
         "stocks": 100,
-        "image": "https://www.shopz.com.bd/wp-content/uploads/2023/09/Ultimate-Ears-Boom-3-Portable-Waterproof-Bluetooth-Speaker-1.jpg"
+        "image": ["https://www.shopz.com.bd/wp-content/uploads/2023/09/Ultimate-Ears-Boom-3-Portable-Waterproof-Bluetooth-Speaker-1.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Watch",
@@ -45,7 +45,7 @@
         "price": 399.99,
         "ratings": 4.9,
         "stocks": 30,
-        "image": "https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png"
+        "image": ["https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Watch",
@@ -53,7 +53,7 @@
         "price": 329.99,
         "ratings": 4.6,
         "stocks": 60,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Galaxy-Watch6-Gold-5232.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/Galaxy-Watch6-Gold-5232.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Watch",
@@ -61,7 +61,7 @@
         "price": 299.99,
         "ratings": 4.5,
         "stocks": 80,
-        "image": "https://gadgetoo.com.bd/wp-content/uploads/2022/12/prod0-2.png"
+        "image": ["https://gadgetoo.com.bd/wp-content/uploads/2022/12/prod0-2.png","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Watch",
@@ -69,7 +69,7 @@
         "price": 449.99,
         "ratings": 4.7,
         "stocks": 40,
-        "image": "https://www.startech.com.bd/image/cache/catalog/smart-watch/garmin/venu-2-plus/venu-2-plus-silver-01-500x500.webp"
+        "image": ["https://www.startech.com.bd/image/cache/catalog/smart-watch/garmin/venu-2-plus/venu-2-plus-silver-01-500x500.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Watch",
@@ -77,7 +77,7 @@
         "price": 299.99,
         "ratings": 4.4,
         "stocks": 70,
-        "image": "https://storage.googleapis.com/pickaboo-prod/media/catalog/product/cache/90e3b9f4120fc209bf60003e3b0e1323/f/o/fossil-ftw4062v--2.jpg"
+        "image": ["https://storage.googleapis.com/pickaboo-prod/media/catalog/product/cache/90e3b9f4120fc209bf60003e3b0e1323/f/o/fossil-ftw4062v--2.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Camera",
@@ -85,7 +85,7 @@
         "price": 3899.99,
         "ratings": 4.9,
         "stocks": 15,
-        "image": "https://i1.adis.ws/i/canon/eos-r5-c-fsl_range-page_06_306bc724fef64cc5a06bc8e97299cd91"
+        "image": ["https://i1.adis.ws/i/canon/eos-r5-c-fsl_range-page_06_306bc724fef64cc5a06bc8e97299cd91","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Camera",
@@ -93,7 +93,7 @@
         "price": 2499.99,
         "ratings": 4.8,
         "stocks": 25,
-        "image": "https://www.shopz.com.bd/wp-content/uploads/2023/02/Sony-Alpha-7-IV-Mirrorless-Full-Frame-Hybrid-Camera-With-28-70mm-Zoom-Lens.jpg"
+        "image": ["https://www.shopz.com.bd/wp-content/uploads/2023/02/Sony-Alpha-7-IV-Mirrorless-Full-Frame-Hybrid-Camera-With-28-70mm-Zoom-Lens.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Camera",
@@ -101,7 +101,7 @@
         "price": 1999.99,
         "ratings": 4.7,
         "stocks": 30,
-        "image": "https://digitalshopbd.com/public/uploads/all/RBn060tpipVupEFkc4uoIFNn03Q8itjKM29pN84w.jpg"
+        "image": ["https://digitalshopbd.com/public/uploads/all/RBn060tpipVupEFkc4uoIFNn03Q8itjKM29pN84w.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Camera",
@@ -109,7 +109,7 @@
         "price": 399.99,
         "ratings": 4.6,
         "stocks": 150,
-        "image": "https://camerabazar.net/wp-content/uploads/2022/09/New-Project-27.webp"
+        "image": ["https://camerabazar.net/wp-content/uploads/2022/09/New-Project-27.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Camera",
@@ -117,7 +117,7 @@
         "price": 349.99,
         "ratings": 4.5,
         "stocks": 100,
-        "image": "https://www-cdn.djiits.com/cms/uploads/8c6ec9b0dc4e170120dfd4ebf9f0ffd6@374*374.png"
+        "image": ["https://www-cdn.djiits.com/cms/uploads/8c6ec9b0dc4e170120dfd4ebf9f0ffd6@374*374.png","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Phone",
@@ -125,7 +125,7 @@
         "price": 1199.99,
         "ratings": 4.9,
         "stocks": 45,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/iPhone-14-Pro-Deep-Purple-7300.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/iPhone-14-Pro-Deep-Purple-7300.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Phone",
@@ -133,7 +133,7 @@
         "price": 1299.99,
         "ratings": 4.8,
         "stocks": 40,
-        "image": "https://d61s2hjse0ytn.cloudfront.net/color/864/Titanium_Gray_S24_Ultra_1.webp"
+        "image": ["https://d61s2hjse0ytn.cloudfront.net/color/864/Titanium_Gray_S24_Ultra_1.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Phone",
@@ -141,7 +141,7 @@
         "price": 999.99,
         "ratings": 4.7,
         "stocks": 55,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Pixel-8-Pro-Bay-1840.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/Pixel-8-Pro-Bay-1840.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Phone",
@@ -149,7 +149,7 @@
         "price": 799.99,
         "ratings": 4.6,
         "stocks": 70,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/OnePlus-11-(3)-4957.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/OnePlus-11-(3)-4957.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Phone",
@@ -157,7 +157,7 @@
         "price": 899.99,
         "ratings": 4.5,
         "stocks": 65,
-        "image": "https://mobilebuzzbd.com/wp-content/uploads/2023/07/Mi-13.jpg"
+        "image": ["https://mobilebuzzbd.com/wp-content/uploads/2023/07/Mi-13.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Virtual Accessories",
@@ -165,7 +165,7 @@
         "price": 499.99,
         "ratings": 4.8,
         "stocks": 100,
-        "image": "https://game4u.co.za/wp-content/uploads/2024/04/Oculus-Quest-3-3.jpg"
+        "image": ["https://game4u.co.za/wp-content/uploads/2024/04/Oculus-Quest-3-3.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Virtual Accessories",
@@ -173,7 +173,7 @@
         "price": 549.99,
         "ratings": 4.7,
         "stocks": 80,
-        "image": "https://www.startech.com.bd/image/cache/catalog/vr-set/sony/playstation-vr2/playstation-vr2-01-500x500.webp"
+        "image": ["https://www.startech.com.bd/image/cache/catalog/vr-set/sony/playstation-vr2/playstation-vr2-01-500x500.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Virtual Accessories",
@@ -181,7 +181,7 @@
         "price": 749.99,
         "ratings": 4.6,
         "stocks": 60,
-        "image": "https://m.media-amazon.com/images/I/51JMfyICY5L._SL1200_.jpg"
+        "image": ["https://m.media-amazon.com/images/I/51JMfyICY5L._SL1200_.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Virtual Accessories",
@@ -189,7 +189,7 @@
         "price": 999.99,
         "ratings": 4.7,
         "stocks": 45,
-        "image": "https://vr-compare.com/img/headsets/valveindex.png"
+        "image": ["https://vr-compare.com/img/headsets/valveindex.png","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Virtual Accessories",
@@ -197,7 +197,7 @@
         "price": 599.99,
         "ratings": 4.5,
         "stocks": 50,
-        "image": "https://www.virtualrealityexp.co.uk/wp-content/uploads/2020/10/hp-reverb-g2-vre.jpg"
+        "image": ["https://www.virtualrealityexp.co.uk/wp-content/uploads/2020/10/hp-reverb-g2-vre.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Buds",
@@ -205,7 +205,7 @@
         "price": 249.99,
         "ratings": 4.8,
         "stocks": 150,
-        "image": "https://www.gadgetstyler.com/wp-content/uploads/2023/11/MTJV3.jpg"
+        "image": ["https://www.gadgetstyler.com/wp-content/uploads/2023/11/MTJV3.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Buds",
@@ -213,7 +213,7 @@
         "price": 299.99,
         "ratings": 4.7,
         "stocks": 100,
-        "image": "https://adminapi.applegadgetsbd.com/storage/media/large/Sony-WF-1000XM5-Wireless-Noise-Cancelling-Headphones-Black-1353.jpg"
+        "image": ["https://adminapi.applegadgetsbd.com/storage/media/large/Sony-WF-1000XM5-Wireless-Noise-Cancelling-Headphones-Black-1353.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Buds",
@@ -221,7 +221,7 @@
         "price": 229.99,
         "ratings": 4.6,
         "stocks": 120,
-        "image": "https://www.techlandbd.com/image/catalog/products_2024/samsung-galaxy-buds2-pro-earbuds-2.jpg"
+        "image": ["https://www.techlandbd.com/image/catalog/products_2024/samsung-galaxy-buds2-pro-earbuds-2.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Buds",
@@ -229,7 +229,7 @@
         "price": 199.99,
         "ratings": 4.5,
         "stocks": 90,
-        "image":"https://store.bellestoreinc.com/wp-content/uploads/2024/05/MW6C3.jpeg"
+        "image":["https://store.bellestoreinc.com/wp-content/uploads/2024/05/MW6C3.jpeg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
         "category": "Smart Buds",
@@ -237,6 +237,6 @@
         "price": 179.99,
         "ratings": 4.4,
         "stocks": 110,
-        "image":"https://ryans.com/storage/products/main/jabra-elite-7-pro-bluetooth-titanium-black-11656938789.webp"
+        "image":["https://ryans.com/storage/products/main/jabra-elite-7-pro-bluetooth-titanium-black-11656938789.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     }
 ]

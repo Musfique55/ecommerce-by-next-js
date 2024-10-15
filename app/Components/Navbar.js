@@ -1,11 +1,12 @@
 'use client'
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CiGrid41 } from "react-icons/ci";
 import { RiMenu4Fill } from "react-icons/ri";
 
 const Navbar = () => {
     const [isOpen,setIsOpen] = useState(false);
+    
 const navItems = [
     {
         title : 'Products',

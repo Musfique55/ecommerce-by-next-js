@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import StoreProvider from "./StoreContext/store";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased poppins`}
       >
+      <StoreProvider>
       <div className="mb-5">
         <Header />
         </div>
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
       <div>
       <Footer />
       </div>
+      </StoreProvider>
       </body>
     </html>
   );
