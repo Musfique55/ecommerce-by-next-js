@@ -51,7 +51,7 @@ const TrendingWeekProducts = ({products}) => {
                             count={5}
                             edit={false}
                             size={24}
-                            value={product.ratings}
+                            value={product.ratings || 0}
                             isHalf={true}
                             emptyIcon={<i className="far fa-star"></i>}
                             halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -63,7 +63,7 @@ const TrendingWeekProducts = ({products}) => {
                           </p>
                           </div>
   
-                          <button onClick={() => handleCart(product)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
+                          <button onClick={() => handleCart(product,1)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
                             Order Now
                           </button>
                         </Link>

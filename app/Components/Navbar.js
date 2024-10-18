@@ -9,6 +9,10 @@ const Navbar = () => {
     
 const navItems = [
     {
+        title : 'Home',
+        link : '/' 
+    },
+    {
         title : 'Products',
         link : '/' 
     },
@@ -33,7 +37,7 @@ const navItems = [
     return (
         <>
         {/* desktop menu */}
-            <div className='border-t p-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
+            <div className='border-t w-full bg-white text-black z-40 p-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
             <Link href={'/'}>
             <div className='flex items-center gap-3'>
                 <CiGrid41 className='text-lg'/>
@@ -44,7 +48,7 @@ const navItems = [
                 <div className='flex gap-5 border-l-2 border-gray-300'>
                 {
                     navItems.map((item,idx) => {
-                        return <Link key={idx} href={item.link} className={`text-gray-600 dark:text-white ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
+                        return <Link key={idx} href={item.link} className={`text-gray-600  ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
                     })
                 }
                 </div>

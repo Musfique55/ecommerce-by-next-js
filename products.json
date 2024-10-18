@@ -165,6 +165,11 @@
         "price": 499.99,
         "ratings": 4.8,
         "stocks": 100,
+        "cpu" : "core i5",
+        "ram" : 8,
+        "rom" : 512,
+        "color" : "white",
+        "date" : "20-10-2023",
         "image": ["https://game4u.co.za/wp-content/uploads/2024/04/Oculus-Quest-3-3.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
@@ -173,6 +178,11 @@
         "price": 549.99,
         "ratings": 4.7,
         "stocks": 80,
+        "cpu" : "core i7",
+        "ram" : 8,
+        "rom" : 256,
+        "color" : "white",
+        "date" : "20-12-2022",
         "image": ["https://www.startech.com.bd/image/cache/catalog/vr-set/sony/playstation-vr2/playstation-vr2-01-500x500.webp","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
@@ -181,6 +191,11 @@
         "price": 749.99,
         "ratings": 4.6,
         "stocks": 60,
+        "cpu" : "core i5",
+        "ram" : 12,
+        "rom" : 512,
+        "color" : "black",
+        "date" : "10-10-2023",
         "image": ["https://m.media-amazon.com/images/I/51JMfyICY5L._SL1200_.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
@@ -189,6 +204,11 @@
         "price": 999.99,
         "ratings": 4.7,
         "stocks": 45,
+        "cpu" : "core i7",
+        "ram" : 12,
+        "rom" : 256,
+        "color" : "black",
+        "date" : "1-10-2024",
         "image": ["https://vr-compare.com/img/headsets/valveindex.png","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {
@@ -197,6 +217,11 @@
         "price": 599.99,
         "ratings": 4.5,
         "stocks": 50,
+        "cpu" : "core i5",
+        "ram" : 8,
+        "rom" : 256,
+        "color" : "black",
+        "date" : "20-5-2024",
         "image": ["https://www.virtualrealityexp.co.uk/wp-content/uploads/2020/10/hp-reverb-g2-vre.jpg","https://m.media-amazon.com/images/I/61GLYF2ybSL.jpg","https://cdn.sanity.io/images/znqtjj88/production/a80408840d26594a2881a4a0b3ad2d13c0a94df6-571x572.png","https://www.audiovenue.uk/wp-content/uploads/2020/10/jAVDuAtAbsULjbXQciHn4M-480-80.jpg"]
     },
     {

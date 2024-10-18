@@ -11,7 +11,7 @@ const Collection = ({products}) => {
            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5'>
             {
                 collections.map((item,idx) => {
-                    return <Link href={'/'} key={idx}>
+                    return <Link href={`category/${item.category}`} key={idx}>
                     <div  className='flex flex-col items-center space-y-3'>
                         <div className='p-5 rounded-full bg-white'>
                         <Image 

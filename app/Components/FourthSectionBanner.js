@@ -22,7 +22,7 @@ const FourthSectionBanner = () => {
             </div>
             <div className='bg-gradient-to-br from-[#1B054E] to-[#6C157E] text-white p-8 rounded-lg flex flex-col-reverse gap-5 items-center md:flex-row md:justify-between md:items-center'>
               <div className='flex flex-col items-center md:items-start'>
-              <h2 className="text-xl font-medium mb-5">Mega Discounts <br /> 50% Off <span class="text-orange-400 italic">This Week</span></h2>
+              <h2 className="text-xl font-medium mb-5">Mega Discounts <br /> 50% Off <span className="text-orange-400 italic">This Week</span></h2>
               <div className="flex items-center gap-3 ">
                 <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button>
                 <span className="text-white"><FaArrowRight /></span>

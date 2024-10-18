@@ -113,6 +113,7 @@ const TrendingProducts = ({
                           height="256"
                           width="256"
                           alt="mobile-phone"
+                          quality={75}
                         />
 
                         <p className="text-[#1A1A7E] text-sm mb-2">
@@ -132,7 +133,7 @@ const TrendingProducts = ({
                             count={5}
                             edit={false}
                             size={24}
-                            value={product.ratings}
+                            value={product.ratings || 0}
                             isHalf={true}
                             emptyIcon={<i className="far fa-star"></i>}
                             halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -145,7 +146,7 @@ const TrendingProducts = ({
                         </div>
 
                         <button
-                          onClick={() => handleCart(product)}
+                          onClick={() => handleCart(product,1)}
                           className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors"
                         >
                           Order Now

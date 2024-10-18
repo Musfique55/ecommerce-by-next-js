@@ -27,15 +27,15 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased poppins`}
       >
       <StoreProvider>
-      <div className="mb-5">
-        <Header />
-        </div>
-      <div className="p-5 md:px-12 bg-[#F2F3F7] py-20">
-        {children}
-      </div>
-      <div>
-      <Footer />
-      </div>
+          <div >
+            <Header />
+          </div>
+          <div className="p-5 md:px-12 bg-[#F2F3F7] py-14">
+            {children}
+          </div>
+          <div>
+            <Footer />
+          </div>
       </StoreProvider>
       </body>
     </html>
