@@ -20,7 +20,9 @@ useEffect(() => {
 
 
   return (
-    <div className="absolute bg-white text-black w-96  top-0 right-0 flex flex-col h-screen overflow-y-scroll z-50">
+    <div>
+      <div className={`overlay z-20 ${openCart ? 'active' : ''}`} onClick={() => setOpenCart(!openCart)}></div>
+      <div className="absolute bg-white text-black w-96  top-0 right-0 flex flex-col h-screen overflow-y-scroll z-50">
       <div className="bg-black text-white flex p-3 items-center">
         <IoClose
           onClick={() => setOpenCart(!openCart)}
@@ -97,6 +99,7 @@ useEffect(() => {
         alt="ssl-commerce"
         />
       </div>
+    </div>
     </div>
   );
 };

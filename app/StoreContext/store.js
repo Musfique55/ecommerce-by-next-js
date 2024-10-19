@@ -86,14 +86,24 @@ const StoreProvider = ({children}) => {
     }
 
     const getWishList = () => {
-            const items = JSON.parse(localStorage.getItem('wishlist'));
-            return items;
+        if (typeof window !== "undefined") {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+          }
+          return [];
+    }
+
+    const handleWishlistDelete = (title) => {
+        setRefetch(true);
+        const items = getWishList();
+        const remainingItems = items.filter(item => item.title !== title);
+        localStorage.removeItem('wishlist');
+        localStorage.setItem('wishlist',JSON.stringify(remainingItems));
     }
 
     const reload = (boolean) => {
         setRefetch(boolean)
     }
-    const values = {handleCart,getCartItems,refetch,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList}
+    const values = {handleCart,getCartItems,refetch,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleWishlistDelete}
     return (
         <storeContext.Provider value={values}>
             {children}

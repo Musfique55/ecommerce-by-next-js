@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import Image from 'next/image';
 import useStore from '../CustomHooks/useStore';
 import CartItems from './CartItems';
+import Link from 'next/link';
 const Header = () => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
 
@@ -52,10 +53,10 @@ const Header = () => {
             </div>
             <div className='flex items-center gap-3 text-black'>
             <FaRegUser className='font-semibold text-xl cursor-pointer'/>
-            <div className="relative">
-            <FaRegHeart className='font-semibold text-xl cursor-pointer'/>
-            <p className='bg-[#1A1A7E] text-white w-fit px-1 rounded-full text-sm absolute -top-3 -right-1'>{wishList.length}</p>
-            </div>
+            <Link href={'/wishlist'}  className="relative">
+                <FaRegHeart className='font-semibold text-xl cursor-pointer'/>
+                <p className='bg-[#1A1A7E] text-white w-fit px-1 rounded-full text-sm absolute -top-3 -right-1'>{wishList.length || 0}</p>
+            </Link>
             <div className="relative" onClick={() => setOpenCart(!openCart)}>
             <HiOutlineShoppingBag className='font-semibold text-2xl cursor-pointer'/>
             <p className='bg-[#1A1A7E] text-white w-fit px-1 rounded-full text-sm absolute -top-2 -right-1'>{total}</p>
