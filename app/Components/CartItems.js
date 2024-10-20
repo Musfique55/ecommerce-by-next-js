@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import useStore from "../CustomHooks/useStore";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
+import Link from "next/link";
 const CartItems = () => {
   const { getCartItems, setOpenCart, openCart,refetch,handleIncQuantity,handleDncQuantity,setRefetch,handleCartItemDelete } = useStore();
   const [items,setItems] = useState([]);
@@ -85,7 +86,7 @@ useEffect(() => {
         <p>Special instructions for seller</p>
         <textarea rows={3} className="border outline-none w-full"></textarea>
         <h5 className="flex justify-between items-center text-black font-bold text-lg">Subtotal : <span className="text-[#4EB0BE] font-normal"> ${items.reduce((prev,curr) => prev + curr.price * curr.quantity,0)}</span></h5>
-        <button className="py-2 w-full bg-[#4d5959] text-white mt-3">View Cart</button>
+        <Link href={'/cart'}><button className="py-2 w-full bg-[#4d5959] text-white mt-3">View Cart</button></Link>
         <div className="flex gap-2 mt-3">
             <input type="checkbox"  className="cursor-pointer"/>
             <label >I agree with the terms and conditions.</label>

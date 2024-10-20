@@ -59,8 +59,8 @@ const BestDeals = ({products}) => {
                               ${product.price}
                             </p>
     
-                            <button onClick={() => handleCart(product,1)} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
-                              Order Now
+                            <button onClick={(e) => {e.preventDefault(),handleCart(product,1)}} className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors">
+                              Add to Cart
                             </button>
                           </Link>)
                     })

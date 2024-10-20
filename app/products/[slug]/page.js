@@ -53,8 +53,8 @@ const Page = ({ params }) => {
         {/* Image Section */}
         <div className="flex flex-col-reverse relative flex-1 items-center md:flex-row">
           {/* Right Arrow */}
-          <div className="text-white hidden md:block absolute text-4xl transform bg-[#4eb0be] -translate-y-1/2 md:right-4  cursor-pointer z-50 ">
-            <MdOutlineChevronRight onClick={handleNext} className="text-3xl sm:text-4xl cursor-pointer z-50"/>
+          <div className="text-white hidden md:block absolute text-4xl transform bg-[#4eb0be] -translate-y-1/2 md:right-4  cursor-pointer z-40 ">
+            <MdOutlineChevronRight onClick={handleNext} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
           </div>
 
           <div className="mt-4 flex  gap-2 md:flex-col">
@@ -95,8 +95,8 @@ const Page = ({ params }) => {
           />
 
           {/* Left Arrow */}
-          <div className="text-white hidden md:block absolute text-4xl bg-[#4eb0be] transform -translate-y-1/2 left-16 md:left-14 lg:left-[8rem] cursor-pointer z-50">
-            <MdOutlineChevronLeft onClick={handlePrev} className="text-3xl sm:text-4xl cursor-pointer z-50"/>
+          <div className="text-white hidden md:block absolute text-4xl bg-[#4eb0be] transform -translate-y-1/2 left-16 md:left-14 lg:left-[8rem] cursor-pointer z-40">
+            <MdOutlineChevronLeft onClick={handlePrev} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
           </div>
         </div>
 
@@ -208,7 +208,7 @@ const Page = ({ params }) => {
                 <li>Force-canceling speakers,{"\n"}</li>
                 <li>Studio-quality three-mic array with high signal-to-noise ratio,{"\n"}</li>
                 <li>Directional beamforming,{"\n"}</li>
-                <li>Support for "Hey Siri"</li>
+                <li>Support for &quot;Hey Siri&quot; </li>
               </td>
             </tr>
             <tr className="border">
@@ -246,7 +246,7 @@ const Page = ({ params }) => {
           Experience an unparalleled visual treat through the 27-inch 5K Retina
           display at the Apple Studio Display. Hosting a resolution of 5120 x
           2880 pixels at 218 pixels per inch, this display brings razor-sharp
-          text, lifelike images, and vibrant colors to life, whether you're
+          text, lifelike images, and vibrant colors to life, whether you&apos;re
           editing videos, working on graphic design, or simply enjoying
           content.
         </p>
@@ -256,7 +256,7 @@ const Page = ({ params }) => {
           nits Brightness
         </h3>
         <p className="text-gray-600 mb-4">
-          Ensuring vivid visuals in bright lighting conditions, the display's
+          Ensuring vivid visuals in bright lighting conditions, the display&apos;s
           remarkable 600 nits brightness is complemented by support for one
           billion colors and the P3 color gamut. Opt for Nano-texture glass to
           eliminate glare and reflections, offering an uninterrupted, immersive
@@ -339,7 +339,7 @@ const Page = ({ params }) => {
         </p>
 
         <h3 className="text-xl font-bold mb-2">
-          Compatibility and System Requirements: Your Devices' Perfect Companion
+          Compatibility and System Requirements: Your Device&apos;s Perfect Companion
         </h3>
         <p className="text-gray-600 mb-4">
           Compatible with various Mac models running macOS Monterey 12.3 or
@@ -370,7 +370,7 @@ const Page = ({ params }) => {
         </p>
 
         <h3 className="text-xl font-bold mb-2">
-          Package Contents: What's Included in the Box of Apple Studio Display
+          Package Contents: What&apos;s Included in the Box of Apple Studio Display
         </h3>
         <p className="text-gray-600 mb-4">
           The Apple Studio Display includes a Thunderbolt cable (1 m) for

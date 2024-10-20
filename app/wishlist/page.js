@@ -4,7 +4,7 @@ import useStore from '../CustomHooks/useStore';
 import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
 
-const page = () => {
+const WishList = () => {
     const {getWishList,handleCart,handleWishlistDelete,refetch,setRefetch} = useStore();
     const [mounted, setMounted] = useState(false);
     const [wishList,setWishList] = useState([])
@@ -16,7 +16,7 @@ const page = () => {
             setWishList(getWishList());
             
         }
-    },[refetch])
+    },[refetch,setRefetch,getWishList])
 
     if(!mounted){
         return null;
@@ -78,4 +78,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default WishList;

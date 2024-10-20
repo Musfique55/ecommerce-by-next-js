@@ -20,7 +20,7 @@ const HeroSlider = ({ slides }) => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [index]);
+  }, [index,slides.length]);
 
   const titleBreak = slides[index].title.split(" ");
   const image = slides[index].image;
