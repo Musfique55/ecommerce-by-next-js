@@ -4,11 +4,12 @@ import useStore from "../CustomHooks/useStore";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 const CartItems = () => {
   const { getCartItems, setOpenCart, openCart,refetch,handleIncQuantity,handleDncQuantity,setRefetch,handleCartItemDelete } = useStore();
   const [items,setItems] = useState([]);
-  
-
+  const [isChecked,setIsChecked] = useState(false);
+  const router = useRouter();
 useEffect(() => {
     setItems(getCartItems());
     if(refetch){
@@ -17,13 +18,14 @@ useEffect(() => {
     }
 },[refetch])
  
-  
-
+  const handleRedirect = () => {
+    isChecked ? (router.push('/checkout') , setOpenCart(!openCart)) : alert('Please Accept Terms & Conditions First')
+  }
 
   return (
     <div>
       <div className={`overlay z-20 ${openCart ? 'active' : ''}`} onClick={() => setOpenCart(!openCart)}></div>
-      <div className="absolute bg-white text-black w-96  top-0 right-0 flex flex-col h-screen overflow-y-scroll z-50">
+      <div className=" fixed bg-white text-black w-96  top-0 right-0 flex flex-col h-screen overflow-y-scroll z-50">
       <div className="bg-black text-white flex p-3 items-center">
         <IoClose
           onClick={() => setOpenCart(!openCart)}
@@ -86,12 +88,12 @@ useEffect(() => {
         <p>Special instructions for seller</p>
         <textarea rows={3} className="border outline-none w-full"></textarea>
         <h5 className="flex justify-between items-center text-black font-bold text-lg">Subtotal : <span className="text-[#4EB0BE] font-normal"> ${items.reduce((prev,curr) => prev + curr.price * curr.quantity,0)}</span></h5>
-        <Link href={'/cart'}><button className="py-2 w-full bg-[#4d5959] text-white mt-3">View Cart</button></Link>
+        <Link href={'/cart'}><button onClick={() => setOpenCart(!openCart)} className="py-2 w-full bg-[#4d5959] text-white mt-3">View Cart</button></Link>
         <div className="flex gap-2 mt-3">
-            <input type="checkbox"  className="cursor-pointer"/>
+            <input onChange={(e) => setIsChecked(e.target.checked)} type="checkbox"  className="cursor-pointer"/>
             <label >I agree with the terms and conditions.</label>
         </div>
-        <button className="py-2 w-full bg-[#4eb0be] text-white mt-3">Check Out</button>
+        <button onClick={() => {handleRedirect()}} className="py-2 w-full bg-[#4eb0be] text-white mt-3">Check Out</button>
         <Image 
         src={'https://www.custommacbd.com/cdn/shop/files/SSL_Commerz_Pay_With_logo_All_Size-01_320x.png?v=1614930139'}
         height={100}

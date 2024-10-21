@@ -24,7 +24,7 @@ const Search = ({searchedItem,setSearchText,setSearchedItem}) => {
                 
             }
         </div>
-        : null
+        : ""
         }
         </>
     );

@@ -10,7 +10,7 @@ const Footer = () => {
             <div className='bg-[#F2F3F7] flex justify-between flex-wrap items-center p-5 md:px-12 md:flex-nowrap'>
                 <h3 className='font-semibold text-xl mb-4 text-black'>Sign Up For Newsletter & Get 20% Off</h3>
                 <div className='flex items-center gap-3'>
-                    <input type="text" placeholder='Enter Your Email' className='p-2 border-2 outline-none  md:w-72 lg:w-72'/>
+                    <input type="text" placeholder='Enter Your Email' className='p-2 text-black border-2 outline-none  md:w-72 lg:w-72'/>
                     <button className='bg-[#1A1A7E] text-white p-2 rounded-sm'>Subscribe</button>
                 </div>
             </div>

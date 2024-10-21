@@ -1,16 +1,17 @@
 import localFont from "next/font/local";
-import "./globals.css";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import StoreProvider from "./StoreContext/store";
+import "../globals.css";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import StoreProvider from "../StoreContext/store";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -27,9 +28,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased poppins`}
       >
       <StoreProvider>
-          <div >
-            <Header />
-          </div>
+         <div>
+          <Header />
+         </div>
           <div className="p-5 md:px-12 bg-[#F2F3F7] py-14">
             {children}
           </div>

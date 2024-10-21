@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import useStore from '../CustomHooks/useStore';
+import useStore from '../../CustomHooks/useStore';
 import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
@@ -22,8 +22,6 @@ const CartPage = () => {
             setCartItems(getCartItems());
         }
     },[refetch,getCartItems,cartTotal])
-
-    // let cartTotal = cartItems.reduce((acc,curr) => acc + curr.price * curr.quantity,0);
     
     const handleRedirect = () => {
         if(checked){
@@ -32,6 +30,7 @@ const CartPage = () => {
             alert('Please Accept Terms & Conditions First')
         }
     }
+
     useEffect(() => {
         const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
         setCartTotal(total);
@@ -44,7 +43,11 @@ const CartPage = () => {
         setShippingCost(400);
     } 
 
-    console.log(cartTotal);
+    const handleClearCart = () => {
+        setRefetch(true);
+        localStorage.removeItem('cart');
+    }
+
     return (
         <div className='text-black'>
             <table className='text-black w-full mt-10 bg-white'>
@@ -115,16 +118,18 @@ const CartPage = () => {
                                 
                             </tr>
                         }) 
-                        : <tr className='text-black text-center border border-gray-300 '>
+                        : <tr className='text-black text-center border border-gray-300 border-t-0'>
                             <td colSpan="6" className="text-center py-4">No products were added to the wishlist</td>
                         </tr>
                     }
                 </tbody>
-                <tfoot className='border border-t-0 border-gray-300 '> 
+                {   cartItems.length > 0  ?
+                    <tfoot className='border border-t-0 border-gray-300 '> 
                     <tr>
-                    <td className='py-4 '><button className='bg-[#4eb0be] text-sm text-white py-2 px-5 ml-5'>Clear Cart</button></td>
+                    <td className='py-4 '><button onClick={handleClearCart} className='bg-[#4eb0be] text-sm text-white py-2 px-5 ml-5'>Clear Cart</button></td>
                     </tr>
-                </tfoot>
+                </tfoot> : null
+                }
             </table>
             <div className='grid grid-cols-2 gap-10 my-10'>
                 {/* shiiping fees */}
@@ -160,7 +165,7 @@ const CartPage = () => {
                         <h3 className='text-[#4D5959]  text-lg font-semibold'>Cart Totals</h3>
                         <div className='border border-gray-300 font-semibold p-5 text-[#4D5959] flex gap-20 text-base mt-10'>
                             <p>Cart Totals</p>
-                            <p>${shippingCost ?  cartTotal + shippingCost : cartTotal}</p>
+                            <p>${shippingCost ?  cartTotal + shippingCost : cartTotal.toFixed(2)}</p>
                         </div>
                         <p className='text-[#575E63] text-sm mt-4'>* The final price with your coupon code will apply in Checkout page</p>
                         <p className='text-[#575E63] text-sm mt-4'>

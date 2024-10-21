@@ -1,14 +1,14 @@
 "use client";
 import { useState } from 'react';
-import {SLIDES_DATA} from '../constants';
-import BestDeals from './Components/BestDeals';
-import HeroSlider from "./Components/HeroSlider";
-import TrendingProducts from './Components/TrendingProducts';
+import {SLIDES_DATA} from '../../constants';
+import BestDeals from '../Components/BestDeals';
+import HeroSlider from "../Components/HeroSlider";
+import TrendingProducts from '../Components/TrendingProducts';
 import products from "/products.json";
-import RecommendedProducts from './Components/RecommendedProducts';
-import TrendingWeekProducts from './Components/TrendingWeekProducts';
-import FourthSectionBanner from './Components/FourthSectionBanner';
-import Collection from './Components/Collection';
+import RecommendedProducts from '../Components/RecommendedProducts';
+import TrendingWeekProducts from '../Components/TrendingWeekProducts';
+import FourthSectionBanner from '../Components/FourthSectionBanner';
+import Collection from '../Components/Collection';
 
 export default function Home() {
   const categories = [...new Set(products.map((product) => product.category))];
