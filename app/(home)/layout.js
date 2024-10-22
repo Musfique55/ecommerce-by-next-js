@@ -3,6 +3,8 @@ import "../globals.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import StoreProvider from "../StoreContext/store";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,18 +27,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased poppins`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased nunito`}
       >
       <StoreProvider>
-         <div>
           <Header />
-         </div>
+          <Suspense fallback={<Loading />}>
           <div className="p-5 md:px-12 bg-[#F2F3F7] py-14">
             {children}
           </div>
-          <div>
+          </Suspense>
             <Footer />
-          </div>
       </StoreProvider>
       </body>
     </html>

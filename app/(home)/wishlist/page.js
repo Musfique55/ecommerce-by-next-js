@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import useStore from '../CustomHooks/useStore';
 import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
+import useStore from '@/app/CustomHooks/useStore';
 
 const WishList = () => {
     const {getWishList,handleCart,handleWishlistDelete,refetch,setRefetch} = useStore();

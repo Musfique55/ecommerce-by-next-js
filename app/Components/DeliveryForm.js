@@ -1,15 +1,20 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
+import { IoChevronDown } from "react-icons/io5";
 import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const DeliveryForm = () => {
   const { data, error } = useSWR("https://restcountries.com/v3.1/all", fetcher);
   const [payment, setPayment] = useState("cod");
+  const [isLogout,setIsLogout] = useState(false);
   const [isCod,setIsCod] = useState(false);
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
+  const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
   const [formData, setFormData] = useState({
     country: "Bangladesh",
+    email : userEmail || '',
     firstName: "",
     lastName: "",
     address: "",
@@ -17,22 +22,22 @@ const DeliveryForm = () => {
     city: "",
     postalCode: "",
     phone: "",
+    billCountry : '',
+    billFirstName : '',
+    billLastName : '',
+    billAddress : '',
+    billApartment : '',
+    billCity : '',
+    billPostalCode : '',
+    billPhone : ''
   });
-
-  const [otherBillingAddress, setOtherBillingAddress] = useState({
-    country: "Bangladesh",
-    firstName: "",
-    lastName: "",
-    address: "",
-    apartment: "",
-    city: "",
-    postalCode: "",
-    phone: "",
-  });
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  
 
   const  handlePayment = (e) => {
     setPayment(e.target.value)
@@ -42,14 +47,56 @@ const DeliveryForm = () => {
     setBillingSameAsShipping(e.target.value === 'same');
   };
 
-  console.log(billingSameAsShipping);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+   }
 
-  if (error) return alert("Error Occured");
-  if (!data) return <p>Loading</p>;
+  const handleOrderComplete = (e) => {
+    e.preventDefault();
+    console.log("handleOrderComplete");
+  }
+
+  console.log(formData);
+
   return (
     <div className="smx-auto bg-white p-6 rounded-lg ">
+      {
+        userEmail ? <div className="border-b">
+        <div className="flex items-center justify-between cursor-pointer">
+           <p className="hover:text-blue-500 ">Account</p>
+          <div className="bg-[#F3F9FC]">
+          <IoChevronDown onClick={() => setIsLogout(!isLogout)} className={`text-blue-500 ${isLogout ? "rotate-180" : 'rotate-0'}`}/>
+          </div>
+        </div>
+        <p className="">{userEmail}</p>
+        { isLogout &&
+         <p onClick={handleLogout} className="text-blue-500 cursor-pointer mb-2">Logout</p>
+         }
+        </div>
+        : <div>
+          <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold mb-4">Contact</h2>
+          <Link href={'/login'} className="text-blue-500">Login</Link>
+        </div>
+        <div className="flex flex-col relative">
+          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1  font-semibold">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
+          />
+        </div>
+        </div>
+      }
+       
       <h2 className="text-2xl font-bold mb-4">Delivery</h2>
-      <form>
+      <form onSubmit={handleOrderComplete}>
         {/* Country/Region */}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Country/Region</label>
@@ -57,7 +104,7 @@ const DeliveryForm = () => {
             name="country"
             value={formData.country}
             onChange={handleChange}
-            className="block w-full p-2 border border-gray-300 rounded-lg outline-none focus:border-blue-300 focus:border-2"
+            className="block w-full bg-white p-2 border border-gray-300 rounded-lg outline-none focus:border-blue-300 focus:border-2"
           >
             <option value="Bangladesh">Bangladesh</option>
             {/* Add other country options as needed */}
@@ -74,7 +121,8 @@ const DeliveryForm = () => {
               value={formData.firstName}
               onChange={handleChange}
               placeholder="First name"
-              className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+              required
+              className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
             />
           </div>
           <div >
@@ -84,7 +132,8 @@ const DeliveryForm = () => {
               value={formData.lastName}
               onChange={handleChange}
               placeholder="Last name"
-              className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+              required
+              className={`block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg `}
             />
           </div>
         </div>
@@ -97,7 +146,8 @@ const DeliveryForm = () => {
             value={formData.address}
             onChange={handleChange}
             placeholder="Address"
-            className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+            required
+            className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
           />
         </div>
         <div className="mb-4">
@@ -108,7 +158,7 @@ const DeliveryForm = () => {
             value={formData.apartment}
             onChange={handleChange}
             placeholder="Apartment, suite, etc."
-            className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+            className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
           />
         </div>
 
@@ -121,7 +171,8 @@ const DeliveryForm = () => {
               value={formData.city}
               onChange={handleChange}
               placeholder="City"
-              className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+              required
+              className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
             />
           </div>
           <div >
@@ -132,7 +183,7 @@ const DeliveryForm = () => {
               value={formData.postalCode}
               onChange={handleChange}
               placeholder="Postal code"
-              className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+              className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
             />
           </div>
         </div>
@@ -145,7 +196,8 @@ const DeliveryForm = () => {
             value={formData.phone}
             onChange={handleChange}
             placeholder="Phone"
-            className="block w-full outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
+            required
+            className="block w-full bg-white outline-none focus:border-blue-400 focus:border-2 p-2 border border-gray-300 rounded-lg"
           />
         </div>
 
@@ -172,7 +224,7 @@ const DeliveryForm = () => {
                 value="cod"
                 checked={payment === "cod"}
                 onChange={(e) => {handlePayment(e);setIsCod(false)}}
-                className="mr-2"
+                className="mr-2 bg-white"
               />
               Payment Cash On Delivery
             </label>
@@ -181,7 +233,7 @@ const DeliveryForm = () => {
                 type="radio"
                 name="payment"
                 value="online"
-                className="mr-2"
+                className="mr-2 bg-white"
                 onChange={(e) => {handlePayment(e);setIsCod(true)}}
               />
               Pay By Credit Card / Mobile Banking / Net Banking
@@ -205,7 +257,7 @@ const DeliveryForm = () => {
                 value="same"
                 checked={billingSameAsShipping}
                 onChange={handleBillingChange}
-                className="mr-2"
+                className="mr-2 bg-white"
             />
             Same as shipping address
             </label>
@@ -218,7 +270,8 @@ const DeliveryForm = () => {
                 value="different"
                 checked={!billingSameAsShipping}
                 onChange={handleBillingChange}
-                className="mr-2"
+                
+                className="mr-2 bg-white"
             />
             Use a different billing address
             </label>
@@ -230,8 +283,11 @@ const DeliveryForm = () => {
                 Country/Region
               </label>
               <select
-                className="w-full border-gray-300 rounded-md p-2 outline-none"
-                name="country"
+              onChange={handleChange}
+              value={formData.billCountry}
+                className="w-full bg-white border-gray-300 rounded-md p-2 outline-none"
+                name="billCountry"
+                required
               >
                 <option value="Bangladesh">Bangladesh</option>
                 <option value="">----</option>
@@ -248,12 +304,15 @@ const DeliveryForm = () => {
             <div className="flex space-x-4">
               <div className="w-1/2">
                 <label className="block text-sm font-medium mb-1">
-                  First Name (optional)
+                  First Name
                 </label>
                 <input
-                  className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                  className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                   type="text"
-                  name="firstName"
+                  name="billFirstName"
+                  onChange={handleChange}
+                  value={formData.billFirstName}
+                  required
                 />
               </div>
               <div className="w-1/2">
@@ -261,18 +320,24 @@ const DeliveryForm = () => {
                   Last Name
                 </label>
                 <input
-                  className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                  className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                   type="text"
-                  name="lastName"
+                  name="billLastName"
+                  onChange={handleChange}
+                  value={formData.billLastName}
+                  required
                 />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Address</label>
               <input
-                className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                 type="text"
-                name="address"
+                name="billAddress"
+                onChange={handleChange}
+                value={formData.billAddress}
+                required
               />
             </div>
             <div>
@@ -280,18 +345,23 @@ const DeliveryForm = () => {
                 Apartment, suite, etc. (optional)
               </label>
               <input
-                className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                 type="text"
-                name="apartment"
+                name="billApartment"
+                onChange={handleChange}
+                value={formData.billApartment}
               />
             </div>
             <div className="flex space-x-4">
               <div className="w-1/2">
                 <label className="block text-sm font-medium mb-1">City</label>
                 <input
-                  className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                  className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                   type="text"
-                  name="city"
+                  name="billCity"
+                  onChange={handleChange}
+                  value={formData.billCity}
+                  required
                 />
               </div>
               <div className="w-1/2">
@@ -299,9 +369,11 @@ const DeliveryForm = () => {
                   Postal Code (optional)
                 </label>
                 <input
-                  className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                  className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                   type="text"
-                  name="postalCode"
+                  name="billPostalCode"
+                  onChange={handleChange}
+                  value={formData.billPostalCode}
                 />
               </div>
             </div>
@@ -310,9 +382,11 @@ const DeliveryForm = () => {
                 Phone (optional)
               </label>
               <input
-                className="w-full outline-none p-2 border border-gray-300 rounded-md "
+                className="w-full bg-white outline-none p-2 border border-gray-300 rounded-md "
                 type="text"
-                name="phone"
+                name="billPhone"
+                onChange={handleChange}
+                value={formData.billPhone}
               />
             </div>
           </div>

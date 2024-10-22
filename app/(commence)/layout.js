@@ -14,7 +14,7 @@ const CheckoutLayout = ({children}) => {
                     <Link href={'/'}><Image height={100} alt='company-logo' width={100} src={'https://lh5.googleusercontent.com/proxy/lIj6Eiy46BsCbQnELvfarNxD0O9St_tQpnTftcr0lmOD361EfYxlO-9wBSA9DV2N0rTLJgl89hRXwGDGWObAijvhvcHxMCwnQz7egxS9C8EKRfKx1hQt'}/> </Link>
                     <Link href={'/cart'}><HiOutlineShoppingBag className='text-[rgba(25,144,198,1)] text-xl'/></Link>
                 </div>
-                <div >
+                <div className='nunito'>
                 {children}
                 </div>
             </div>

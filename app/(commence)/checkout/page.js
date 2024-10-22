@@ -37,7 +37,7 @@ const CheckoutPage = () => {
                     : <p>no products</p>
                 }
                 <div className='flex gap-4'>
-                    <input type="text" className='p-3 text-black outline-none border w-96 rounded-md' placeholder='Discount Code '/>
+                    <input type="text" className='p-3 text-black bg-white outline-none border w-96 rounded-md' placeholder='Discount Code '/>
                     <button type="submit" className='border p-3 bg-[#F1F1F1] text-gray-400 rounded-md'>Apply</button>
                 </div>
 

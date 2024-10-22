@@ -37,7 +37,7 @@ const AllProducts = () => {
                             className='bg-black hover:scale-105 cursor-pointer'
                             />
                             <h2 className='text-2xl text-center mt-3'>{item.category}</h2>
-                            <Link className='text-[#8A8A8A] mt-3 border-b hover:border-gray-300' href={`/category/${item.category}`}>View Products</Link>
+                            <button className='text-[#8A8A8A] mt-3 border-b hover:border-gray-300'>View Products</button>
 
                             {
                                 current === item.category && collectionRef.current &&
