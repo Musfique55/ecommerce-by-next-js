@@ -27,7 +27,16 @@ const RegisterPage = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        setFormData({
+          outletName: "",
+          ownerName: "",
+          phone: "",
+          email: "",
+          password: "",
+        })
+        console.log(res)
+      })
       .catch((error) => console.log(error));
   };
   return (

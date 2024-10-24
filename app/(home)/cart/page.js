@@ -31,6 +31,7 @@ const CartPage = () => {
         }
     }
 
+
     useEffect(() => {
         const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
         setCartTotal(total);
@@ -49,40 +50,39 @@ const CartPage = () => {
     }
 
     return (
-        <div className='text-black'>
-            <table className='text-black w-full mt-10 bg-white'>
+        <div className='text-black '>
+            <div className='overflow-x-scroll'>
+            <table className='text-black min-w-[800px] md:w-full mt-10 bg-white'>
                 <thead>
-                    <tr className='grid grid-cols-7 border border-gray-300 py-4'>
-                        <th className='col-span-3 font-normal '>Product </th>
-                        <th className=' font-normal '>Price</th>
-                        <th className=' font-normal '>Quantity</th>
-                        <th className=' font-normal '>Total</th>
-                        <th className=' font-normal '></th>
+                    <tr className=' border font-semibold border-gray-300 '>
+                        <th className=' font-bold align-middle text-center  py-4'><p>Product </p></th>
+                        <th className='text-center font-bold '>Price</th>
+                        <th className='text-center font-bold '>Quantity</th>
+                        <th className='text-center font-bold '>Total</th>
+                        <th className='text-center font-bold '></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                        cartItems.length > 0  ?
                         cartItems.map((item,idx) => {
-                            return <tr key={idx} className='text-black grid grid-cols-7 justify-items-center items-center  border-gray-300 border-t-0 border'>
+                            return <tr key={idx} className='text-black  justify-items-center items-center  border-gray-300 border-t-0 border'>
                                 
-                                <td className='col-span-1'>
+                                <td className=' flex gap-10 align-middle'>
                                     <Image 
                                     src={item.image[0]}
                                     height={100}
                                     width={100}
                                     alt='product-image'
-                                    
                                     />
+                                    <p className='font-semibold my-auto'>{item.title}</p>
                                 </td>
-                                <td className=' font-medium col-span-2'>
-                                {item.title}
-                                </td>
-                                <td>
+                               
+                                <td className='font-semibold text-center align-middle'>
                                     ${item.price}
                                 </td>
-                                <td>
-                                <div className="flex items-center border border-gray-300 rounded w-fit">
+                                <td className='text-center align-middle'>
+                                <div className="flex mx-auto items-center border border-gray-300 rounded w-fit">
                                     <input
                                     type="number"
                                     value={ item.quantity}
@@ -109,10 +109,10 @@ const CartPage = () => {
                                     </div>
                                 </div>
                                 </td>
-                                <td>
+                                <td className='font-semibold text-center align-middle'>
                                     ${item.quantity * item.price}
                                 </td>
-                                <td>
+                                <td className='text-center align-middle px-4'>
                                     <IoClose onClick={() => handleCartItemDelete(item.title)} className='cursor-pointer'/>
                                 </td>
                                 
@@ -131,7 +131,8 @@ const CartPage = () => {
                 </tfoot> : null
                 }
             </table>
-            <div className='grid grid-cols-2 gap-10 my-10'>
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10 my-10'>
                 {/* shiiping fees */}
                     <div className='col-span-1 '>
                         <h3 className='text-[#4D5959]  text-lg font-semibold'>Special instructions for seller</h3>
@@ -144,8 +145,7 @@ const CartPage = () => {
                             <p className='my-3'>Country</p>
                             <select name="country" onChange={(e) => setLocation(e.target.value)} id="country" className='p-2 w-full bg-[#F2F3F7] border-gray-300 border outline-none'>
                                 <option value="bd">Bangladesh</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
+                                
                             </select>
                             </div>
                             <div className='grid-cols-1'>

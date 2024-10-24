@@ -1,17 +1,19 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import { IoChevronDown } from "react-icons/io5";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-const DeliveryForm = () => {
+const DeliveryForm = ({cartItems}) => {
   const { data, error } = useSWR("https://restcountries.com/v3.1/all", fetcher);
   const [payment, setPayment] = useState("cod");
-  const [isLogout,setIsLogout] = useState(false);
   const [isCod,setIsCod] = useState(false);
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
-  const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
+  // const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
+  const router = useRouter(); 
+  const [userEmail, setUserEmail] = useState(null);
+
+  
   const [formData, setFormData] = useState({
     country: "Bangladesh",
     email : userEmail || '',
@@ -47,52 +49,35 @@ const DeliveryForm = () => {
     setBillingSameAsShipping(e.target.value === 'same');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-   }
+  useEffect(() => {
+    // This will only run on the client side after the component has mounted
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setUserEmail(user?.email || null);
+    }
+  }, []); 
 
   const handleOrderComplete = (e) => {
     e.preventDefault();
-    console.log("handleOrderComplete");
+   if(cartItems.length > 0){
+     console.log("handleOrderComplete");
+   }else{
+     alert('Add Some Products First to the cart')
+     router.push('/')
+   }
   }
 
-  console.log(formData);
 
   return (
-    <div className="smx-auto bg-white p-6 rounded-lg ">
+    <div className="smx-auto bg-white  rounded-lg ">
       {
         userEmail ? <div className="border-b">
-        <div className="flex items-center justify-between cursor-pointer">
+        <div className="flex items-center  cursor-pointer">
            <p className="hover:text-blue-500 ">Account</p>
-          <div className="bg-[#F3F9FC]">
-          <IoChevronDown onClick={() => setIsLogout(!isLogout)} className={`text-blue-500 ${isLogout ? "rotate-180" : 'rotate-0'}`}/>
-          </div>
         </div>
-        <p className="">{userEmail}</p>
-        { isLogout &&
-         <p onClick={handleLogout} className="text-blue-500 cursor-pointer mb-2">Logout</p>
-         }
-        </div>
-        : <div>
-          <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold mb-4">Contact</h2>
-          <Link href={'/login'} className="text-blue-500">Login</Link>
-        </div>
-        <div className="flex flex-col relative">
-          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1  font-semibold">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
-          />
-        </div>
-        </div>
+        <p>{userEmail}</p>
+        </div> : <p>no user</p>
+        
       }
        
       <h2 className="text-2xl font-bold mb-4">Delivery</h2>

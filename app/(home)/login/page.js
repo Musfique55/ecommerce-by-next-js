@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Link from "next/link";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const LoginPage = () => {
@@ -9,14 +10,15 @@ const LoginPage = () => {
         email: "",
         password: "",
       });
-    
+
+      const router = useRouter(); 
+      const searchParams = useSearchParams();
       const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
         axios
           .post("https://www.outletexpense.xyz/api/user-login", formData, {
             headers: {
@@ -25,6 +27,13 @@ const LoginPage = () => {
           })
           .then((res) => {
             if (res.data.status === "success") {
+              setFormData({
+                email: "",
+                password: "",
+              })
+
+              const redirectUrl =  searchParams.get('redirect') || '/';
+              router.push(redirectUrl)
               localStorage.setItem("token", res.data.authorisation.token);
               localStorage.setItem("user", JSON.stringify(res.data.user));
             }

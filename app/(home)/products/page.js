@@ -2,7 +2,6 @@
 import React, { useRef, useState } from 'react';
 import products from '/products.json';
 import categories from '/collection.json';
-import { MdColorLens } from 'react-icons/md';
 import Image from 'next/image';
 import Link from 'next/link';
 const AllProducts = () => {
@@ -24,7 +23,7 @@ const AllProducts = () => {
       };
 
     return (
-        <div className='text-black  grid col-span-1 md:grid-cols-5 gap-8'>
+        <div className='text-black  grid grid-cols-2 md:grid-cols-5 gap-8'>
                 {
                     categories.length > 0 ? 
                     categories.map((item,idx) => {

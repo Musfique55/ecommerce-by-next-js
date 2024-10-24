@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const RegisterForm = ({setIsRegistered,isRegistered,isShowModal}) => {
+const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
   const [formData, setFormData] = useState({
     outletName: "",
     ownerName: "",
@@ -26,7 +26,16 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal}) => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        setFormData({
+          outletName: "",
+          ownerName: "",
+          phone : "",
+          email: "",
+          password: "",
+        });
+        onClose();
+      })
       .catch((error) => console.log(error));
   };
   return (

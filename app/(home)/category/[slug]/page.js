@@ -134,7 +134,7 @@ const Page = ({ params }) => {
             <option value="new-to-old">Newest First</option>
         </select>
        </div>
-      <div className="grid grid-cols-5 gap-5">
+      <div className="grid md:grid-cols-4 lg:grid-cols-5 gap-5">
         <div className="col-span-1 text-black space-y-5">
           
           <h4 className="text-xl mb-3">By Price</h4>
@@ -222,7 +222,7 @@ const Page = ({ params }) => {
         </div>
 
         {/* products */}
-        <div className="col-span-4 grid grid-cols-4 gap-3">
+        <div className="md:col-span-3 lg:col-span-4 grid md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filteredItems.map((product, idx) => {
             return (
               <Link
@@ -270,7 +270,7 @@ const Page = ({ params }) => {
                   onClick={() => handleCart(product)}
                   className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors"
                 >
-                  Order Now
+                  Add to Cart
                 </button>
               </Link>
             );

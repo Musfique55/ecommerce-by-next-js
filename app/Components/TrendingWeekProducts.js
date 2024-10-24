@@ -14,7 +14,7 @@ const TrendingWeekProducts = ({products}) => {
         <div className='mt-10'>
             <div className="flex flex-wrap  items-center md:flex-nowrap md:justify-between">
                  <Heading title={'Trending This Week'}/>
-                 <Link href={'/'}><p className='flex items-center mt-5 gap-0 md:gap-2 text-gray-500 font-medium'>View All Products <span><GoChevronRight /></span></p></Link>
+                 <Link href={'/'} className='flex items-center mt-5 gap-0 md:gap-2 text-gray-500 font-medium'>View All Products <GoChevronRight /></Link>
                  
             </div>
            <div className='grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5'>

@@ -30,6 +30,10 @@ const navItems = [
         link : '/' 
     }
 ]
+
+    const handleMobileCategory = () => {
+        setIsHovered(!isHovered)
+    }
     return (
         <div className='relative'>
         {/* desktop menu */}
@@ -44,52 +48,50 @@ const navItems = [
                     <div className='flex gap-5 border-l-2 border-gray-300'>
                     {
                         navItems.map((item,idx) => {
-                            return <Link key={idx} href={item.link} className={`text-gray-600  ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
+                            return <Link key={idx} href={item.link} className={`text-gray-600 font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
                         })
                     }
                     </div>
                     <div >
-                        <p>Up to <span className='text-[#1A1A7E] font-medium'>60%</span> off to all items</p>
+                        <p className='font-semibold'>Up to <span className='text-[#1A1A7E] font-bold'>60%</span> off to all items</p>
                     </div>
                 </div>
             </div>
 
             {/* tablet menu */}
-            <div className='hidden  border-t p-5 md:flex lg:hidden items-center gap-10 md:px-12'>
-                <Link href={'/'}>
-                <div className='flex items-center gap-3'>
+            <div className='relative z-[60]'>
+            <div className='hidden bg-white z-40 text-black border-t p-5 md:flex lg:hidden items-center gap-10 md:px-12'>
+                <div onClick={handleMobileCategory} className='flex items-center gap-3'>
                     <CiGrid41 className='text-lg'/>
                     <p className='font-medium'>All Categories</p>
                 </div>
-                </Link>
                 <div className='flex justify-between items-center flex-1 '>
                     <div className='flex gap-5 border-l-2 border-gray-300'>
                     {
                         navItems.map((item,idx) => {
-                            return <Link key={idx} href={item.link} className={`text-gray-600 dark:text-white ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
+                            return <Link key={idx} href={item.link} className={`text-gray-600  ${idx === 0 ? 'pl-5' : ''}`}>{item.title}</Link>
                         })
                     }
                     </div>
                     
                 </div>
-                <div>
+            </div>
+                <div className='bg-white text-black text-center z-40 hidden md:block lg:hidden'>
                         <p>Up to <span className='text-[#1A1A7E] font-medium'>60%</span> off to all items</p>
                 </div>
             </div>
+            
 
 
             {/* mobile menu */}
             <div className='relative'>
-            <div className='  border-t p-5 flex justify-between lg:hidden items-center gap-10 md:px-12 md:hidden '>
-                <Link href={'/'}>
-                <div className='flex  items-center gap-3'>
+            <div className='  border-t bg-white text-black p-5 flex justify-between lg:hidden items-center gap-10 md:px-12 md:hidden '>
+                <div onClick={handleMobileCategory} className='flex  items-center gap-3'>
                     <CiGrid41 className='text-lg'/>
                     <p className='font-medium'>All Categories</p>
                 </div>
-                </Link>
-                <div onClick={() => setIsOpen(!isOpen)}>
-                    
-                    <RiMenu4Fill className='text-white text-right text-xl'/>
+                <div onClick={() => setIsOpen(!isOpen)}>           
+                    <RiMenu4Fill className='text-black text-right text-xl'/>
                 </div>
                 
             </div>
@@ -106,6 +108,7 @@ const navItems = [
 
             {/*all categories */}
             {isHovered && <CategoryPopup isHovered={isHovered} setIsHovered={setIsHovered}/>}
+            {/* {isHovered && <CategoryPopup isHovered={isHovered} setIsHovered={setIsHovered}/>} */}
             
         </div>
     );

@@ -2,25 +2,51 @@
 import DeliveryForm from '@/app/Components/DeliveryForm';
 import useStore from '@/app/CustomHooks/useStore';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 
 const CheckoutPage = () => {
     const {getCartItems} = useStore();
+    const [token, setToken] = useState(null);
 
-
+    const router = useRouter();
+    
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
     const Subtotal = cartItems.reduce((acc,curr) => acc + curr.price,0);
+
+
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        // Check for the token after the component is mounted
+        const storedToken = localStorage.getItem('token');
+        setToken(storedToken);
+  
+        if (!storedToken) {
+          // Get the current URL for redirection
+          const intendedUrl = window.location.pathname;
+          // Redirect to login page with the intended URL as a query param
+          router.push(`/login?redirect=${intendedUrl}`);
+        }
+      }
+    }, [router]);
+  
+    // If the token is not set, return null to avoid rendering before the redirect happens
+    if (!token) {
+      return null;
+    }
     return (
-            <div className='text-black grid grid-cols-3  relative '>
-            <div className='col-span-2 border-gray-300 border-r p-5  sticky md:pl-12 md:py-12'>
-                <DeliveryForm />
+            <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid  lg:grid-cols-3 relative'>
+            <div className='col-span-1 md:col-span-2 border-gray-300 border-r p-5 md:pl-12 md:py-12'>
+                <DeliveryForm cartItems={cartItems}/>
             </div>
 
-            <div className='col-span-1 p-5  md:pb-12  bg-[#FAFAFA]   md:pr-12'>
-                <div className='fixed w-[400px] gap-2  flex flex-col min-h-screen '>
+            {
+                cartItems.length > 0 ?  <div className='col-span-1 p-5  md:pb-12  bg-[#FAFAFA]   md:pr-12'>
+                <div className='static w-full md:static md:w-full lg:fixed lg:w-[400px] gap-2  flex flex-col h-fit md:h-fit lg:min-h-screen '>
                 {
-                    cartItems.length > 0 ? 
+                    cartItems.length > 0 &&
                         cartItems.map((item,idx) => {
                             return <div key={idx} className='flex justify-between items-center '>
                                 <div className='flex gap-3 items-center '>
@@ -34,7 +60,7 @@ const CheckoutPage = () => {
                                 <p>${item.price}</p>
                             </div>
                         })     
-                    : <p>no products</p>
+                   
                 }
                 <div className='flex gap-4'>
                     <input type="text" className='p-3 text-black bg-white outline-none border w-96 rounded-md' placeholder='Discount Code '/>
@@ -55,6 +81,10 @@ const CheckoutPage = () => {
                 </div>
                 </div>
             </div>
+                : <p className='font-extrabold text-2xl text-center'>Cart is Empty</p>
+            }
+
+            
         </div>
     );
 };

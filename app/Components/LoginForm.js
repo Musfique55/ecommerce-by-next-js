@@ -1,13 +1,16 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const LoginForm = ({ isRegistered, setIsRegistered, isShowModal }) => {
+const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReload }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+   const router = useRouter(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,7 +18,6 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     axios
       .post("https://www.outletexpense.xyz/api/user-login", formData, {
         headers: {
@@ -24,6 +26,13 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal }) => {
       })
       .then((res) => {
         if (res.data.status === "success") {
+          setFormData({
+            email: "",
+            password: "",
+          })
+          setReload(true)
+          onClose();
+          router.push('/');
           localStorage.setItem("token", res.data.authorisation.token);
           localStorage.setItem("user", JSON.stringify(res.data.user));
         }

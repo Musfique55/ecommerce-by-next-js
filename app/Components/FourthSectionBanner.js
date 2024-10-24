@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 
@@ -9,7 +10,8 @@ const FourthSectionBanner = () => {
               <div className='flex flex-col items-center md:items-start'>
               <h2 className="text-xl font-medium mb-5">Discounts 50% <br /> On All Watches</h2>
               <div className="flex items-center gap-3 ">
-                <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button>
+                <Link href={'/category/Smart Watch'}>
+                <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button></Link>
                 <span className="text-white"><FaArrowRight /></span>
               </div>
               </div>
@@ -24,7 +26,10 @@ const FourthSectionBanner = () => {
               <div className='flex flex-col items-center md:items-start'>
               <h2 className="text-xl font-medium mb-5">Mega Discounts <br /> 50% Off <span className="text-orange-400 italic">This Week</span></h2>
               <div className="flex items-center gap-3 ">
+                <Link href={'/category/Smart Buds'}>
                 <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button>
+                </Link>
+                
                 <span className="text-white"><FaArrowRight /></span>
               </div>
               </div>

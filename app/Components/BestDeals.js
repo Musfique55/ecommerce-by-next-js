@@ -18,7 +18,10 @@ const BestDeals = ({products}) => {
                     <div className="space-y-7 flex flex-col items-center md:items-start">
                         <h3 className="text-white text-2xl font-semibold text-wrap">Hot Deals</h3>
                         <p className="text-gray-400 text-wrap">Grab the best deals now! Enjoy massive discounts on top products, from tech to fashion. Hurry, these offers {`won't`} last long!</p>
+                        <Link  href={'/category/Smart Watch'}>
                         <button className="flex items-center gap-3 text-black bg-white font-semibold px-4 py-3 rounded-md ">Shop Now <span className="text-black"><FaArrowRight /></span></button>
+                        </Link>
+                        
                     </div>
                     <Image
                     src={filteredProducts[0].image[0]}

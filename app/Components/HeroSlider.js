@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import banners from "/banners.json";
+import Link from "next/link";
 const HeroSlider = ({ slides }) => {
   const [index, setIndex] = useState(0);
   const dot = <GoDotFill />;
@@ -47,12 +48,15 @@ const HeroSlider = ({ slides }) => {
         <p className="text-white font-medium" data-testid="text">
           {slides[index].text}
         </p>
+        <Link href={'/category/Smart Buds'}>
         <button className="flex items-center gap-3 bg-white font-semibold px-4 py-3 rounded-md text-black">
           Shop Now{" "}
           <span>
             <FaArrowRight />
           </span>
         </button>
+        </Link>
+        
         <div
           className={`flex  absolute transform -translate-x-1/2 left-1/2 bottom-8`}
         >
@@ -82,9 +86,9 @@ const HeroSlider = ({ slides }) => {
           Explore Apple Watch
           </h3>
           <div className="flex items-center gap-3 ">
-            <button className="flex  items-center border-b text-white font-medium text-lg p-0">
+            <Link href={'/category/Smart Watch'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
               Shop Now{" "}
-            </button>
+            </button></Link>
             <span className="text-white">
               <FaArrowRight />
             </span>
@@ -128,9 +132,9 @@ const HeroSlider = ({ slides }) => {
         <div className="flex flex-col space-y-3 md:space-y-8 justify-center ">
           <h3 className="text-white text-xl mt-5 md:mt-0">Samsung-Gear-Camera</h3>
           <div className="flex items-center  gap-3 justify-center md:justify-start">
-            <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
+           <Link href={'/category/Camera'}> <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
               Shop Now{" "}
-            </button>
+            </button></Link>
             <span className="text-white">
               <FaArrowRight />
             </span>
@@ -150,9 +154,9 @@ const HeroSlider = ({ slides }) => {
         <div className="flex flex-col space-y-3 md:space-y-8 justify-center ">
           <h3 className="text-white text-xl mt-5 md:mt-0">Beats Studio Buds</h3>
           <div className="flex items-center  gap-3 justify-center md:justify-start">
-            <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
+           <Link href={'/category/Smart Buds'}> <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
               Shop Now{" "}
-            </button>
+            </button></Link>
             <span className="text-white">
               <FaArrowRight />
             </span>
@@ -172,9 +176,12 @@ const HeroSlider = ({ slides }) => {
         <div className="flex flex-col space-y-3 md:space-y-8 justify-center ">
           <h3 className="text-white text-xl mt-5 md:mt-0">Canon Dslr Camera</h3>
           <div className="flex items-center  gap-3 justify-center md:justify-start">
+            <Link href={'/category/Camera'}>
             <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
               Shop Now{" "}
             </button>
+            </Link>
+           
             <span className="text-white">
               <FaArrowRight />
             </span>

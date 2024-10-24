@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import {  useState } from 'react';
 import {SLIDES_DATA} from '../../constants';
 import BestDeals from '../Components/BestDeals';
 import HeroSlider from "../Components/HeroSlider";
@@ -16,8 +16,9 @@ export default function Home() {
   const filteredProducts = products.filter(
     (product) => product.category === currentCategory
   );
+  
   return (
-    <div>
+    <>
       <HeroSlider slides={SLIDES_DATA}/>
       <TrendingProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
       <BestDeals products={products}/>
@@ -25,6 +26,7 @@ export default function Home() {
       <Collection products={products}/>
       <TrendingWeekProducts products={products} filteredProducts={filteredProducts}/>
       <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/>
-    </div>
+      
+    </>
   );
 }

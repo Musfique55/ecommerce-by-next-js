@@ -13,6 +13,7 @@ import Search from './Search';
 import LoginForm from './LoginForm';
 import Modal from './Modal';
 import RegisterForm from './RegisterForm';
+import 'animate.css';
 const Header = () => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
     const [scroll,setScroll] = useState(0);
@@ -21,9 +22,15 @@ const Header = () => {
     const [isShowModal,setIsShowModal] = useState(false); 
     const [isRegistered,setIsRegistered] = useState(false);
     const [showUserInfo,setShowUserInfo] = useState(false);
-    const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
-
-
+    const [email,setEmail] = useState(null);
+    const [reload,setReload] = useState(false);
+    useEffect(() => {
+        const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+        if(userEmail){
+            setEmail(userEmail);
+            setReload(false);
+        }
+    },[email,reload])
 
     useEffect(() => {
         getCartItems();
@@ -75,6 +82,7 @@ const Header = () => {
    const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setEmail(null)
    }
 
     return (
@@ -90,21 +98,25 @@ const Header = () => {
                
 
                {
-                userEmail ?<div className='py-4' onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
+                email ?<div className='py-4' onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
                 <FaRegUser  className='font-semibold text-xl cursor-pointer hover:text-blue-500'/>
                 </div> : <FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold text-xl cursor-pointer hover:text-blue-500'/>
                }
-                <Link href={'/wishlist'}  className="relative">
+               <div className='relative'>
+               <Link href={'/wishlist'}  >
                     <FaRegHeart className='font-semibold text-xl cursor-pointer'/>
-                    <p className='bg-[#1A1A7E] text-white cursor-pointer w-fit px-1 rounded-full text-sm absolute -top-3 -right-1'>{wishList.length || 0}</p>
+                    
                 </Link>
+                <p className=" bg-[#1A1A7E] text-white cursor-pointer w-fit px-1 rounded-full text-sm absolute -top-3 -right-1">{wishList.length || 0}</p>
+               </div>
+                
                 <div className="relative" onClick={() => setOpenCart(!openCart)}>
                 <HiOutlineShoppingBag className='font-semibold text-2xl cursor-pointer'/>
                 <p className='bg-[#1A1A7E] cursor-pointer text-white w-fit px-1 rounded-full text-sm absolute -top-2 -right-1'>{total}</p>
                 </div>
                 { showUserInfo &&
-                    <div onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)} className='bg-white shadow-lg absolute z-50 top-10 -right-1'>
-                    <p className='border-b cursor-pointer p-3 hover:text-blue-500'>{userEmail}</p>
+                    <div onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)} className={`bg-white shadow-lg absolute z-50 top-10 -right-1`}>
+                    <p className='border-b cursor-pointer p-3 hover:text-blue-500'>{email}</p>
                     <p onClick={handleLogout} className='p-3 cursor-pointer hover:text-blue-500'>Logout</p>
                 </div>
                 }
@@ -125,9 +137,22 @@ const Header = () => {
            }
 
            {
-            isShowModal ? <Modal content={isRegistered ? <LoginForm  isShowModal={isShowModal} setIsRegistered={setIsRegistered} isRegistered={isRegistered}/> : <RegisterForm setIsRegistered={setIsRegistered} isShowModal={isShowModal} isRegistered={isRegistered} />} 
+            isShowModal ? 
+            <Modal 
+            content={isRegistered ? 
+            <LoginForm  
+            isShowModal={isShowModal} 
+            onClose = {handleModalClose}
+            setIsRegistered={setIsRegistered} 
+            setReload={setReload}
+            isRegistered={isRegistered}/> : 
+            <RegisterForm 
+            setIsRegistered={setIsRegistered} 
+            isShowModal={isShowModal} 
+            isRegistered={isRegistered} />} 
             isShowModal={isShowModal}
             onClose = {handleModalClose}
+            setReload={setReload}
             title={isRegistered ? "Sign In" : 'Sign Up'}/> : null
            }
            

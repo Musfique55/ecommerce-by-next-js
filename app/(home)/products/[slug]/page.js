@@ -169,7 +169,7 @@ const Page = ({ params }) => {
         Specification
       </h3>
 
-      <div className="border p-10 ">
+      <div className="border p-5 md:p-10 ">
         <h2 className="text-[#4D5959] text-5xl mb-5">{product.title}</h2>
         <h5 className="mb-5">Technical Details</h5>
         <table className="table-auto w-full text-left">
@@ -404,8 +404,8 @@ const Page = ({ params }) => {
       
 
       {/* bottom cart */}
-
-      <div className={`${scroll > 700 ? "fixed left-0 bottom-0" : 'ease-out hidden fade'} transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] w-full  bg-white text-black flex justify-between items-center py-4 px-6 border-t`}>
+      {/* desktop */}
+      <div className={`hidden md:flex  ${scroll > 700 ? "fixed left-0 bottom-0" : 'ease-out hidden fade'} transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] w-full  bg-white text-black  justify-between items-center py-4 px-6 border-t`}>
       {/* Product Information */}
       <div className="text-lg font-light">
         <span className="font-medium">
@@ -430,6 +430,47 @@ const Page = ({ params }) => {
           </div>
         </div>
 
+        {/* Add to Cart Button */}
+        <button onClick={() => handleCart(product,quantity)} className="bg-[#bc9975] hover:bg-[#b48f6a] text-white font-semibold py-2 px-6 rounded transition duration-300">
+          ADD TO CART
+        </button>
+
+        {/* Buy It Now Button */}
+        <button  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
+          BUY IT NOW
+        </button>
+      </div>
+    </div>
+
+    {/* mobile */}
+      <div className={`${scroll > 700 ? "fixed left-0 bottom-0" : 'ease-out hidden fade'} transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] w-full  bg-white text-black flex flex-col justify-between gap-y-5 items-center md:hidden py-4 px-6 border-t`}>
+      {/* Product Information */}
+      <div className="flex items-center justify-between w-full">
+        <div className="text-lg font-light">
+          <span className="font-medium">
+            {product.title}
+          </span>
+        </div>
+
+        <div className="flex items-center border border-gray-300 rounded">
+            <input
+              type="number"
+              value={quantity}
+              min={quantity}
+              max={2}
+              className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
+            />
+            <div className="flex flex-col justify-between">
+              <button onClick={() => quantity < 2 ?  setQuantity(quantity + 1) : alert('maximum 2 items can be added')} className="px-2 border-b border-l border-gray-300">▲</button>
+              <button onClick={() => quantity > 0  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
+            </div>
+          </div>
+      </div>
+
+      {/* Quantity and Buttons */}
+      <div className="  flex  items-center justify-between w-full">
+        {/* Quantity Selector */}
+       
         {/* Add to Cart Button */}
         <button onClick={() => handleCart(product,quantity)} className="bg-[#bc9975] hover:bg-[#b48f6a] text-white font-semibold py-2 px-6 rounded transition duration-300">
           ADD TO CART
