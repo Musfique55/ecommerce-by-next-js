@@ -2,65 +2,99 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import banners from "/banners.json";
 import Link from "next/link";
 const HeroSlider = ({ slides }) => {
   const [index, setIndex] = useState(0);
+  // const [animate, setAnimate] = useState(false);
+  const [isInfinite,setIsInfinite] = useState(true);
   const dot = <GoDotFill />;
-  const dots = new Array(slides.length).fill(dot);
+  console.log(slides);
+
+  const dots = new Array(slides?.images.length).fill(dot);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeout(() => {
+    if(isInfinite){
+      const interval = setInterval(() => {
+        // if (!animate) return;
+        // setAnimate(true)
+        // setTimeout(() => {
+        //   setIndex((prevIndex) =>
+        //     prevIndex === slides?.images.length - 1 ? 0 : prevIndex + 1
+        // );
+        // setAnimate(false);
+  
+        // }, 500);
         setIndex((prevIndex) =>
-          prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-        );
-      }, 500);
-    }, 2000);
+          prevIndex === slides?.images.length - 1 ? 0 : prevIndex + 1
+      );
+      }, 4000);
+      return () => clearInterval(interval);
+    }
 
-    return () => clearInterval(interval);
-  }, [index,slides.length]);
+  }, [slides?.images.length,isInfinite]);
 
-  const titleBreak = slides[index].title.split(" ");
-  const image = slides[index].image;
 
-  const rightBanner = banners[0].image[0].path;
-  const restBanners = banners.slice(1);
+  // const titleBreak = slides[index].title.split(" ");
+  const image = slides?.images[index];
+
+  const handleNext = () => {
+      // setAnimate(false); 
+      if(index === slides.images.length - 1){
+        setIndex(0)
+      }else{
+        setIndex(index + 1)
+      }
+      // if(index === )
+      // setTimeout(() => setAnimate(true), 100);
+      
+  }
+  const handlePrev = () => {
+    // setAnimate(false); // Briefly disable animation to reset
+      setIndex((prevIndex) => 
+        prevIndex ===  0 ? slides?.images.length - 1 : prevIndex - 1
+      );
+      
+  }
+
+  
+
+  console.log(index);
 
   return (
-    <div className="grid  grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
       {/* slider */}
       <div
         id="slide"
         style={{
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(${index === 0 ? slides?.images[slides?.images.length - 1] : slides?.images[index - 1] || index === slides.images.length - 1 && slides.images[0]})`,
         }}
-        className={`col-span-3 bg-no-repeat bg-center md:bg-left-top bg-cover h-[450px] flex flex-col justify-center items-start space-y-5  p-8 rounded-md relative md:col-span-3 lg:col-span-7`}
+        className={`col-span-3 bg-no-repeat bg-center md:bg-left-top bg-cover h-[450px] flex flex-col justify-center items-start space-y-5 overflow-hidden p-8 rounded-md relative md:col-span-3 lg:col-span-6`}
       >
-        <h1
-          className="text-white text-4xl md:text-6xl font-semibold"
-          data-testid="title"
-        >
-          {titleBreak[0]} <br /> {titleBreak[1]} {titleBreak[2]}
-        </h1>
-        <p className="text-white font-medium" data-testid="text">
-          {slides[index].text}
-        </p>
-        <Link href={'/category/Smart Buds'}>
-        <button className="flex items-center gap-3 bg-white font-semibold px-4 py-3 rounded-md text-black">
-          Shop Now{" "}
-          <span>
-            <FaArrowRight />
-          </span>
-        </button>
-        </Link>
         
+        <Image 
+        key={image}
+        layout="fill"
+        objectFit="cover"
+        alt="slider"
+        src={image}
+        className="animate__animated animate__slideInRight"
+        />
+        <div className="absolute bg-white  transform right-5 -translate-y-1/2 opacity-[0.8] cursor-pointer rounded-full p-2 z-10"  onClick={() => handleNext()} onMouseEnter={() => setIsInfinite(false)} onMouseLeave={() => setIsInfinite(true)}>
+        <FaChevronRight onClick={handleNext} className="text-black text-xl "/>
+        </div>
+
+        <div className="absolute bg-white  transform left-5 -translate-y-1/2 opacity-[0.7] cursor-pointer rounded-full p-2 z-10" onClick={handlePrev} onMouseEnter={() => setIsInfinite(false)} onMouseLeave={() => setIsInfinite(true)}>
+        <FaChevronLeft className="text-black text-xl "/>
+        </div>
+       
         <div
           className={`flex  absolute transform -translate-x-1/2 left-1/2 bottom-8`}
         >
-          {slides.map((_, i) => {
+          {slides
+          ?.images.map((_, i) => {
             return (
               <span
                 onClick={() => setIndex(i)}
@@ -69,7 +103,7 @@ const HeroSlider = ({ slides }) => {
                   index === i
                     ? "text-white border rounded-full"
                     : "text-gray-400"
-                } cursor-pointer`}
+                } cursor-pointer `}
               >
                 {dots[i]}
               </span>
@@ -78,15 +112,39 @@ const HeroSlider = ({ slides }) => {
         </div>
       </div>
       {/* right banner */}
-      <div
-        className={`col-span-3 flex flex-col-reverse items-center p-5 space-y-5 bg-gradient-to-b  from-[#751C6B] via-[#5C0D81] to-[#2A2047] relative rounded-md md:col-span-1  md:flex-col md:justify-start md:items-start lg:col-span-2`}
+      <div className="col-span-3 md:col-span-1 lg:col-span-3 space-y-3">
+        <div
+          className={` flex flex-col-reverse items-center px-5 space-y-5 bg-gradient-to-b  from-[#751C6B] via-[#5C0D81] to-[#2A2047] relative rounded-md   md:flex-row md:justify-start `}
+        >
+          <div className="space-y-5 flex flex-col items-center md:items-start">
+            <h3 className="text-white text-2xl font-semibold text-wrap">
+            Explore Apple Watch
+            </h3>
+            <div className="flex items-center gap-3 ">
+              <Link href={'/category/Smart Watch'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
+                Shop Now{" "}
+              </button></Link>
+              <span className="text-white">
+                <FaArrowRight />
+              </span>
+            </div>
+          </div>
+          <Image
+            src={"https://i.ibb.co.com/BTvjjXj/1704564727-removebg-preview.png"}
+            width="200"
+            height="200"
+            className=" "
+            alt="apple-watch"
+          />
+        </div>
+
+        <div
+        className={'col-span-3 bg-gradient-to-t from-[#33B852] to-[#78D86A] rounded-md px-5 py-2 flex flex-col-reverse items-center justify-between md:flex-row md:col-span-2 lg:col-span-3 '}
       >
-        <div className="space-y-4 flex flex-col items-center md:items-start">
-          <h3 className="text-white text-2xl font-semibold text-wrap">
-          Explore Apple Watch
-          </h3>
-          <div className="flex items-center gap-3 ">
-            <Link href={'/category/Smart Watch'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
+        <div className="flex flex-col space-y-3 md:space-y-5 justify-center ">
+          <h3 className="text-white text-2xl mt-5 font-semibold md:mt-0">Beats Studio Buds</h3>
+          <div className="flex items-center  gap-3 justify-center md:justify-start">
+           <Link href={'/category/Smart Buds'}> <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
               Shop Now{" "}
             </button></Link>
             <span className="text-white">
@@ -95,13 +153,15 @@ const HeroSlider = ({ slides }) => {
           </div>
         </div>
         <Image
-          src={"https://i.ibb.co.com/BTvjjXj/1704564727-removebg-preview.png"}
-          width="500"
-          height="500"
-          className="static md:absolute md:left-1/2 md:transform md:bottom-4 md:-translate-x-1/2 "
-          alt="apple-watch"
+          src={`https://i.ibb.co.com/Qpp0fPK/studiobudsplus-blackgold-01-removebg-preview.png`}
+          width="200"
+          height="200"
+          className="object-cover"
+          alt="Beats-Studio-Buds"
         />
       </div>
+      </div>
+      
 
       {/* bottom banners */}
       {/* {
@@ -126,29 +186,8 @@ const HeroSlider = ({ slides }) => {
               })
             } */}
 
-      <div
-        className={'col-span-3 bg-[#B96223] rounded-md p-5 flex flex-col-reverse items-center justify-between md:flex-row md:col-span-2 lg:col-span-3'}
-      >
-        <div className="flex flex-col space-y-3 md:space-y-8 justify-center ">
-          <h3 className="text-white text-xl mt-5 md:mt-0">Samsung-Gear-Camera</h3>
-          <div className="flex items-center  gap-3 justify-center md:justify-start">
-           <Link href={'/category/Camera'}> <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
-              Shop Now{" "}
-            </button></Link>
-            <span className="text-white">
-              <FaArrowRight />
-            </span>
-          </div>
-        </div>
-        <Image
-          src={`https://i.ibb.co.com/yBYccYb/51nku0-Jg-BWL-removebg-preview.png`}
-          width="150"
-          height="150"
-          className="object-cover"
-          alt="samsung-gear-camera"
-        />
-      </div>
-      <div
+      
+      {/* <div
         className={'col-span-3 bg-gradient-to-t from-[#33B852] to-[#78D86A] rounded-md p-5 flex flex-col-reverse items-center justify-between md:flex-row md:col-span-2 lg:col-span-3'}
       >
         <div className="flex flex-col space-y-3 md:space-y-8 justify-center ">
@@ -194,7 +233,7 @@ const HeroSlider = ({ slides }) => {
           className="object-cover"
           alt="Canon-Dslr-Camera"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

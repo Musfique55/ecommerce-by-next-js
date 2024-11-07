@@ -121,7 +121,7 @@ const Page = ({ params }) => {
                 activeColor="#1A1A7E"
               />
               <p className="ml-2 mt-1 block text-gray-600">
-                ({product.ratings})
+                ({product?.ratings})
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ const Page = ({ params }) => {
       </h3>
 
       <div className="border p-5 md:p-10 ">
-        <h2 className="text-[#4D5959] text-5xl mb-5">{product.title}</h2>
+        <h2 className="text-[#4D5959] text-5xl mb-5">{product?.title}</h2>
         <h5 className="mb-5">Technical Details</h5>
         <table className="table-auto w-full text-left">
           <tbody>
@@ -409,7 +409,7 @@ const Page = ({ params }) => {
       {/* Product Information */}
       <div className="text-lg font-light">
         <span className="font-medium">
-          {product.title}
+          {product?.title}
         </span>
       </div>
 
@@ -448,7 +448,7 @@ const Page = ({ params }) => {
       <div className="flex items-center justify-between w-full">
         <div className="text-lg font-light">
           <span className="font-medium">
-            {product.title}
+            {product?.title}
           </span>
         </div>
 

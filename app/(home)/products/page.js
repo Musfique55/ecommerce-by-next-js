@@ -27,7 +27,7 @@ const AllProducts = () => {
                 {
                     categories.length > 0 ? 
                     categories.map((item,idx) => {
-                        return <Link href={`/category/${item.category}`} key={idx} ref={collectionRef} onMouseEnter={ () => handleMouseEnter(item.category)} onMouseLeave={handleMouseLeave} className=' relative flex flex-col items-center justify-between'>
+                        return <Link href={`/category/${item?.category}`} key={idx} ref={collectionRef} onMouseEnter={ () => handleMouseEnter(item?.category)} onMouseLeave={handleMouseLeave} className=' relative flex flex-col items-center justify-between'>
                             <Image 
                             src={item?.image}
                             width={200}
@@ -35,14 +35,14 @@ const AllProducts = () => {
                             alt='category-image'
                             className='bg-black hover:scale-105 cursor-pointer'
                             />
-                            <h2 className='text-2xl text-center mt-3'>{item.category}</h2>
+                            <h2 className='text-2xl text-center mt-3'>{item?.category}</h2>
                             <button className='text-[#8A8A8A] mt-3 border-b hover:border-gray-300'>View Products</button>
 
                             {
                                 current === item.category && collectionRef.current &&
                                 (<div className='bg-[rgba(0,0,0,0.5)] absolute h-[200px] w-[200px] top-0 text-white flex justify-center items-center cursor-pointer'>
                                 {
-                                    products.filter((product) => product.category === item.category).length
+                                    products.filter((product) => product.category === item?.category).length
                                 }
                                 {' '} Products
                                 </div>)

@@ -4,6 +4,7 @@ import useStore from '../../CustomHooks/useStore';
 import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const CartPage = () => {
     const {getCartItems,refetch,setRefetch,handleCartItemDelete,handleDncQuantity,handleIncQuantity} = useStore();
@@ -51,7 +52,8 @@ const CartPage = () => {
 
     return (
         <div className='text-black '>
-            <div className='overflow-x-scroll'>
+            {/* desktop cart */}
+            <div className='overflow-x-scroll hidden md:block'>
             <table className='text-black min-w-[800px] md:w-full mt-10 bg-white'>
                 <thead>
                     <tr className=' border font-semibold border-gray-300 '>
@@ -119,7 +121,7 @@ const CartPage = () => {
                             </tr>
                         }) 
                         : <tr className='text-black text-center border border-gray-300 border-t-0'>
-                            <td colSpan="6" className="text-center py-4">No products were added to the wishlist</td>
+                            <td colSpan="6" className="text-center py-4">No products were added to the cart</td>
                         </tr>
                     }
                 </tbody>
@@ -131,6 +133,52 @@ const CartPage = () => {
                 </tfoot> : null
                 }
             </table>
+            </div>
+
+            {/* mobile cart */}
+            <div className='flex flex-col gap-y-5 md:hidden'>
+                {
+                    cartItems.length > 0  ?
+                    cartItems.map((item,idx) => {
+                        return <div key={idx} className='flex gap-3 space-y-3 items-center bg-white p-5'>
+                            <Image height={100} width={100} src={item.image[0]} alt='products'/>
+                            <div className=' flex-1'>
+                                <h3 className='font-semibold'>{item.title}</h3>
+                                <div className="flex items-center justify-between">
+                                    <p className='font-semibold'>${item.price}</p>
+                                    <div className="flex mx-auto items-center border border-gray-300 rounded w-fit gap-5">
+                                    <input
+                                    type="number"
+                                    value={ item.quantity}
+                                    min={1}
+                                    className="w-12 h-10  text-center border-none focus:outline-none no-arrows"
+                                    />
+                                    <div className="flex flex-col justify-between ">
+                                    <button
+                                        onClick={() =>
+                                            handleIncQuantity(item.title,item.quantity)
+                                        }
+                                        className="px-2 border-b border-l border-gray-300"
+                                    >
+                                        ▲
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            handleDncQuantity(item.title,item.quantity)
+                                        }
+                                        className="px-2 border-l border-gray-300"
+                                    >
+                                        ▼
+                                    </button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <FaRegTrashAlt onClick={() => handleCartItemDelete(item.title)} className='text-xl'/>
+                        </div>
+
+                    }) : <p className='text-black text-center border border-gray-300 border-t-0'>No products were added to the cart</p>
+                }
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-10 my-10'>
                 {/* shiiping fees */}

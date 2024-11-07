@@ -86,7 +86,7 @@ const Header = () => {
    }
 
     return (
-        <div className={` w-full z-50  transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'static'}`}>
+        <div className={` w-full z-50 bg-[#00A6F6] text-white transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'static'}`}>
             {/* desktop menu */}
            <div className='flex justify-between bg-white p-5  md:px-12'>
            <Link href={'/'}><Image src={'https://lh5.googleusercontent.com/proxy/lIj6Eiy46BsCbQnELvfarNxD0O9St_tQpnTftcr0lmOD361EfYxlO-9wBSA9DV2N0rTLJgl89hRXwGDGWObAijvhvcHxMCwnQz7egxS9C8EKRfKx1hQt'} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
