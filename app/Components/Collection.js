@@ -3,11 +3,15 @@ import collections from '/collection.json';
 import Heading from '../CustomHooks/heading';
 import Image from 'next/image';
 import Link from 'next/link';
+import SubHeading from '../CustomHooks/subHeading';
 const Collection = ({products}) => {
    
     return (
         <div>
-           <Heading title={'Collection List'}/>
+           <div className='mt-12 mb-8'>
+           <Heading title={'FEATURED CATEGORIES'} />
+           <SubHeading subheading={'Get your desired product from featured category'}/>
+           </div>
            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5'>
             {
                 collections.map((item,idx) => {

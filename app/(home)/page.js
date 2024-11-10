@@ -9,6 +9,7 @@ import RecommendedProducts from '../Components/RecommendedProducts';
 import TrendingWeekProducts from '../Components/TrendingWeekProducts';
 import FourthSectionBanner from '../Components/FourthSectionBanner';
 import Collection from '../Components/Collection';
+import FeaturedProducts from '../Components/FeaturedProducts';
 
 export default function Home() {
   const categories = [...new Set(products.map((product) => product.category))];
@@ -20,10 +21,11 @@ export default function Home() {
   return (
     <>
       <HeroSlider slides={SLIDES_DATA}/>
+      <Collection products={products}/>
+      <FeaturedProducts />
+      <FourthSectionBanner />
       <TrendingProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
       <BestDeals products={products}/>
-      <FourthSectionBanner />
-      <Collection products={products}/>
       <TrendingWeekProducts products={products} filteredProducts={filteredProducts}/>
       <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/>
       

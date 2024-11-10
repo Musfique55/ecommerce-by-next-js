@@ -1,17 +1,20 @@
 "use client";
-
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import banners from "/banners.json";
+// import { baseUrl } from "./config";
+
 import Link from "next/link";
 const HeroSlider = ({ slides }) => {
   const [index, setIndex] = useState(0);
+  const [bgIndex,setBgIndex] = useState(0);
+  const [navigate,setNavigate] = useState(false);
   // const [animate, setAnimate] = useState(false);
   const [isInfinite,setIsInfinite] = useState(true);
   const dot = <GoDotFill />;
-  console.log(slides);
+  // console.log(slides);
 
   const dots = new Array(slides?.images.length).fill(dot);
 
@@ -41,27 +44,29 @@ const HeroSlider = ({ slides }) => {
   const image = slides?.images[index];
 
   const handleNext = () => {
-      // setAnimate(false); 
+      // setNavigate(true); 
       if(index === slides.images.length - 1){
         setIndex(0)
       }else{
         setIndex(index + 1)
       }
+  
+      // setBgIndex(index === 0 ? slides.images.length -1 : index - 1);
       // if(index === )
       // setTimeout(() => setAnimate(true), 100);
       
   }
   const handlePrev = () => {
-    // setAnimate(false); // Briefly disable animation to reset
+    // setNavigate(true);  // Briefly disable animation to reset
       setIndex((prevIndex) => 
         prevIndex ===  0 ? slides?.images.length - 1 : prevIndex - 1
       );
+      // setBgIndex(index === );
       
   }
 
-  
 
-  console.log(index);
+
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
@@ -69,7 +74,7 @@ const HeroSlider = ({ slides }) => {
       <div
         id="slide"
         style={{
-          backgroundImage: `url(${index === 0 ? slides?.images[slides?.images.length - 1] : slides?.images[index - 1] || index === slides.images.length - 1 && slides.images[0]})`,
+          backgroundImage: `url(${navigate ? slides.images[bgIndex] : index === 0 ? slides.images[slides.images.length - 1]  : slides.images[index - 1] })`,
         }}
         className={`col-span-3 bg-no-repeat bg-center md:bg-left-top bg-cover h-[450px] flex flex-col justify-center items-start space-y-5 overflow-hidden p-8 rounded-md relative md:col-span-3 lg:col-span-6`}
       >
@@ -111,6 +116,7 @@ const HeroSlider = ({ slides }) => {
           })}
         </div>
       </div>
+    
       {/* right banner */}
       <div className="col-span-3 md:col-span-1 lg:col-span-3 space-y-3">
         <div
