@@ -2,16 +2,12 @@
 import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Image from "next/image";
-import ReactStars from "react-rating-stars-component";
 import "@smastrom/react-rating/style.css";
 import Heading from "../CustomHooks/heading";
 import useStore from "../CustomHooks/useStore";
 import Link from "next/link";
-const TrendingProducts = ({
+const TopBrandProducts = ({
   products,
-  filteredProducts,
-  setCurrentCategory,
-  categories,
 }) => {
   const [index, setIndex] = useState(-1);
   const { handleCart } = useStore();
@@ -72,16 +68,15 @@ const TrendingProducts = ({
   };
 
   const brands = [...new Set(products.map(brand => brand.brand_name)) ];
-  console.log(brands);
   const filterByBrands = products.filter(product => product.brand_name === brand);
 
   return (
     <div className="mt-12">
-      <Heading title={"Trending Products"} />
+      <Heading title={"Top Brand Products"} />
 
       <Tabs className="mt-5">
         <TabList className="flex flex-wrap justify-center gap-5 mb-5 md:flex-wrap lg:flex-nowrap">
-          <Tab onClick={() => setIndex(-1)} className={`text-lg  cursor-pointer outline-none ${
+          <Tab onClick={() => setIndex(-1)} className={`text-sm  cursor-pointer outline-none ${
                   index === -1
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
                     : "text-black"
@@ -94,7 +89,7 @@ const TrendingProducts = ({
                   setBrand(brand);
                   setIndex(idx);
                 }}
-                className={`text-lg  cursor-pointer outline-none ${
+                className={`text-sm cursor-pointer outline-none ${
                   index === idx
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
                     : "text-black"
@@ -112,12 +107,12 @@ const TrendingProducts = ({
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 { index !== -1 ?
                 filterByBrands.length > 0 ? (
-                  filteredProducts.map((product, idx) => {
-                    return (
+                  filterByBrands.map((product, idx) => {
+                  return (
                       <Link
                         key={idx}
                         href={`products/${product.title}`}
-                        className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
+                        className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
                       >
                         <Image
                           src={product?.image[0]}
@@ -126,49 +121,33 @@ const TrendingProducts = ({
                           alt="mobile-phone"
                           quality={75}
                         />
-
-                        <p className="text-[#1A1A7E] text-sm mb-2">
-                          In stock {product.stocks} Items
-                        </p>
-
-                        <h3 className="text-lg font-medium mb-2 text-black">
+  
+  
+                        <h3 className="text-sm font-medium mb-2 text-black">
                           {product.title}
                         </h3>
-
-                        <p className="text-xl text-gray-800 font-bold mb-4">
-                          ${product.price}
+  
+                        <p className="text-sm text-gray-800 font-bold mb-4">
+                          {product.price} ৳
                         </p>
-
-                        <div className="flex items-center  mb-4">
-                          <ReactStars
-                            count={5}
-                            edit={false}
-                            size={24}
-                            value={product.ratings || 0}
-                            isHalf={true}
-                            emptyIcon={<i className="far fa-star"></i>}
-                            halfIcon={<i className="fa fa-star-half-alt"></i>}
-                            fullIcon={<i className="fa fa-star"></i>}
-                            activeColor="#1A1A7E"
-                          />
-                          <p className="ml-2 mt-1 block text-gray-600 ">
-                            ({product.ratings})
-                          </p>
-                        </div>
-
+  
+  
+                       <div className='flex gap-2 items-center'>
+                        <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                         <button
-                          onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                          className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors"
-                        >
-                          Add to Cart
-                        </button>
+                            onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
+                            className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                            >
+                            Add to Cart
+                            </button>
+                       </div>
                       </Link>
                     );
                   })
                 ) : (
                   <p>No products found</p>
                 ) : 
-                products.slice(0,20).map((product,idx) => {
+                products.slice(0,18).map((product,idx) => {
                   return (
                     <Link
                       key={idx}
@@ -215,4 +194,4 @@ const TrendingProducts = ({
   );
 };
 
-export default TrendingProducts;
+export default TopBrandProducts;

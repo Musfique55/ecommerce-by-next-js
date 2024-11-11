@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 
-const FourthSectionBanner = () => {
+const BannerSection = () => {
     return (
         <div className='grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 mt-24'>
             <div className='bg-gradient-to-b from-darkBlue to-lightBlue text-white p-8 rounded-lg flex flex-col-reverse  items-center gap-5 md:flex-row md:justify-between md:items-center'>
@@ -44,4 +44,4 @@ const FourthSectionBanner = () => {
     );
 };
 
-export default FourthSectionBanner;
+export default BannerSection;

@@ -65,3 +65,49 @@ body {
   display: block;
 }
 
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+ 
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trending-swiper .swiper-slide {
+  display: flex;
+  align-items: stretch;
+}
+
+.trending-swiper .swiper-slide > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.swiper-hover .swiper-button-prev,
+.swiper-hover .swiper-button-next {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show navigation buttons on hover */
+.swiper-hover:hover .swiper-button-prev,
+.swiper-hover:hover .swiper-button-next {
+  opacity: 1;
+}

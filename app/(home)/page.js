@@ -1,14 +1,14 @@
 "use client";
 import {  useState } from 'react';
 import {SLIDES_DATA} from '../../constants';
-import BestDeals from '../Components/BestDeals';
+import NewArrival from '../Components/NewArrival';
 import HeroSlider from "../Components/HeroSlider";
-import TrendingProducts from '../Components/TrendingProducts';
+import TopBrandProducts from '../Components/TopBrandProducts';
 import products from "/products.json";
 import RecommendedProducts from '../Components/RecommendedProducts';
 import TrendingWeekProducts from '../Components/TrendingWeekProducts';
-import FourthSectionBanner from '../Components/FourthSectionBanner';
-import Collection from '../Components/Collection';
+import BannerSection from '../Components/BannerSection';
+import FeaturedCategories from '../Components/FeaturedCategories';
 import FeaturedProducts from '../Components/FeaturedProducts';
 
 export default function Home() {
@@ -21,11 +21,11 @@ export default function Home() {
   return (
     <>
       <HeroSlider slides={SLIDES_DATA}/>
-      <Collection products={products}/>
+      <FeaturedCategories products={products}/>
       <FeaturedProducts />
-      <FourthSectionBanner />
-      <TrendingProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
-      <BestDeals products={products}/>
+      <BannerSection />
+      <NewArrival products={products}/>
+      <TopBrandProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
       <TrendingWeekProducts products={products} filteredProducts={filteredProducts}/>
       <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/>
       

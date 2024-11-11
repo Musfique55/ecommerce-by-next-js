@@ -4,7 +4,7 @@ import Heading from '../CustomHooks/heading';
 import Image from 'next/image';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
-const Collection = ({products}) => {
+const FeaturedCategories = ({products}) => {
    
     return (
         <div>
@@ -37,4 +37,4 @@ const Collection = ({products}) => {
     );
 };
 
-export default Collection;
+export default FeaturedCategories;

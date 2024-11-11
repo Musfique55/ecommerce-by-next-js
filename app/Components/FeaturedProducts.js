@@ -13,12 +13,12 @@ const FeaturedProducts = () => {
             <Heading title={"Featured Products"}/>
             <Tabs className="">
                 <TabList className="flex flex-wrap gap-5 mt-5 mb-8 justify-center md:flex-wrap lg:flex-nowrap">
-                    <Tab onClick={() => setIndex(0)} className={`text-lg  cursor-pointer outline-none ${
+                    <Tab onClick={() => setIndex(0)} className={`text-sm  cursor-pointer outline-none ${
                   index === 0
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
                     : "text-black"
                 }`}>Best Deals</Tab>
-                    <Tab onClick={() => setIndex(1)} className={`text-lg  cursor-pointer outline-none ${
+                    <Tab onClick={() => setIndex(1)} className={`text-sm  cursor-pointer outline-none ${
                   index === 1
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
                     : "text-black"
