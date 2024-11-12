@@ -6,7 +6,7 @@ import HeroSlider from "../Components/HeroSlider";
 import TopBrandProducts from '../Components/TopBrandProducts';
 import products from "/products.json";
 import RecommendedProducts from '../Components/RecommendedProducts';
-import TrendingWeekProducts from '../Components/TrendingWeekProducts';
+import ReadyForOrder from '../Components/ReadyForOrder';
 import BannerSection from '../Components/BannerSection';
 import FeaturedCategories from '../Components/FeaturedCategories';
 import FeaturedProducts from '../Components/FeaturedProducts';
@@ -22,12 +22,12 @@ export default function Home() {
     <>
       <HeroSlider slides={SLIDES_DATA}/>
       <FeaturedCategories products={products}/>
+      <ReadyForOrder products={products} filteredProducts={filteredProducts}/>
       <FeaturedProducts />
       <BannerSection />
       <NewArrival products={products}/>
       <TopBrandProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
-      <TrendingWeekProducts products={products} filteredProducts={filteredProducts}/>
-      <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/>
+      {/* <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/> */}
       
     </>
   );

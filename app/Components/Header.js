@@ -1,6 +1,7 @@
 'use client'
 import React, {  useEffect, useState } from 'react';
-import { FaRegHeart, FaRegUser } from 'react-icons/fa6';
+import { FaFacebook, FaRegHeart, FaRegUser } from 'react-icons/fa6';
+import companyLogo from '/app/assets/download__4_-removebg-preview-removebg-preview (1).png';
 import { GoSearch } from 'react-icons/go';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import Navbar from './Navbar';
@@ -14,6 +15,7 @@ import LoginForm from './LoginForm';
 import Modal from './Modal';
 import RegisterForm from './RegisterForm';
 import 'animate.css';
+import { IoLocationOutline } from 'react-icons/io5';
 const Header = () => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
     const [scroll,setScroll] = useState(0);
@@ -86,32 +88,34 @@ const Header = () => {
    }
 
     return (
-        <div className={` w-full z-50 bg-[#00A6F6] text-white transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'static'}`}>
+        <div className={` w-full z-50  text-white transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'static'}`}>
             {/* desktop menu */}
-           <div className='flex justify-between bg-white p-5  md:px-12'>
-           <Link href={'/'}><Image src={'https://lh5.googleusercontent.com/proxy/lIj6Eiy46BsCbQnELvfarNxD0O9St_tQpnTftcr0lmOD361EfYxlO-9wBSA9DV2N0rTLJgl89hRXwGDGWObAijvhvcHxMCwnQz7egxS9C8EKRfKx1hQt'} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
-            <div className='hidden md:flex lg:flex '>
-                <input onChange={(e) => setSearchText(e.target.value)} value={searchText}  type="text" placeholder='Search for Anything' className='border p-2 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white'/>
-                <button className='bg-[#1A1A7E] text-white px-4'><GoSearch /></button>
+           <div className='flex justify-between bg-white text-black p-3 md:px-12'>
+           <Link href={'/'}><Image src={companyLogo} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
+            <div className='hidden md:flex lg:flex gap-2 flex-1'>
+                <input onChange={(e) => setSearchText(e.target.value)} value={searchText}  type="text" placeholder='Search for Products' className='border ml-8 px-2 py-1 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white text-sm rounded-md'/>
+                <button className='bg-[#1A1A7E] text-white px-6 text-sm rounded-md'>Search</button>
+            </div>
+            <div className='flex items-center gap-4 mr-10'>
+                <button className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</button>
+                
+                <Link href={'fb.com'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><FaFacebook /> Facebook Page</Link>
             </div>
             <div className='flex items-center gap-3 text-black relative'>
-               
-
                {
                 email ?<div className='py-4' onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
-                <FaRegUser  className='font-semibold text-xl cursor-pointer hover:text-blue-500'/>
-                </div> : <FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold text-xl cursor-pointer hover:text-blue-500'/>
+                <div className='border p-2 border-[#1A1A7E]'><FaRegUser  className='font-semibold text-lg cursor-pointer hover:text-blue-500'/></div>
+                </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold text-xl cursor-pointer hover:text-blue-500'/></div> 
                }
-               <div className='relative'>
+               <div className='relative border p-2 rounded-full border-[#1A1A7E]'>
                <Link href={'/wishlist'}  >
                     <FaRegHeart className='font-semibold text-xl cursor-pointer'/>
-                    
                 </Link>
                 <p className=" bg-[#1A1A7E] text-white cursor-pointer w-fit px-1 rounded-full text-sm absolute -top-3 -right-1">{wishList.length || 0}</p>
                </div>
                 
-                <div className="relative" onClick={() => setOpenCart(!openCart)}>
-                <HiOutlineShoppingBag className='font-semibold text-2xl cursor-pointer'/>
+                <div className="relative border p-2 rounded-full border-[#1A1A7E]" onClick={() => setOpenCart(!openCart)}>
+                <HiOutlineShoppingBag className='font-semibold text-xl cursor-pointer'/>
                 <p className='bg-[#1A1A7E] cursor-pointer text-white w-fit px-1 rounded-full text-sm absolute -top-2 -right-1'>{total}</p>
                 </div>
                 { showUserInfo &&

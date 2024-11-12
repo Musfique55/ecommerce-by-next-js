@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import {Navigation } from 'swiper/modules';
 import '../globals.css'
-const TrendingWeekProducts = ({products}) => {
+const ReadyForOrder = ({products}) => {
     const filteredProducts = products.filter(product => product.category === 'Speaker');
     const {handleCart} = useStore();
 
@@ -86,4 +86,4 @@ const TrendingWeekProducts = ({products}) => {
     );
 };
 
-export default TrendingWeekProducts;
+export default ReadyForOrder;

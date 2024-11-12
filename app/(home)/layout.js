@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       <StoreProvider>
           <Header />
           <Suspense fallback={<Loading />}>
-          <div className="p-5 md:px-12 bg-[#F2F3F7] py-14">
+          <div className="p-5 md:px-12 bg-[#F2F3F7] py-7">
             {children}
           </div>
           </Suspense>

@@ -100,6 +100,17 @@ body {
   height: 100%;
 }
 
+.swiper-button-prev, 
+.swiper-button-next {
+  color: #ccc !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 28px !important;
+  font-weight: 900;
+}
+
 .swiper-hover .swiper-button-prev,
 .swiper-hover .swiper-button-next {
   opacity: 0;
@@ -111,3 +122,25 @@ body {
 .swiper-hover:hover .swiper-button-next {
   opacity: 1;
 }
+
+
+.swiper-container-2 .custom-prev-2,
+.swiper-container-2 .custom-next-2 {
+  color: red;
+  font-size: 28px;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Custom active bullet */
+.swiper-pagination-bullet-active {
+  background-color: #0FF0FC !important;
+  transform: scale(1.2);
+}
+
