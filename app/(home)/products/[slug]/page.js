@@ -2,27 +2,37 @@
 import React, { useEffect, useState } from "react";
 import products from "/products.json";
 import Image from "next/image";
-import ReactStars from "react-rating-stars-component";
+import relatedProducts from '/products.json'
 import useStore from "@/app/CustomHooks/useStore";
-import { MdOutlineChevronRight,MdOutlineChevronLeft } from "react-icons/md";
-import { FaRegHeart } from "react-icons/fa6";
-import { ChevronRight } from "lucide-react";
+import {  FaWhatsapp } from "react-icons/fa6";
+import { Landmark } from "lucide-react";
 import Link from "next/link";
+import {Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import {Navigation } from 'swiper/modules';
+import Heading from "@/app/CustomHooks/heading";
+
 const Page = ({ params }) => {
   const title = params.slug.split("%20").join(" ");
   const [imageIndex, setImageIndex] = useState(0);
   const [scroll,setScroll] = useState(0);
   const product = products.find((item) => item.title === title);
   const [images,setImages] = useState(product?.image ||[]);
-  const { handleCart,handleWishlist } = useStore();
+  const { handleCart,handleWishlist,getCartItems,refetch,setRefetch } = useStore();
+  const [cartItems, setCartItems] = useState([]);
   const [quantity,setQuantity] = useState(1);
-  const handleNext = () => {
-    if(product?.image.length - 1 > imageIndex){
-        setImageIndex(imageIndex + 1);
-    }else{
-        setImageIndex(0);
+  const [activeTab,setActiveTab] = useState('Specification');
+  useEffect(() => {
+    setCartItems(getCartItems());
+    if (refetch) {
+      setCartItems(getCartItems());
+      setRefetch(false);
     }
-  }
+  }, [refetch]);
+  // const relatedProducts = products.filter(product => product.category === 'Speaker');
+  const matchWithCart = cartItems.filter(item => item.title === product.title);
+  console.log(matchWithCart);
 
   const [selectedColor, setSelectedColor] = useState('Space Black')
   const [selectedStorage, setSelectedStorage] = useState('128GB')
@@ -30,13 +40,7 @@ const Page = ({ params }) => {
   const colors = ['Space Black', 'Gold', 'Pink', 'Blue', 'White']
   const storages = ['128GB', '256GB', '512GB']
 
-  const handlePrev = () => {
-    if( imageIndex > 0){
-        setImageIndex(imageIndex - 1);
-    }else {
-        setImageIndex(product?.image.length - 1);
-    }
-  }
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +51,8 @@ const Page = ({ params }) => {
    },[scroll])
 
 
+   
+
   //  const handleMobileSlider = (idx) => {
       
   //     const updatedImages = [...images.slice(idx), ...images.slice(0, idx)];
@@ -54,136 +60,19 @@ const Page = ({ params }) => {
   //     setImageIndex(0);
   //   }
 
-   
+  //  console.log(product);
   
   return (
     <div className="bg-white p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
-        {/* Image Section */}
-        {/* <div className="flex flex-col-reverse relative flex-1 items-center md:flex-row"> */}
-          {/* Right Arrow */}
-          {/* <div className="text-white hidden md:block absolute text-4xl transform bg-[#4eb0be] -translate-y-1/2 md:right-4  cursor-pointer z-40 ">
-            <MdOutlineChevronRight onClick={handleNext} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
-          </div> */}
-
-          {/* <div className="mt-4 flex  gap-2 md:flex-col"> */}
-            {/* Thumbnail Images */}
-            {/* {images.length > 0 &&
-              images?.map((image, idx) => {
-                return (
-                  <Image
-                    key={idx}
-                    onClick={() => handleMobileSlider(idx)}
-                    src={image}
-                    alt="product-details"
-                    height={80}
-                    width={80}
-                    className="rounded cursor-pointer hover:opacity-75 transition-opacity"
-                    style={{
-                        userSelect: 'none',       // Disable text/image selection
-                        WebkitUserDrag: 'none'    // Disable drag on images
-                      }}
-                  />
-                );
-              })
-            } */}
-          {/* </div> */}
-
-          {/* Main Product Image */}
-          {/* <Image
-            src={images[imageIndex]}
-            alt="product-details"
-            height={280}
-            width={280}
-            className="rounded mx-auto transition ease-linear duration-1000"
-            style={{
-                userSelect: 'none',       
-                pointerEvents: 'none',    
-                WebkitUserDrag: 'none'    
-              }}
-          /> */}
-
-          {/* Left Arrow */}
-          {/* <div className="text-white hidden md:block absolute text-4xl bg-[#4eb0be] transform -translate-y-1/2 left-16 md:left-14 lg:left-[8rem] cursor-pointer z-40">
-            <MdOutlineChevronLeft onClick={handlePrev} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
-          </div>
-        </div> */}
-
-        
-        {/* <div className="space-y-8">
-          <div className="flex justify-between items-center">
-            <h1 className="text-lg sm:text-xl font-bold" style={{
-                        userSelect: 'none',       // Disable text/image selection
-                        WebkitUserDrag: 'none'    // Disable drag on images
-                      }}>{product?.title}</h1>
-
-            <div className="gap-3 flex items-center">
-              <ReactStars
-                count={5}
-                edit={false}
-                size={20}
-                value={product?.ratings || 0}
-                isHalf={true}
-                emptyIcon={<i className="far fa-star"></i>}
-                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                fullIcon={<i className="fa fa-star"></i>}
-                activeColor="#1A1A7E"
-              />
-              <p className="ml-2 mt-1 block text-gray-600">
-                ({product?.ratings})
-              </p>
-            </div>
-          </div>
-
-          <div className="flex justify-between">
-            <p className="text-black">Price {product?.price} $</p>
-            <p className="text-[#1A1A7E]">In Stock {product?.stocks}</p>
-          </div>
-
-       
-          <div className="flex items-center gap-5">
-            <div className="flex items-center border border-gray-300 rounded w-fit">
-            <input
-              type="number"
-              value={quantity}
-              min={quantity}
-              max={2}
-              className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
-            />
-            <div className="flex flex-col justify-between ">
-              <button onClick={() => quantity < 2 ?  setQuantity(quantity + 1) : alert('maximum 2 items can be added')} className="px-2 border-b border-l border-gray-300">▲</button>
-              <button onClick={() => quantity > 0  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
-            </div>
-          </div>
-         
-          <FaRegHeart onClick={() => handleWishlist(product)} className="text-2xl cursor-pointer"/>
-          </div>
-
-
       
-          <div className="mt-6">
-            <button className="w-full bg-red-600 text-white rounded px-4 py-2">
-              Buy it now
-            </button>
-            <button
-              onClick={() => handleCart(product,quantity)}
-              className="w-full bg-gray-800 text-white rounded px-4 py-2 mt-2"
-            >
-              Add to cart
-            </button>
-          </div>
-        </div> */}
-      {/* </div> */}
-
-
       <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center text-sm mb-4">
+      {/* <div className="flex items-center text-sm mb-4">
         <Link href="/" className="text-orange-500 hover:underline">Home</Link>
         <ChevronRight className="w-4 h-4 mx-2" />
         <Link href="/phones" className="text-orange-500 hover:underline">Phones & Tablets</Link>
         <ChevronRight className="w-4 h-4 mx-2" />
         <span className="text-gray-500">iPhone 16</span>
-      </div>
+      </div> */}
 
       <div className="grid md:grid-cols-2 gap-8">
         <div>
@@ -218,7 +107,7 @@ const Page = ({ params }) => {
         </div>
 
         <div>
-          <h1 className="text-2xl font-bold mb-2">iPhone 16</h1>
+          <h1 className="text-2xl font-bold mb-2">{product?.title}</h1>
           <div className="flex items-center mb-4">
             {/* <Badge variant="secondary" className="mr-2">New</Badge> */}
             {/* <div className="flex items-center">
@@ -228,16 +117,24 @@ const Page = ({ params }) => {
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
             </div> */}
-            <span className="text-sm text-gray-500 ml-2">5.0 (2 reviews)</span>
           </div>
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-orange-500">৳180000</span>
+            <span className="text-3xl font-bold text-[#1A1A7E]">৳{product?.price}</span>
             <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: In Stock</span>
           </div>
-          <div className="mb-4">
-            <p className="text-green-500 text-sm">EMI Available</p>
-            <p className="text-green-500 text-sm">0% Interest</p>
+          <div className="mb-4 flex items-center gap-3">
+            <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center  gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
+            <p className="text-gray-800 text-sm bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
           </div>
+          <Link
+            href="https://wa.me/1234567890" // Replace with your WhatsApp number
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-colors duration-200 mb-3"
+          >
+            <FaWhatsapp className="text-2xl" />
+            <span>Message <br /> on WhatsApp</span>
+          </Link>
           <div className="mb-4">
             <h3 className="font-semibold mb-2">Color: {selectedColor}</h3>
             <div className="flex space-x-2">
@@ -246,7 +143,7 @@ const Page = ({ params }) => {
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   className={`w-8 h-8 rounded-full border ${
-                    selectedColor === color ? 'border-orange-500' : 'border-gray-300'
+                    selectedColor === color ? 'border-blue-500' : 'border-gray-300'
                   }`}
                   style={{ backgroundColor: color.toLowerCase().replace(' ', '') }}
                 />
@@ -262,7 +159,7 @@ const Page = ({ params }) => {
                   onClick={() => setSelectedStorage(storage)}
                   className={`px-4 py-2 rounded ${
                     selectedStorage === storage
-                      ? 'bg-orange-500 text-white'
+                      ? 'bg-[#1A1A7E] text-white'
                       : 'bg-gray-200 text-gray-800'
                   }`}
                 >
@@ -272,34 +169,109 @@ const Page = ({ params }) => {
             </div>
           </div>
           <div className="flex space-x-4 mb-4">
-            <button className="flex-1 bg-orange-500 hover:bg-orange-600">Buy Now</button>
-            <button variant="outline" className="flex-1 border-orange-500 text-orange-500 hover:bg-orange-50">Add to Cart</button>
+            <div className="flex items-center border border-[#0F98BA] rounded-md overflow-hidden">
+              <button
+                onClick={quantity > 1 ? () => setQuantity(quantity - 1) : null}
+                className="px-4 py-2 text-[#0F98BA] font-semibold "
+              >
+                -
+              </button>
+              <div className="px-4 py-2 border-[#0F98BA] border-x text-[#0F98BA] font-semibold">
+                {quantity}
+              </div>
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="px-4 py-2 text-[#0F98BA] font-semibold "
+              >
+                +
+              </button>
+            </div>
+            <button className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
+
+            <button disabled={cartItems.length > 0} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
+      cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product,quantity)}>{cartItems.length > 0 ? 'Added' : 'Add to Cart'}</button>
           </div>
-          <p className="text-sm text-gray-500">Apple Store 1 Year Warranty Support</p>
+          {/* <p className="text-sm text-gray-500">Apple Store 1 Year Warranty Support</p> */}
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Related Products</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {/* {[...Array(6)].map((_, index) => (
-            <div key={index} className="border rounded-lg p-2">
-              <Image
-                src="/placeholder.svg?height=150&width=150"
-                alt={`Related Product ${index + 1}`}
-                width={150}
-                height={150}
-                className="w-full object-cover rounded-lg mb-2"
-              />
-              <h3 className="text-sm font-semibold mb-1">iPhone {16 - index}</h3>
-              <p className="text-xs text-gray-500 mb-1">৳{180000 - index * 10000}</p>
-              <button variant="outline" size="sm" className="w-full text-xs">
-                {index % 2 === 0 ? 'Add to Cart' : 'Details'}
-              </button>
-            </div>
-          ))} */}
-        </div>
+      {/* related products */}
+      <div className="my-12">
+        <Heading title={'Related Products'}/>
+        {/* sliders of related products */}
+        <Swiper
+            slidesPerView={5}
+            spaceBetween={20}
+            navigation= {true}
+            loop={true}
+            modules={[Navigation]}
+            className="trending-swiper"
+            >
+              {
+                relatedProducts.length > 0 ? (
+                  relatedProducts.slice(0,10).map((product, idx) => {
+                    return (
+                      <SwiperSlide key={idx} className="flex select-none justify-center">
+                        <div className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg ">
+                        <Link
+                          href={`products/${product.title}`}>
+                            <div className="flex items-center justify-center">
+                            <Image
+                              src={product?.image[0]}
+                              height="200"
+                              width="200"
+                              alt="mobile-phone"
+                              quality={75}
+                            />
+                            </div>
+                            <div>
+                              <h3 className="text-sm font-medium mb-2 text-black">
+                                {product?.title}
+                              </h3>
+        
+                              <p className="text-sm text-gray-800 font-bold mb-4">
+                                {product?.price} ৳
+                              </p>
+                            </div>
+                        </Link>
+                        <div className='flex gap-2 items-center'>
+                          <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                          <button
+                              onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
+                              className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                              >
+                              Add to Cart
+                              </button>
+                        </div>
+                        </div> 
+                      </SwiperSlide>
+                      
+                    );
+                  })
+                ) : (
+                  <p>No products found</p>
+                )
+              }
+              
+        </Swiper>
       </div>
+
+      
+        <div className="flex space-x-4 bg-gray-100 p-2 rounded-lg">
+          {['Specification', 'Description', 'Warranty'].map((tab) => (
+            <Link
+            key={tab}
+            href={`#${tab}`} // Use lowercase IDs for section navigation
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-1 text-sm font-semibold rounded-lg ${
+              activeTab === tab ? 'text-black bg-white shadow' : 'text-gray-500'
+            }`}
+          >
+            {tab}
+          </Link>
+          ))}
+        </div>
+   
 
       {/* <div className="mt-8">
         <h2 className="text-xl font-bold mb-4">Specifications</h2>
@@ -330,15 +302,11 @@ const Page = ({ params }) => {
       </div> */}
     </div>
       
-      
-      <h3 className="text-[#4eb0be] text-lg text-center mt-36 mb-10">
-        Specification
-      </h3>
 
       <div className="border p-5 md:p-10 ">
         <h2 className="text-[#4D5959] text-5xl mb-5">{product?.title}</h2>
         <h5 className="mb-5">Technical Details</h5>
-        <table className="table-auto w-full text-left">
+        <table id="Specification" className="table-auto w-full text-left">
           <tbody>
             <tr className="border">
               <td className="py-2 font-bold text-gray-700 pl-5">PRODUCT NAME</td>
@@ -403,7 +371,7 @@ const Page = ({ params }) => {
         </table>
 
         {/* extra descriptions */}
-        <div className="mt-20">
+        <div  id="Description" className="mt-20">
         <h3 className="text-xl font-bold mb-2">
           Immerse Yourself in Stunning Clarity: Apple Studio Display 27-Inch 5K
           Retina Display
@@ -565,8 +533,23 @@ const Page = ({ params }) => {
           workspace with the stunning Apple Studio Display 27-Inch 5K Retina
           Display.
         </p>
-      </div>
+        </div>
+
+        
       </div>  
+
+      {/* warranty */}
+      <div className="bg-white border rounded-lg p-6 mt-5 shadow-sm">
+          <h2 className="text-xl font-bold text-gray-900">Warranty</h2>
+          <div className="w-10 h-1 bg-[#1A1A7E] mt-1 mb-4"></div>
+          <p className="text-gray-700">
+            Explore our{' '}
+            <a href="/warranty-policy" className="text-[#1A1A7E] font-semibold hover:underline">
+              Warranty Policy
+            </a>{' '}
+            page for detailed information about our warranty coverage.
+          </p>
+        </div>
       
 
       {/* bottom cart */}
@@ -591,14 +574,14 @@ const Page = ({ params }) => {
             className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
           />
           <div className="flex flex-col justify-between">
-            <button onClick={() => quantity < 2 ?  setQuantity(quantity + 1) : alert('maximum 2 items can be added')} className="px-2 border-b border-l border-gray-300">▲</button>
-            <button onClick={() => quantity > 0  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
+            <button onClick={() =>  setQuantity(quantity + 1)} className="px-2 border-b border-l border-gray-300">▲</button>
+            <button onClick={() => quantity > 1  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
           </div>
         </div>
 
         {/* Add to Cart Button */}
-        <button onClick={() => handleCart(product,quantity)} className="bg-[#bc9975] hover:bg-[#b48f6a] text-white font-semibold py-2 px-6 rounded transition duration-300">
-          ADD TO CART
+        <button disabled={cartItems.length > 0} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+          {cartItems.length > 0 ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}
@@ -627,7 +610,7 @@ const Page = ({ params }) => {
               className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
             />
             <div className="flex flex-col justify-between">
-              <button onClick={() => quantity < 2 ?  setQuantity(quantity + 1) : alert('maximum 2 items can be added')} className="px-2 border-b border-l border-gray-300">▲</button>
+              <button onClick={() =>  setQuantity(quantity + 1)} className="px-2 border-b border-l border-gray-300">▲</button>
               <button onClick={() => quantity > 0  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
             </div>
           </div>
@@ -638,8 +621,8 @@ const Page = ({ params }) => {
         {/* Quantity Selector */}
        
         {/* Add to Cart Button */}
-        <button onClick={() => handleCart(product,quantity)} className="bg-[#bc9975] hover:bg-[#b48f6a] text-white font-semibold py-2 px-6 rounded transition duration-300">
-          ADD TO CART
+        <button disabled={cartItems.length > 0} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+          {cartItems.length > 0 ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}
