@@ -6,6 +6,8 @@ import ReactStars from "react-rating-stars-component";
 import useStore from "@/app/CustomHooks/useStore";
 import { MdOutlineChevronRight,MdOutlineChevronLeft } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 const Page = ({ params }) => {
   const title = params.slug.split("%20").join(" ");
   const [imageIndex, setImageIndex] = useState(0);
@@ -21,6 +23,13 @@ const Page = ({ params }) => {
         setImageIndex(0);
     }
   }
+
+  const [selectedColor, setSelectedColor] = useState('Space Black')
+  const [selectedStorage, setSelectedStorage] = useState('128GB')
+
+  const colors = ['Space Black', 'Gold', 'Pink', 'Blue', 'White']
+  const storages = ['128GB', '256GB', '512GB']
+
   const handlePrev = () => {
     if( imageIndex > 0){
         setImageIndex(imageIndex - 1);
@@ -38,28 +47,28 @@ const Page = ({ params }) => {
    },[scroll])
 
 
-   const handleMobileSlider = (idx) => {
+  //  const handleMobileSlider = (idx) => {
       
-      const updatedImages = [...images.slice(idx), ...images.slice(0, idx)];
-      setImages(updatedImages);
-      setImageIndex(0);
-    }
+  //     const updatedImages = [...images.slice(idx), ...images.slice(0, idx)];
+  //     setImages(updatedImages);
+  //     setImageIndex(0);
+  //   }
 
    
   
   return (
     <div className="bg-white p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
         {/* Image Section */}
-        <div className="flex flex-col-reverse relative flex-1 items-center md:flex-row">
+        {/* <div className="flex flex-col-reverse relative flex-1 items-center md:flex-row"> */}
           {/* Right Arrow */}
-          <div className="text-white hidden md:block absolute text-4xl transform bg-[#4eb0be] -translate-y-1/2 md:right-4  cursor-pointer z-40 ">
+          {/* <div className="text-white hidden md:block absolute text-4xl transform bg-[#4eb0be] -translate-y-1/2 md:right-4  cursor-pointer z-40 ">
             <MdOutlineChevronRight onClick={handleNext} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
-          </div>
+          </div> */}
 
-          <div className="mt-4 flex  gap-2 md:flex-col">
+          {/* <div className="mt-4 flex  gap-2 md:flex-col"> */}
             {/* Thumbnail Images */}
-            {images.length > 0 &&
+            {/* {images.length > 0 &&
               images?.map((image, idx) => {
                 return (
                   <Image
@@ -77,11 +86,11 @@ const Page = ({ params }) => {
                   />
                 );
               })
-            }
-          </div>
+            } */}
+          {/* </div> */}
 
           {/* Main Product Image */}
-          <Image
+          {/* <Image
             src={images[imageIndex]}
             alt="product-details"
             height={280}
@@ -92,16 +101,16 @@ const Page = ({ params }) => {
                 pointerEvents: 'none',    
                 WebkitUserDrag: 'none'    
               }}
-          />
+          /> */}
 
           {/* Left Arrow */}
-          <div className="text-white hidden md:block absolute text-4xl bg-[#4eb0be] transform -translate-y-1/2 left-16 md:left-14 lg:left-[8rem] cursor-pointer z-40">
+          {/* <div className="text-white hidden md:block absolute text-4xl bg-[#4eb0be] transform -translate-y-1/2 left-16 md:left-14 lg:left-[8rem] cursor-pointer z-40">
             <MdOutlineChevronLeft onClick={handlePrev} className="text-3xl sm:text-4xl cursor-pointer z-40"/>
           </div>
-        </div>
+        </div> */}
 
-        {/* Details Section */}
-        <div className="space-y-8">
+        
+        {/* <div className="space-y-8">
           <div className="flex justify-between items-center">
             <h1 className="text-lg sm:text-xl font-bold" style={{
                         userSelect: 'none',       // Disable text/image selection
@@ -131,7 +140,7 @@ const Page = ({ params }) => {
             <p className="text-[#1A1A7E]">In Stock {product?.stocks}</p>
           </div>
 
-          {/* quantity field */}
+       
           <div className="flex items-center gap-5">
             <div className="flex items-center border border-gray-300 rounded w-fit">
             <input
@@ -146,12 +155,12 @@ const Page = ({ params }) => {
               <button onClick={() => quantity > 0  ?  setQuantity(quantity - 1) : null} className="px-2 border-l border-gray-300">▼</button>
             </div>
           </div>
-          {/* wishlist */}
+         
           <FaRegHeart onClick={() => handleWishlist(product)} className="text-2xl cursor-pointer"/>
           </div>
 
 
-          {/* Action Buttons */}
+      
           <div className="mt-6">
             <button className="w-full bg-red-600 text-white rounded px-4 py-2">
               Buy it now
@@ -163,8 +172,165 @@ const Page = ({ params }) => {
               Add to cart
             </button>
           </div>
+        </div> */}
+      {/* </div> */}
+
+
+      <div className="container mx-auto px-4 py-8">
+      <div className="flex items-center text-sm mb-4">
+        <Link href="/" className="text-orange-500 hover:underline">Home</Link>
+        <ChevronRight className="w-4 h-4 mx-2" />
+        <Link href="/phones" className="text-orange-500 hover:underline">Phones & Tablets</Link>
+        <ChevronRight className="w-4 h-4 mx-2" />
+        <span className="text-gray-500">iPhone 16</span>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <div>
+          <div className="mb-4 border rounded-2xl p-2 ">
+            <Image
+              src={images[imageIndex]}
+              alt="iPhone 16"
+              width={400}
+              height={400}
+              className="mx-auto"
+            />
+          </div>
+          <div className="flex space-x-2 mb-4 ">
+            
+                {
+                  images.map((image,idx) => {
+                    return <div key={idx} className={`relative w-[130px] p-2 h-[130px] ${imageIndex === idx ? 'border-2 border-[#0F98BA]' : ''}   overflow-hidden `}>
+                    <Image
+                      onClick={() => setImageIndex(idx)}
+                      src={image}
+                      alt="iPhone 16"
+                      fill
+                      quality={100}
+                      className=" "
+                      placeholder="empty"
+                    />
+                  </div>
+                  })
+                }
+                
+          </div>
+        </div>
+
+        <div>
+          <h1 className="text-2xl font-bold mb-2">iPhone 16</h1>
+          <div className="flex items-center mb-4">
+            {/* <Badge variant="secondary" className="mr-2">New</Badge> */}
+            {/* <div className="flex items-center">
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+            </div> */}
+            <span className="text-sm text-gray-500 ml-2">5.0 (2 reviews)</span>
+          </div>
+          <div className="mb-4 flex items-center ">
+            <span className="text-3xl font-bold text-orange-500">৳180000</span>
+            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: In Stock</span>
+          </div>
+          <div className="mb-4">
+            <p className="text-green-500 text-sm">EMI Available</p>
+            <p className="text-green-500 text-sm">0% Interest</p>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-semibold mb-2">Color: {selectedColor}</h3>
+            <div className="flex space-x-2">
+              {colors.map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(color)}
+                  className={`w-8 h-8 rounded-full border ${
+                    selectedColor === color ? 'border-orange-500' : 'border-gray-300'
+                  }`}
+                  style={{ backgroundColor: color.toLowerCase().replace(' ', '') }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-semibold mb-2">Storage: {selectedStorage}</h3>
+            <div className="flex space-x-2">
+              {storages.map((storage) => (
+                <button
+                  key={storage}
+                  onClick={() => setSelectedStorage(storage)}
+                  className={`px-4 py-2 rounded ${
+                    selectedStorage === storage
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-gray-200 text-gray-800'
+                  }`}
+                >
+                  {storage}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="flex space-x-4 mb-4">
+            <button className="flex-1 bg-orange-500 hover:bg-orange-600">Buy Now</button>
+            <button variant="outline" className="flex-1 border-orange-500 text-orange-500 hover:bg-orange-50">Add to Cart</button>
+          </div>
+          <p className="text-sm text-gray-500">Apple Store 1 Year Warranty Support</p>
         </div>
       </div>
+
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Related Products</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {/* {[...Array(6)].map((_, index) => (
+            <div key={index} className="border rounded-lg p-2">
+              <Image
+                src="/placeholder.svg?height=150&width=150"
+                alt={`Related Product ${index + 1}`}
+                width={150}
+                height={150}
+                className="w-full object-cover rounded-lg mb-2"
+              />
+              <h3 className="text-sm font-semibold mb-1">iPhone {16 - index}</h3>
+              <p className="text-xs text-gray-500 mb-1">৳{180000 - index * 10000}</p>
+              <button variant="outline" size="sm" className="w-full text-xs">
+                {index % 2 === 0 ? 'Add to Cart' : 'Details'}
+              </button>
+            </div>
+          ))} */}
+        </div>
+      </div>
+
+      {/* <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Specifications</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          {[
+            { label: 'Brand', value: 'Apple' },
+            { label: 'Model', value: 'iPhone 16' },
+            { label: 'Network', value: 'GSM / CDMA / HSPA / EVDO / LTE / 5G' },
+            { label: 'Dimensions', value: '147.6 x 71.6 x 7.8 mm' },
+            { label: 'Weight', value: '170 g' },
+            { label: 'SIM', value: 'Nano-SIM and eSIM' },
+            { label: 'Display Type', value: 'Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, 1200 nits (HBM)' },
+            { label: 'Display Size', value: '6.1 inches' },
+            { label: 'Resolution', value: '1170 x 2532 pixels' },
+            { label: 'OS', value: 'iOS 18' },
+            { label: 'Chipset', value: 'Apple A17 Bionic (3 nm)' },
+            { label: 'CPU', value: 'Hexa-core' },
+            { label: 'GPU', value: 'Apple GPU (5-core graphics)' },
+            { label: 'Main Camera', value: '48 MP, f/1.8, 26mm (wide), 1.22µm, dual pixel PDAF, sensor-shift OIS' },
+            { label: 'Selfie Camera', value: '12 MP, f/2.2, 23mm (wide), 1/3.6"' },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex justify-between p-3 border rounded-lg">
+              <span className="text-gray-600">{label}</span>
+              <span className="font-medium">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div> */}
+    </div>
+      
+      
       <h3 className="text-[#4eb0be] text-lg text-center mt-36 mb-10">
         Specification
       </h3>
