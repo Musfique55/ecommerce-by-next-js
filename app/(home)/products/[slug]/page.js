@@ -20,9 +20,11 @@ const Page = ({ params }) => {
   const product = products.find((item) => item.title === title);
   const [images,setImages] = useState(product?.image ||[]);
   const { handleCart,handleWishlist,getCartItems,refetch,setRefetch } = useStore();
+  const [recentItems,setRecentItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [quantity,setQuantity] = useState(1);
   const [activeTab,setActiveTab] = useState('Specification');
+  
   useEffect(() => {
     setCartItems(getCartItems());
     if (refetch) {
@@ -30,9 +32,25 @@ const Page = ({ params }) => {
       setRefetch(false);
     }
   }, [refetch]);
-  // const relatedProducts = products.filter(product => product.category === 'Speaker');
+  
+  const handleRecentView = (item) => {
+    const getItem = localStorage.getItem('recentViewItems');
+    let items = getItem ? JSON.parse(getItem) : [];
+    if(!items.some(existingItem => existingItem.title === item.title)){
+      items.push(item);
+    }
+    if(getItem){
+      setRecentItems(items);
+    }
+    localStorage.setItem('recentViewItems',JSON.stringify(items));
+  }
+
+  useEffect(() => {
+    handleRecentView(product);
+  },[])
+
   const matchWithCart = cartItems.filter(item => item.title === product.title);
-  console.log(matchWithCart);
+  // console.log(matchWithCart);
 
   const [selectedColor, setSelectedColor] = useState('Space Black')
   const [selectedStorage, setSelectedStorage] = useState('128GB')
@@ -214,7 +232,7 @@ const Page = ({ params }) => {
                       <SwiperSlide key={idx} className="flex select-none justify-center">
                         <div className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg ">
                         <Link
-                          href={`products/${product.title}`}>
+                          href={`/products/${product.title}`}>
                             <div className="flex items-center justify-center">
                             <Image
                               src={product?.image[0]}
@@ -257,20 +275,6 @@ const Page = ({ params }) => {
       </div>
 
       
-        <div className="flex space-x-4 bg-gray-100 p-2 rounded-lg">
-          {['Specification', 'Description', 'Warranty'].map((tab) => (
-            <Link
-            key={tab}
-            href={`#${tab}`} // Use lowercase IDs for section navigation
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-1 text-sm font-semibold rounded-lg ${
-              activeTab === tab ? 'text-black bg-white shadow' : 'text-gray-500'
-            }`}
-          >
-            {tab}
-          </Link>
-          ))}
-        </div>
    
 
       {/* <div className="mt-8">
@@ -302,256 +306,281 @@ const Page = ({ params }) => {
       </div> */}
     </div>
       
-
-      <div className="border p-5 md:p-10 ">
-        <h2 className="text-[#4D5959] text-5xl mb-5">{product?.title}</h2>
-        <h5 className="mb-5">Technical Details</h5>
-        <table id="Specification" className="table-auto w-full text-left">
-          <tbody>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">PRODUCT NAME</td>
-              <td className="py-2 text-gray-600 border pl-5">{product.title}</td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">DISPLAY</td>
-              <td className="py-2 text-gray-600 whitespace-pre-line border pl-5">
-                <li>
-                27-inch (diagonal) 5K Retina Display,
-                </li>       
-                <li>600 nits brightness,{"\n"}</li>
-                <li>5120 x 2880 at 218 pixels per inch,{"\n"}</li>
-                <li>True Tone technology,{"\n"}</li>
-                <li>Wide color (P3),{"\n"}</li>
-                <li>Configurable with Nano-texture glass,{"\n"}</li>
-                <li>Support for 1 billion colors</li>
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">CAMERA</td>
-              <td className="py-2 text-gray-600 whitespace-pre-line border pl-5">
-                <li>122° Field of view,{"\n"}</li>
-                <li>12MP Ultra Wide camera,{"\n"}</li>
-                <li>Center Stage,{"\n"}</li>
-                <li>ƒ/2.4 aperture</li>
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">AUDIO</td>
-              <td className="py-2 text-gray-600 whitespace-pre-line border pl-5">
-                <li>Wide stereo sound,{"\n"}</li>
-                <li>Force-canceling speakers,{"\n"}</li>
-                <li>Studio-quality three-mic array with high signal-to-noise ratio,{"\n"}</li>
-                <li>Directional beamforming,{"\n"}</li>
-                <li>Support for &quot;Hey Siri&quot; </li>
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">SIZE</td>
-              <td className="py-2 text-gray-600 whitespace-pre-line border pl-5">
-                <li>Height (with stand): 18.8 inches (47.8 cm),{"\n"}</li>
-                <li>Width: 25.6 inches (65.0 cm),{"\n"}</li>
-                <li>Depth (with stand): 6.6 inches (16.8 cm),{"\n"}</li>
-                <li>Weight: 14.3 pounds (6.5 kg)</li>
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">CONNECTIONS</td>
-              <td className="py-2 text-gray-600 whitespace-pre-line border pl-5">
-                <li>One upstream Thunderbolt 3 (USB-C) port,{"\n"}</li>
-                <li>Three downstream USB-C (USB 3.1 Gen 1) ports</li>
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="py-2 font-bold text-gray-700 pl-5">WARRANTY</td>
-              <td className="py-2 text-gray-600 border pl-5">
-                1 Year Apple International Warranty
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        {/* extra descriptions */}
-        <div  id="Description" className="mt-20">
-        <h3 className="text-xl font-bold mb-2">
-          Immerse Yourself in Stunning Clarity: Apple Studio Display 27-Inch 5K
-          Retina Display
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Experience an unparalleled visual treat through the 27-inch 5K Retina
-          display at the Apple Studio Display. Hosting a resolution of 5120 x
-          2880 pixels at 218 pixels per inch, this display brings razor-sharp
-          text, lifelike images, and vibrant colors to life, whether you&apos;re
-          editing videos, working on graphic design, or simply enjoying
-          content.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Brilliant Visuals and True-to-Life Colors: Discover the Power of 600
-          nits Brightness
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Ensuring vivid visuals in bright lighting conditions, the display&apos;s
-          remarkable 600 nits brightness is complemented by support for one
-          billion colors and the P3 color gamut. Opt for Nano-texture glass to
-          eliminate glare and reflections, offering an uninterrupted, immersive
-          display experience.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          True Tone Technology: Enhancing Your Viewing Experience
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Adapting to ambient lighting, {`Apple’s`} True Tone Technology ensures a
-          natural and comfortable viewing experience. The Apple Studio Display
-          adjusts the color temperature to match the environment, reducing eye
-          strain and enhancing color accuracy.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Capturing Your World with Precision: High-Quality 12MP Ultra Wide
-          Camera
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Participate in video calls with exceptional clarity using the built-in
-          12MP Ultra Wide camera with a 122° field of view. Supporting Center
-          Stage, this camera ensures you stay in the frame, even in motion, with
-          a wide aperture of ƒ/2.4 for sharp and clear video calls in low-light
-          conditions.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Center Stage for Unmatched Video Calls
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Automatically keeping you in the spotlight during video calls, Center
-          Stage ensures you remain perfectly framed, whether on a conference
-          call or catching up with loved ones.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Reference Modes for Perfectly Optimized Display
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Tailor the display to your specific use case with a range of reference
-          modes, including HDTV Video, Apple Display, PAL and SECAM Video, NTSC
-          Video, Digital Cinema, Photography, Internet and Web, and Design and
-          Print. Achieve accurate color representation and optimal viewing
-          experiences.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Immersive Audio Experience: Wide Stereo Sound and Studio-Quality
-          Three-Mic Array
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Experience high-fidelity audio with wide stereo sound and
-          force-cancelling woofers. The six-speaker system complements your
-          visual experience, while the integrated studio-quality three-mic array
-          with directional beamforming ensures crystal-clear voice capture for
-          virtual meetings.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Customizable Ergonomics: Tilt- and Height-Adjustable Stand
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Achieve the perfect viewing angle and ergonomic setup with the tilt-
-          and height-adjustable stand of the Apple Studio Display. Tilt the
-          display from -5° to +25°, adjust its height up to 105 mm, and use it
-          in landscape or portrait orientation. VESA mount compatibility adds
-          versatility.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          High-Speed Connectivity with Thunderbolt 3 and USB-C Ports
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Seamlessly connect compatible devices with one upstream Thunderbolt 3
-          port for host with 96W host charging and one additional Thunderbolt 3
-          port. Three downstream USB-C ports (up to 10Gb/s) provide high-speed
-          data transfer and charging capabilities.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Compatibility and System Requirements: Your Device&apos;s Perfect Companion
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Compatible with various Mac models running macOS Monterey 12.3 or
-          later, including MacBook Air (2018 or later), Mac Pro (2019 or later),
-          Mac mini (2018 or later), iMac Pro (2017), and select iPad models
-          running iPadOS 15.4 or later.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Sleek Design and VESA Mount Capability: Apple Studio Display 27-Inch
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Add a touch of elegance to any workspace with the sleek and modern
-          design of the Apple Studio Display. VESA mount compatibility offers a
-          clean and space-saving wall mounting option.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          The Apple Studio Display: Electrical and Operating Requirements for
-          Optimal Performance
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Operating at a frequency of 50Hz to 60Hz and with a line voltage range
-          of 100-240V AC, the display is suitable for use in various regions.
-          Tested up to an altitude of 16,400 feet (5000 meters) and functioning
-          in a relative humidity range of 5% to 90% non-condensing, with a
-          recommended operating temperature of 50° to 95° F (10° to 35° C).
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Package Contents: What&apos;s Included in the Box of Apple Studio Display
-        </h3>
-        <p className="text-gray-600 mb-4">
-          The Apple Studio Display includes a Thunderbolt cable (1 m) for
-          convenient connectivity. All necessary components are included to
-          ensure a seamless setup.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          Unparalleled Warranty and Support: 1-Year Apple International Warranty
-          of Apple Studio Display
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Rest easy with {`Apple’s`} 1-Year International Warranty, protecting your
-          investment against manufacturing defects and malfunctions.
-        </p>
-
-        <h3 className="text-xl font-bold mb-2">
-          The Best Deal in Bangladesh: Price and Where to Buy Apple Studio
-          Display 27-Inch 5K Retina Display
-        </h3>
-        <p className="text-gray-600 mb-4">
-          As of 8th June 2023, the base model of the Apple Studio Display starts
-          at 235,000 Tk in Bangladesh. For the best price and a genuine product,
-          consider purchasing from Custom Mac {`BD’s`} website or visiting their
-          physical stores for a hassle-free buying experience. Elevate your
-          workspace with the stunning Apple Studio Display 27-Inch 5K Retina
-          Display.
-        </p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="col-span-2">
+        <div className="flex space-x-4 bg-gray-100 w-fit mb-5 p-2 rounded-lg">
+          {['Specification', 'Description', 'Warranty'].map((tab) => (
+            <Link
+            key={tab}
+            href={`#${tab}`} // Use lowercase IDs for section navigation
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-1 text-sm font-semibold rounded-lg ${
+              activeTab === tab ? 'text-black bg-white shadow' : 'text-gray-500'
+            }`}
+          >
+            {tab}
+          </Link>
+          ))}
         </div>
+        <div className="border p-4 rounded-lg">
+        <h2 className="text-[#4D5959] text-xl mb-2 font-semibold">Specification</h2>
+        <div className="w-[7.5rem] h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
+        <table id="Specification" className="table-auto w-full text-sm text-left">
+        {[
+                    { label: "Brand", value: "Apple" },
+                    { label: "Model", value: "iPhone 16" },
+                    { label: "Network", value: "GSM / CDMA / HSPA / EVDO / LTE / 5G" },
+                    { label: "Dimensions", value: "147.6 x 71.6 x 7.8 mm" },
+                    { label: "Weight", value: "179 g" },
+                    { label: "SIM", value: "Nano-SIM and eSIM - International" },
+                    { label: "Display Type", value: "Super Retina XDR OLED | 120Hz | HDR10 | Dolby Vision | 2000 nits" },
+                    { label: "Display Size", value: "6.1 inches" },
+                    { label: "Display Resolution", value: "1179 x 2556 pixels" },
+                    { label: "OS", value: "iOS 18" },
+                    { label: "Chipset", value: "Apple A18 (3 nm)" },
+                    { label: "CPU", value: "Hexa-core" },
+                    { label: "Memory", value: "RAM: 8GB; Storage: 128GB | 256GB | 512GB" },
+                    { label: "Main Camera", value: "48 MP(wide) | 12 MP (ultrawide) |Dual-LED dual-tone flash, HDR (photo/panorama) | 4K, 1080p, Dolby Vision HDR, Cinematic mode, Night mode, Macro Photography" },
+                    { label: "Selfie Camera", value: "12 MP (wide) | HDR | Cinematic mode | 4K@24/25/30/60fps, 1080p@30/60/120fps" },
+                    { label: "Sound", value: "Built-in stereo speaker | Spatial Audio playback | Dolby Digital | Dolby Digital Plus | Dolby Atmos" },
+                    { label: "Battery Info", value: "Li-Ion 3500 mAh | Non-removable | Up to 30W Wired Charging | 25W wireless (MagSafe) | 15W wireless (Qi2) | 7.5W wireless (Qi)" },
+                    { label: "Sensors", value: "Face ID, accelerometer, gyro, proximity, compass, barometer" },
+                  ].map((item, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="py-2 font-semibold border pl-3 ">{item.label}</td>
+                      <td className="py-2 pl-3 border">{item.value}</td>
+                    </tr>
+                  ))}
+        </table>
+        </div>
+        {/* extra descriptions */}
+        <div  id="Description" className="mt-5 p-3 text-sm border rounded-lg">
+        <h2 className="text-xl font-bold text-gray-900">Description</h2>
+        <div className="w-[6.5rem] h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
+          <h3 className="text-xl font-bold mb-2">
+            Immerse Yourself in Stunning Clarity: Apple Studio Display 27-Inch 5K
+            Retina Display
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Experience an unparalleled visual treat through the 27-inch 5K Retina
+            display at the Apple Studio Display. Hosting a resolution of 5120 x
+            2880 pixels at 218 pixels per inch, this display brings razor-sharp
+            text, lifelike images, and vibrant colors to life, whether you&apos;re
+            editing videos, working on graphic design, or simply enjoying
+            content.
+          </p>
 
-        
-      </div>  
+          <h3 className="text-xl font-bold mb-2">
+            Brilliant Visuals and True-to-Life Colors: Discover the Power of 600
+            nits Brightness
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Ensuring vivid visuals in bright lighting conditions, the display&apos;s
+            remarkable 600 nits brightness is complemented by support for one
+            billion colors and the P3 color gamut. Opt for Nano-texture glass to
+            eliminate glare and reflections, offering an uninterrupted, immersive
+            display experience.
+          </p>
 
-      {/* warranty */}
-      <div className="bg-white border rounded-lg p-6 mt-5 shadow-sm">
-          <h2 className="text-xl font-bold text-gray-900">Warranty</h2>
-          <div className="w-10 h-1 bg-[#1A1A7E] mt-1 mb-4"></div>
-          <p className="text-gray-700">
-            Explore our{' '}
-            <a href="/warranty-policy" className="text-[#1A1A7E] font-semibold hover:underline">
-              Warranty Policy
-            </a>{' '}
-            page for detailed information about our warranty coverage.
+          <h3 className="text-xl font-bold mb-2">
+            True Tone Technology: Enhancing Your Viewing Experience
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Adapting to ambient lighting, {`Apple’s`} True Tone Technology ensures a
+            natural and comfortable viewing experience. The Apple Studio Display
+            adjusts the color temperature to match the environment, reducing eye
+            strain and enhancing color accuracy.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Capturing Your World with Precision: High-Quality 12MP Ultra Wide
+            Camera
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Participate in video calls with exceptional clarity using the built-in
+            12MP Ultra Wide camera with a 122° field of view. Supporting Center
+            Stage, this camera ensures you stay in the frame, even in motion, with
+            a wide aperture of ƒ/2.4 for sharp and clear video calls in low-light
+            conditions.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Center Stage for Unmatched Video Calls
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Automatically keeping you in the spotlight during video calls, Center
+            Stage ensures you remain perfectly framed, whether on a conference
+            call or catching up with loved ones.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Reference Modes for Perfectly Optimized Display
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Tailor the display to your specific use case with a range of reference
+            modes, including HDTV Video, Apple Display, PAL and SECAM Video, NTSC
+            Video, Digital Cinema, Photography, Internet and Web, and Design and
+            Print. Achieve accurate color representation and optimal viewing
+            experiences.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Immersive Audio Experience: Wide Stereo Sound and Studio-Quality
+            Three-Mic Array
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Experience high-fidelity audio with wide stereo sound and
+            force-cancelling woofers. The six-speaker system complements your
+            visual experience, while the integrated studio-quality three-mic array
+            with directional beamforming ensures crystal-clear voice capture for
+            virtual meetings.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Customizable Ergonomics: Tilt- and Height-Adjustable Stand
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Achieve the perfect viewing angle and ergonomic setup with the tilt-
+            and height-adjustable stand of the Apple Studio Display. Tilt the
+            display from -5° to +25°, adjust its height up to 105 mm, and use it
+            in landscape or portrait orientation. VESA mount compatibility adds
+            versatility.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            High-Speed Connectivity with Thunderbolt 3 and USB-C Ports
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Seamlessly connect compatible devices with one upstream Thunderbolt 3
+            port for host with 96W host charging and one additional Thunderbolt 3
+            port. Three downstream USB-C ports (up to 10Gb/s) provide high-speed
+            data transfer and charging capabilities.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Compatibility and System Requirements: Your Device&apos;s Perfect Companion
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Compatible with various Mac models running macOS Monterey 12.3 or
+            later, including MacBook Air (2018 or later), Mac Pro (2019 or later),
+            Mac mini (2018 or later), iMac Pro (2017), and select iPad models
+            running iPadOS 15.4 or later.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Sleek Design and VESA Mount Capability: Apple Studio Display 27-Inch
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Add a touch of elegance to any workspace with the sleek and modern
+            design of the Apple Studio Display. VESA mount compatibility offers a
+            clean and space-saving wall mounting option.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            The Apple Studio Display: Electrical and Operating Requirements for
+            Optimal Performance
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Operating at a frequency of 50Hz to 60Hz and with a line voltage range
+            of 100-240V AC, the display is suitable for use in various regions.
+            Tested up to an altitude of 16,400 feet (5000 meters) and functioning
+            in a relative humidity range of 5% to 90% non-condensing, with a
+            recommended operating temperature of 50° to 95° F (10° to 35° C).
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Package Contents: What&apos;s Included in the Box of Apple Studio Display
+          </h3>
+          <p className="text-gray-600 mb-4">
+            The Apple Studio Display includes a Thunderbolt cable (1 m) for
+            convenient connectivity. All necessary components are included to
+            ensure a seamless setup.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            Unparalleled Warranty and Support: 1-Year Apple International Warranty
+            of Apple Studio Display
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Rest easy with {`Apple’s`} 1-Year International Warranty, protecting your
+            investment against manufacturing defects and malfunctions.
+          </p>
+
+          <h3 className="text-xl font-bold mb-2">
+            The Best Deal in Bangladesh: Price and Where to Buy Apple Studio
+            Display 27-Inch 5K Retina Display
+          </h3>
+          <p className="text-gray-600 mb-4">
+            As of 8th June 2023, the base model of the Apple Studio Display starts
+            at 235,000 Tk in Bangladesh. For the best price and a genuine product,
+            consider purchasing from Custom Mac {`BD’s`} website or visiting their
+            physical stores for a hassle-free buying experience. Elevate your
+            workspace with the stunning Apple Studio Display 27-Inch 5K Retina
+            Display.
           </p>
         </div>
-      
+        {/* warranty */}
+        <div id="Warranty" className="bg-white text-sm border rounded-lg p-6 mt-5 shadow-sm">
+            <h2 className="text-xl font-bold text-gray-900">Warranty</h2>
+            <div className="w-24 h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
+            <p className="text-gray-700">
+              Explore our{' '}
+              <a href="/warranty-policy" className="text-[#1A1A7E] font-semibold hover:underline">
+                Warranty Policy
+              </a>{' '}
+              page for detailed information about our warranty coverage.
+            </p>
+        </div>
+      </div>
 
+      {/* recent viewed items */}
+
+         <div className="w-full max-w-md h-fit mb-2 mt-4 mx-auto bg-white shadow-md  rounded-lg p-4">
+          <p className="text-xl text-center font-semibold border-b pb-1 mb-4">Recently Viewed</p>
+          <div className="flex flex-col space-y-5">
+            {recentItems.length > 0 ? (
+              recentItems.slice(-20).map((product, index) => (
+                <div
+                  key={index}
+                  className="flex px-2 py-3 items-center bg-white rounded-lg hover:shadow-md transition-shadow duration-200"
+                >
+                  <Link href={`/products/${product.title}`}>
+                    <Image
+                      src={product?.image[0]}
+                      alt={product?.title}
+                      width={80}
+                      height={80}
+                      objectFit="cover"
+                      className="rounded-md"
+                    />
+                  </Link>
+
+                  <div className="flex-1 ml-4">
+                    <Link href={`/products/${product.title}`} className="font-semibold">
+                      {product?.title}
+                    </Link>
+                    <p className="text-[#1A1A7E] font-bold">{product?.price} ৳</p>
+                    <div className="flex items-center space-x-2 mt-2">
+                      <button className="bg-[#1A1A7E] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                        Buy Now
+                      </button>
+                      <button className="border border-gray-300 text-gray-700 px-2 py-1 rounded-md text-xs font-medium hover:bg-gray-100 transition-colors duration-200">
+                        Add to compare
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">No recently viewed items.</p>
+            )}
+          </div>
+          </div>
+
+       
+      
+    </div>
+        
       {/* bottom cart */}
       {/* desktop */}
       <div className={`hidden md:flex  ${scroll > 700 ? "fixed left-0 bottom-0" : 'ease-out hidden fade'} transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] w-full  bg-white text-black  justify-between items-center py-4 px-6 border-t`}>
