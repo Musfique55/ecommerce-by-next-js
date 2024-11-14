@@ -2,7 +2,6 @@
 import React, {  useEffect, useState } from 'react';
 import { FaFacebook, FaRegHeart, FaRegUser } from 'react-icons/fa6';
 import companyLogo from '/app/assets/download__4_-removebg-preview-removebg-preview (1).png';
-import { GoSearch } from 'react-icons/go';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import Navbar from './Navbar';
 import Image from 'next/image';
@@ -105,17 +104,17 @@ const Header = () => {
                {
                 email ?<div className='py-4' onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
                 <div className='border p-2 border-[#1A1A7E]'><FaRegUser  className='font-semibold text-lg cursor-pointer hover:text-blue-500'/></div>
-                </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold text-xl cursor-pointer hover:text-blue-500'/></div> 
+                </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold  text-xl cursor-pointer hover:text-blue-500'/></div> 
                }
                <div className='relative border p-2 rounded-full border-[#1A1A7E]'>
                <Link href={'/wishlist'}  >
-                    <FaRegHeart className='font-semibold text-xl cursor-pointer'/>
+                    <FaRegHeart className='font-semibold hover:text-blue-500  text-xl cursor-pointer'/>
                 </Link>
                 <p className=" bg-[#1A1A7E] text-white cursor-pointer w-fit px-1 rounded-full text-sm absolute -top-3 -right-1">{wishList.length || 0}</p>
                </div>
                 
                 <div className="relative border p-2 rounded-full border-[#1A1A7E]" onClick={() => setOpenCart(!openCart)}>
-                <HiOutlineShoppingBag className='font-semibold text-xl cursor-pointer'/>
+                <HiOutlineShoppingBag className='font-semibold hover:text-blue-500 text-xl cursor-pointer'/>
                 <p className='bg-[#1A1A7E] cursor-pointer text-white w-fit px-1 rounded-full text-sm absolute -top-2 -right-1'>{total}</p>
                 </div>
                 { showUserInfo &&

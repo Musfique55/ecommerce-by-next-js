@@ -10,8 +10,8 @@ const BannerSection = () => {
               <div className='flex flex-col items-center md:items-start'>
               <h2 className="text-xl font-medium mb-5">Discounts 50% <br /> On All Watches</h2>
               <div className="flex items-center gap-3 ">
-                <Link href={'/category/Smart Watch'}>
-                <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button></Link>
+                <Link className="flex  items-center border-b text-white font-medium text-lg p-0" href={'/category/Smart Watch'}>
+                Shop Now</Link>
                 <span className="text-white"><FaArrowRight /></span>
               </div>
               </div>
@@ -26,8 +26,8 @@ const BannerSection = () => {
               <div className='flex flex-col items-center md:items-start'>
               <h2 className="text-xl font-medium mb-5">Mega Discounts <br /> 50% Off <span className="text-orange-400 italic">This Week</span></h2>
               <div className="flex items-center gap-3 ">
-                <Link href={'/category/Smart Buds'}>
-                <button className="flex  items-center border-b text-white font-medium text-lg p-0">Shop Now </button>
+                <Link className="flex  items-center border-b text-white font-medium text-lg p-0" href={'/category/Smart Buds'}>
+                Shop Now 
                 </Link>
                 
                 <span className="text-white"><FaArrowRight /></span>

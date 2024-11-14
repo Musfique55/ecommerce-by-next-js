@@ -10,6 +10,8 @@ import ReadyForOrder from '../Components/ReadyForOrder';
 import BannerSection from '../Components/BannerSection';
 import FeaturedCategories from '../Components/FeaturedCategories';
 import FeaturedProducts from '../Components/FeaturedProducts';
+import OurFeatures from '../Components/OurFeatures';
+import Brands from '../Components/Brands';
 
 export default function Home() {
   const categories = [...new Set(products.map((product) => product.category))];
@@ -21,12 +23,14 @@ export default function Home() {
   return (
     <>
       <HeroSlider slides={SLIDES_DATA}/>
+      <OurFeatures />
       <FeaturedCategories products={products}/>
-      <ReadyForOrder products={products} filteredProducts={filteredProducts}/>
+      <ReadyForOrder products={products}/>
       <FeaturedProducts />
       <BannerSection />
       <NewArrival products={products}/>
-      <TopBrandProducts products={products} categories={categories} filteredProducts={filteredProducts} setCurrentCategory={setCurrentCategory} currentCategory={currentCategory}/>
+      <TopBrandProducts products={products} />
+      <Brands/>
       {/* <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/> */}
       
     </>

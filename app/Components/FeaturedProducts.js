@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import Heading from '../CustomHooks/heading';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';

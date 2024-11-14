@@ -43,20 +43,24 @@ const Navbar = () => {
             <div className='border-t w-full bg-gradient-to-r from-[#141129]  to-[#040209] text-white z-40 py-3 px-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
                 <Link href={'#'}>
                 <div onMouseEnter={() => setIsHovered(true)}  className='flex items-center gap-3'>
-                    <Link href={'/'} className='font-semibold text-sm'>Home</Link>
+                    <Link href={'/'} className='font-semibold text-[13px]'>Home</Link>
                 </div>
                 </Link>
                 <div className='flex justify-between items-center flex-1'>
-                    <div className='flex gap-5 border-l-2 border-gray-300'>
+                    <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
                         colletion.map((item,idx) => {
-                            return <Link key={idx} href={item.category} className={`text-white text-xs font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.category}</Link>
+                            return <Link key={idx} href={item.category} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.category}</Link>
                         })
                     }
-                    <Link href={'/'} className='text-xs text-white bg-gradient-to-r from-[#4F75FF] via-[#00CCDD] to-[#7CF5FF] font-semibold bg-clip-text text-transparent'>Online Exclusive</Link>
+                    <Link href={'/'} className='flex items-center'>
+                    <span className='text-[13px] text-transparent bg-gradient-to-r from-[#4F75FF] via-[#00CCDD] to-[#7CF5FF] font-semibold bg-clip-text'>
+                        Online Exclusive
+                    </span>
+                    </Link>
                     </div>
                     <div > 
-                    <p className='flex items-center text-sm gap-2'><span><FaPhoneAlt className='text-white' /></span>
+                    <p className='flex items-center text-[13px] gap-2'><span><FaPhoneAlt className='text-white' /></span>
                     +8801639-147270</p>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ const ReadyForOrder = ({products}) => {
                 filteredProducts.length > 0 ? (
                   filteredProducts.map((product, idx) => {
                     return (
-                      <SwiperSlide key={idx} className="flex justify-center">
+                      <SwiperSlide key={idx} className="flex select-none justify-center">
                       <Link
                       href={`products/${product.title}`}
                       className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg "
