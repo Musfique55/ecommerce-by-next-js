@@ -87,7 +87,7 @@ const Header = () => {
    }
 
     return (
-        <div className={` w-full z-50  text-white transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'static'}`}>
+        <div className={` w-full z-50  text-white  transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'relative'}`}>
             {/* desktop menu */}
            <div className='flex justify-between bg-white text-black p-3 md:px-12'>
            <Link href={'/'}><Image src={companyLogo} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
@@ -102,8 +102,8 @@ const Header = () => {
             </div>
             <div className='flex items-center gap-3 text-black relative'>
                {
-                email ?<div className='py-4' onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
-                <div className='border p-2 border-[#1A1A7E]'><FaRegUser  className='font-semibold text-lg cursor-pointer hover:text-blue-500'/></div>
+                email ?<div  onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
+                <div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  className='font-semibold  text-xl  cursor-pointer hover:text-blue-500'/></div>
                 </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold  text-xl cursor-pointer hover:text-blue-500'/></div> 
                }
                <div className='relative border p-2 rounded-full border-[#1A1A7E]'>
@@ -117,11 +117,11 @@ const Header = () => {
                 <HiOutlineShoppingBag className='font-semibold hover:text-blue-500 text-xl cursor-pointer'/>
                 <p className='bg-[#1A1A7E] cursor-pointer text-white w-fit px-1 rounded-full text-sm absolute -top-2 -right-1'>{total}</p>
                 </div>
-                { showUserInfo &&
-                    <div onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)} className={`bg-white shadow-lg absolute z-50 top-10 -right-1`}>
-                    <p className='border-b cursor-pointer p-3 hover:text-blue-500'>{email}</p>
-                    <p onClick={handleLogout} className='p-3 cursor-pointer hover:text-blue-500'>Logout</p>
-                </div>
+                {   showUserInfo &&
+                    <div onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)} className={`bg-white shadow-lg absolute z-50 top-9 -right-1`}>
+                        <p className='border-b cursor-pointer p-3 hover:text-blue-500'>{email}</p>
+                        <p onClick={handleLogout} className='p-3 cursor-pointer hover:text-blue-500'>Logout</p>
+                    </div>
                 }
             </div>
            </div>
