@@ -200,7 +200,7 @@ const Page = ({ params }) => {
               />
           </div>
           </div>
-        
+          {/* availability checkbox */}
           <div className="p-3 bg-white rounded-lg">
             <div className="w-full max-w-xs rounded-lg ">
               <button
@@ -238,7 +238,7 @@ const Page = ({ params }) => {
             </div>
           </div>
 
-
+          {/* storage checkbbox */}
           <div className="p-3 bg-white rounded-lg">
               <button
                 onClick={() => setIsStorageExpanded(!isStorageExpanded)}
@@ -274,7 +274,7 @@ const Page = ({ params }) => {
               </div>
           </div>
 
-
+          {/* type checkbbox */}
           <div className="p-3 bg-white rounded-lg">
               <button
                 onClick={() => setIsTypeExpanded(!isTypeExpanded)}
@@ -310,7 +310,7 @@ const Page = ({ params }) => {
               </div>
           </div>
 
-
+          {/* size checkbox */}
           <div className="p-3 bg-white rounded-lg">
               <button
                 onClick={() => setIsSizeExpanded(!isSizeExpanded)}
@@ -346,23 +346,107 @@ const Page = ({ params }) => {
               </div>
           </div>
 
-          
-          <div>
-            <h4 className="text-xl mb-3">Shop by Storage</h4>
-            <select
-              name=""
-              id=""
-              onChange={(e) => setRom(e.target.value)}
-              className="w-full p-1"
-            >
-              <option value="">Default</option>
-              <option value="256">256GB</option>
-              <option value="512">512GB</option>
-            </select>
+          {/* repair checkbox */}
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsRepairExpanded(!isRepairExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isRepairExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Repair</span>
+                {isRepairExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isRepairExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isRepairExpanded ? contentHeight : 0 }}
+              >
+                <div>
+                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="online-order" id="12/256" />
+                    <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
+                    </div>
+              </div>
           </div>
 
-          <div className="color-filter">
-            <h3 className="font-semibold mb-4">BY COLOR</h3>
+          {/* Official Checkbox */}
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsWarrantyExpanded(!isWarrantyExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isWarrantyExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Warranty</span>
+                {isWarrantyExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isWarrantyExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isWarrantyExpanded ? contentHeight : 0 }}
+              >
+                  <div>
+                    <input type="checkbox" name="in-stock" id="official" />
+                    <label htmlFor="official" className="ml-2 text-base">Official</label>
+                  </div>
+                    
+              </div>
+          </div>
+
+          {/* sim checkbox */}
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsNetworkExpanded(!isNetworkExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isNetworkExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Network</span>
+                {isNetworkExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isNetworkExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isNetworkExpanded ? contentHeight : 0 }}
+              >
+                  <div>
+                    <input type="checkbox" name="wifi" id="wifi" />
+                    <label htmlFor="wifi" className="ml-2 text-base">Wifi</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="LTE" id="lte" />
+                    <label htmlFor="lte" className="ml-2 text-base">LTE</label>
+                  </div>
+                    
+              </div>
+          </div>
+
+
+          <div className="color-filter bg-white p-3 rounded-lg">
+            <h3 className="font-semibold text-sm mb-4">BY COLOR</h3>
             <div className="flex gap-2">
               {colors.map((color, idx) => (
                 <input

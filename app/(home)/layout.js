@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import StoreProvider from "../StoreContext/store";
 import { Suspense } from "react";
 import Loading from "./loading";
+import AvatarChat from "../Components/AvatarChat";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,9 +35,10 @@ export default function RootLayout({ children }) {
           <Suspense fallback={<Loading />}>
           <div className="p-5 md:px-12 bg-[#F2F3F7] py-7">
             {children}
+            <AvatarChat />
           </div>
           </Suspense>
-            <Footer />
+          <Footer />
       </StoreProvider>
       </body>
     </html>
