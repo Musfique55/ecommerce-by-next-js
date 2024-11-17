@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useEffect, useState } from 'react';
-
+import products from '/products.json';
 export const storeContext = createContext(null);
 const StoreProvider = ({children}) => {
     const [refetch,setRefetch] = useState(false);
@@ -11,6 +11,8 @@ const StoreProvider = ({children}) => {
         setIsMounted(true);
     },[])
 
+    const brands  = [...new Set(products.map(product => product.brand_name))];
+    console.log(brands);
 
     const handleCart = (item,quantity) => {
         if(!isMounted) return;
@@ -103,7 +105,7 @@ const StoreProvider = ({children}) => {
     const reload = (boolean) => {
         setRefetch(boolean)
     }
-    const values = {handleCart,getCartItems,refetch,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleWishlistDelete}
+    const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleWishlistDelete}
     return (
         <storeContext.Provider value={values}>
             {children}

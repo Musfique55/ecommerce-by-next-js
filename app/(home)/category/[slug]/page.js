@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import products from "/products.json";
 import Image from "next/image";
-import ReactStars from "react-rating-stars-component";
+import products from '/products.json'
 import useStore from "@/app/CustomHooks/useStore";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { TbFilters } from "react-icons/tb";
+// import { TbFilters } from "react-icons/tb";
 import Link from "next/link";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 const Page = ({ params }) => {
   const title = params.slug.split("%20").join(" ");
   const [items, setItems] = useState([]);
@@ -18,172 +18,335 @@ const Page = ({ params }) => {
   const [ram, setRam] = useState(0);
   const [rom, setRom] = useState(0);
   const { handleCart } = useStore();
-  const [isChecked,setIsChecked] = useState(false); 
+  const [isChecked, setIsChecked] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [sortBy,setSortBy] = useState(''); 
-
+  const [sortBy, setSortBy] = useState("");
+  const [selectedBrand,setSelectedBrand] = useState('');
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [isStorageExpanded, setIsStorageExpanded] = useState(true);
+  const [isTypeExpanded, setIsTypeExpanded] = useState(true);
+  const [isSizeExpanded, setIsSizeExpanded] = useState(true);
+  const [isRepairExpanded, setIsRepairExpanded] = useState(true);
+  const [isWarrantyExpanded, setIsWarrantyExpanded] = useState(true);
+  const [isRegionExpanded, setIsRegionExpanded] = useState(true);
+  const [isBatteryHealthExpanded, setIsBatteryHealthExpanded] = useState(true);
+  const [isNetworkExpanded, setIsNetworkExpanded] = useState(true);
   const colors = [...new Set(items.map((item) => item.color))];
+  const brands = [...new Set(items.map(item  => item.brand_name))];
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(undefined);
 
   useEffect(() => {
-    const filteredProducts = products.filter((item) => item.category === title);
-    setItems(filteredProducts);
-    if (filteredProducts.length > 0) {
-      const maxPrice = Math.ceil(
-        filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight)
+    }
+  }, [])
+
+    useEffect(() => {
+      if(selectedBrand){
+      const filteredProducts = items.filter((item) => item.brand_name === selectedBrand);
+      setItems(filteredProducts);
+      if (filteredProducts.length > 0) {
+        const maxPrice = Math.ceil(
+          filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
+        );
+        setRange([0, maxPrice]);
+        setMax(maxPrice);
+        setFilteredItems(filteredProducts);
+      }
+      }else{
+        const filteredProducts = products.filter((item) => item.category === title);
+        setItems(filteredProducts);
+        if (filteredProducts.length > 0) {
+          const maxPrice = Math.ceil(
+            filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
+          );
+          setRange([0, maxPrice]);
+          setMax(maxPrice);
+          setFilteredItems(filteredProducts);
+        }
+        setFilteredItems(filteredProducts)
+      }
+      
+    }, [selectedBrand,title]);
+
+    useEffect(() => {
+      const rangedProducts = items.filter(
+        (item) => item.price >= range[0] && item.price <= range[1]
       );
-      setRange([0, maxPrice]);
-      setMax(maxPrice);
-      setFilteredItems(filteredProducts);
-    }
-  }, [title]);
+      setFilteredItems(rangedProducts);
+    }, [range,items]);
 
-  useEffect(() => {
-    const rangedProducts = items.filter(
-      (item) => item.price >= range[0] && item.price <= range[1]
-    );
-    setFilteredItems(rangedProducts);
-  }, [range, items]);
+    useEffect(() => {
+      if (cpu) {
+        const cpuBasedProducts = items.filter((item) => item.cpu === cpu);
+        setFilteredItems(cpuBasedProducts);
+      } else {
+        setFilteredItems(items);
+      }
+    }, [cpu,items]);
 
-  useEffect(() => {
-    if (cpu) {
-      const cpuBasedProducts = items.filter((item) => item.cpu === cpu);
-      setFilteredItems(cpuBasedProducts);
-    } else {
-      setFilteredItems(items);
-    }
-  }, [cpu]);
+    useEffect(() => {
+      if (ram) {
+        const ramBasedProducts = items.filter((item) => item.ram == ram);
+        setFilteredItems(ramBasedProducts);
+      } else {
+        setFilteredItems(items);
+      }
+    }, [ram,items]);
 
-  useEffect(() => {
-    if (ram) {
-      const ramBasedProducts = items.filter((item) => item.ram == ram);
-      setFilteredItems(ramBasedProducts);
-    } else {
-      setFilteredItems(items);
-    }
-  }, [ram]);
+    useEffect(() => {
+      if (rom) {
+        const romBasedProducts = items.filter((item) => item.rom == rom);
+        setFilteredItems(romBasedProducts);
+      } else {
+        setFilteredItems(items);
+      }
+    }, [rom,items]);
 
-  useEffect(() => {
-    if (rom) {
-      const romBasedProducts = items.filter((item) => item.rom == rom);
-      setFilteredItems(romBasedProducts);
-    } else {
-      setFilteredItems(items);
-    }
-  }, [rom]);
+    useEffect(() => {
+      if (selectedColor && isChecked) {
+        const colorBasedProducts = items.filter((item) => item.color === selectedColor);
+        setFilteredItems(colorBasedProducts);
+      } else {
+        setFilteredItems(items);
+      }
+    }, [selectedColor,isChecked,items]);
 
-  useEffect(() => {
-    if (selectedColor && isChecked) {
-      const colorBasedProducts = items.filter((item) => item.color === selectedColor);
-      setFilteredItems(colorBasedProducts);
-    } else {
-      setFilteredItems(items);
+    const colorChecked = (e) => {
+      const checked = e.target.checked;
+          setIsChecked(checked)
     }
-  }, [selectedColor,isChecked]);
 
-  const colorChecked = (e) => {
-    const checked = e.target.checked;
-        setIsChecked(checked)
-  }
+  //   sorting
+  // console.log(selectedBrand);
 
-//   sorting
-
-  useEffect(() => {
-    if(sortBy === "low-to-high" && sortBy){
-        const lowToHigh = [...filteredItems].sort((a,b) => a.price - b.price);
-        setFilteredItems(lowToHigh)
-    } else if(sortBy === "high-to-low" && sortBy){
-        const highToLow = [...filteredItems].sort((a,b) => b.price - a.price);
-        setFilteredItems(highToLow)
-    }else if(sortBy === "a-z"){
-        const letterSort = [...filteredItems.sort((a,b) => a.title.localeCompare(b.title) )];
-        setFilteredItems(letterSort)
-    }
-    else if(sortBy === "z-a"){
-        const letterSort = [...filteredItems.sort((a,b) => b.title.localeCompare(a.title) )];
-        setFilteredItems(letterSort)
-    }
-    else if(sortBy === "old-to-new"){
-        const oldToNew = [...filteredItems.sort((a,b) => new Date(a.date) - new Date(b.date) )];
-        setFilteredItems(oldToNew)
-    }
-    else if(sortBy === "new-to-old"){
-        const oldToNew = [...filteredItems.sort((a,b) => new Date(b.date) - new Date(a.date) )];
-        setFilteredItems(oldToNew)
-    }
-    else{
-        setFilteredItems(items)
-    }
-  },[sortBy])
-
+    useEffect(() => {
+      if(sortBy === "low-to-high" && sortBy){
+          const lowToHigh = [...filteredItems].sort((a,b) => a.price - b.price);
+          setFilteredItems(lowToHigh)
+      } else if(sortBy === "high-to-low" && sortBy){
+          const highToLow = [...filteredItems].sort((a,b) => b.price - a.price);
+          setFilteredItems(highToLow)
+      }else if(sortBy === "a-z"){
+          const letterSort = [...filteredItems.sort((a,b) => a.title.localeCompare(b.title) )];
+          setFilteredItems(letterSort)
+      }
+      else if(sortBy === "z-a"){
+          const letterSort = [...filteredItems.sort((a,b) => b.title.localeCompare(a.title) )];
+          setFilteredItems(letterSort)
+      }
+      else if(sortBy === "old-to-new"){
+          const oldToNew = [...filteredItems.sort((a,b) => new Date(a.date) - new Date(b.date) )];
+          setFilteredItems(oldToNew)
+      }
+      else if(sortBy === "new-to-old"){
+          const oldToNew = [...filteredItems.sort((a,b) => new Date(b.date) - new Date(a.date) )];
+          setFilteredItems(oldToNew)
+      }
+      else{
+          setFilteredItems(items)
+      }
+    },[sortBy,items])
 
   return (
     <>
-      <h2 className="font-semibold text-[#374151] text-2xl mb-10">{title}</h2>
-      <div className="flex justify-between items-center text-black mb-5">
+      <div className="flex gap-3 flex-wrap">
+        {!selectedBrand ? 
+        brands?.map((brand, idx) => {
+          return (
+            <button
+              onClick={() => setSelectedBrand(brand)}
+              key={idx}
+              className={`${
+                brand !== undefined
+                  ? "border border-[#1A1A7E] text-sm rounded-full px-2 py-1 hover:bg-[#1A1A7E] hover:text-white"
+                  : ""
+              } `}
+            >
+              {brand}
+            </button>
+          );
+        }) : <button onClick={() => setSelectedBrand('')} className="bg-[#1A1A7E] text-white rounded-full text-sm px-2 py-1 flex items-center gap-1">{selectedBrand} <X size={16}/></button>}
+      </div>
+      {/* <div className="flex  items-center text-black my-5">
         <div className="flex gap-2 items-center">
-            <TbFilters />
-            <h3>Filter</h3>
-       </div>
-        <select onChange={(e) => setSortBy(e.target.value)} className="outline-none p-1">
-            <option value="">Default</option>
-            <option value="low-to-high">Price low to high</option>
-            <option value="high-to-low">Price high to low</option>
-            <option value="a-z">Alphabetically A-Z</option>
-            <option value="z-a">Alphabetically Z-A</option>
-            <option value="old-to-new">Oldest First</option>
-            <option value="new-to-old">Newest First</option>
-        </select>
-       </div>
-      <div className="grid md:grid-cols-4 lg:grid-cols-5 gap-5">
+          <TbFilters />
+          <h3>Filter</h3>
+        </div>
+       
+      </div> */}
+      <div className="grid md:grid-cols-4 lg:grid-cols-5 mt-12 gap-5">
         <div className="col-span-1 text-black space-y-5">
+          <div className="bg-white p-3 rounded-xl">
+            <h4 className=" mb-3">Price Range</h4>
+            <RangeSlider
+              min={0}
+              max={max}
+              value={range}
+              onInput={(value) => setRange(value)}
+            />
+            <div className="flex justify-between gap-2 mt-5">
+              <input
+                type="text"
+                value={range[0]}
+                className="w-1/2 outline-none bg-[#F2F3F7]"
+              
+              />
+              <input
+                type="text"
+                value={range[1]}
+                className="w-1/2 outline-none bg-[#F2F3F7]"
+              />
+          </div>
+          </div>
+        
+          <div className="p-3 bg-white rounded-lg">
+            <div className="w-full max-w-xs rounded-lg ">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Availability</span>
+                {isExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isExpanded ? contentHeight : 0 }}
+              >
+                <div>
+                    <input type="checkbox" name="in-stock" id="in-stock" />
+                    <label htmlFor="in-stock" className="ml-2 text-base">In Stock</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="online-order" id="online-order" />
+                    <label htmlFor="online-order" className="ml-2 text-base">Online Order</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="pre-order" id="pre-order" />
+                    <label htmlFor="pre-order" className="ml-2 text-base">Pre Order</label>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsStorageExpanded(!isStorageExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isStorageExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Storage</span>
+                {isStorageExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isStorageExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isStorageExpanded ? contentHeight : 0 }}
+              >
+                <div>
+                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="online-order" id="12/256" />
+                    <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
+                    </div>
+              </div>
+          </div>
+
+
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsTypeExpanded(!isTypeExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isTypeExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Type</span>
+                {isTypeExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isTypeExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isTypeExpanded ? contentHeight : 0 }}
+              >
+                <div>
+                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="online-order" id="12/256" />
+                    <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
+                    </div>
+              </div>
+          </div>
+
+
+          <div className="p-3 bg-white rounded-lg">
+              <button
+                onClick={() => setIsSizeExpanded(!isSizeExpanded)}
+                className="flex w-full items-center justify-between text-left"
+                aria-expanded={isTypeExpanded}
+              >
+                <span className="text-base font-medium text-gray-900">Size</span>
+                {isSizeExpanded ? (
+                  <ChevronUp className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 text-gray-500 transition-transform duration-300" />
+                )}
+              </button>
+              <div
+                ref={contentRef}
+                className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isSizeExpanded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ maxHeight: isSizeExpanded ? contentHeight : 0 }}
+              >
+                <div>
+                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="online-order" id="12/256" />
+                    <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
+                    </div>
+                    <div>
+                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
+                    </div>
+              </div>
+          </div>
+
           
-          <h4 className="text-xl mb-3">By Price</h4>
-          <RangeSlider
-            min={0}
-            max={max}
-            value={range}
-            onInput={(value) => setRange(value)}
-          />
-          <div className="flex justify-between gap-2 mt-5">
-            <input
-              type="text"
-              value={range[0]}
-              className="w-1/2 outline-none"
-            />
-            <input
-              type="text"
-              value={range[1]}
-              className="w-1/2 outline-none"
-            />
-          </div>
-
-          <div>
-            <h4 className="text-xl mb-3">Shop by CPU</h4>
-            <select
-              name=""
-              id=""
-              onChange={(e) => setCpu(e.target.value)}
-              className="w-full p-1"
-            >
-              <option value="">Default</option>
-              <option value="core i5">Core i5</option>
-              <option value="core i7">Core i7</option>
-            </select>
-          </div>
-
-          <div>
-            <h4 className="text-xl mb-3">Shop by Memory</h4>
-            <select
-              name=""
-              id=""
-              onChange={(e) => setRam(e.target.value)}
-              className="w-full p-1"
-            >
-              <option value="">Default</option>
-              <option value="8">8GB</option>
-              <option value="12">12GB</option>
-            </select>
-          </div>
           <div>
             <h4 className="text-xl mb-3">Shop by Storage</h4>
             <select
@@ -201,12 +364,15 @@ const Page = ({ params }) => {
           <div className="color-filter">
             <h3 className="font-semibold mb-4">BY COLOR</h3>
             <div className="flex gap-2">
-              {colors.map((color,idx) => (
-                <input type="checkbox"
-                 checked={color === selectedColor && isChecked}
+              {colors.map((color, idx) => (
+                <input
+                  type="checkbox"
+                  checked={color === selectedColor && isChecked}
                   key={idx}
                   value={color}
-                  onClick={(e) => {setSelectedColor(color),colorChecked(e)}}
+                  onClick={(e) => {
+                    setSelectedColor(color), colorChecked(e);
+                  }}
                   className={`cursor-pointer rounded-full border-2 border-gray-300 appearance-none ${
                     selectedColor === color ? "border-gray-800" : ""
                   }`}
@@ -222,60 +388,67 @@ const Page = ({ params }) => {
         </div>
 
         {/* products */}
-        <div className="md:col-span-3 lg:col-span-4 grid md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="md:col-span-3 lg:col-span-4">
+          <div className="flex flex-1 justify-between bg-white p-2 rounded-xl items-center mb-5">
+            <h1 className="font-semibold text-black text-xl ">{title}</h1>
+            <div className="flex gap-2 items-center">
+              <p className="font-semibold">Sort By : </p>
+              <select
+              onChange={(e) => setSortBy(e.target.value)}
+              className="outline-none p-1 bg-[#F2F3F7]"
+            >
+              <option value="">Default</option>
+              <option value="low-to-high">Price low to high</option>
+              <option value="high-to-low">Price high to low</option>
+              <option value="a-z">Alphabetically A-Z</option>
+              <option value="z-a">Alphabetically Z-A</option>
+              <option value="old-to-new">Oldest First</option>
+              <option value="new-to-old">Newest First</option>
+            </select>
+            </div> 
+          </div>
+          <ul className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filteredItems.map((product, idx) => {
             return (
-              <Link
+              <li
                 key={idx}
-                href={`/products/${product.title}`}
                 className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
               >
-                <Image
-                  src={product?.image[0]}
-                  height="256"
-                  width="256"
-                  alt="mobile-phone"
-                />
-
-                <p className="text-[#1A1A7E] text-sm mb-2">
-                  In stock {product.stocks} Items
-                </p>
-
-                <h3 className="text-lg font-medium mb-2 text-black">
+                <Link href={`/products/${product.title}`}>
+                    <Image
+                      src={product?.image[0]}
+                      height="256"
+                      width="256"
+                      alt="mobile-phone"
+                    />
+                </Link>
+                <h3 className="text-sm font-medium mb-2 text-black">
                   {product.title}
                 </h3>
 
-                <p className="text-xl text-gray-800 font-bold mb-4">
-                  ${product.price}
+                <p className="text-sm text-gray-800 font-bold mb-4">
+                  {product.price} ৳
                 </p>
 
-                <div className="flex items-center  mb-4">
-                  <ReactStars
-                    count={5}
-                    edit={false}
-                    size={24}
-                    value={product.ratings || 0}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#1A1A7E"
-                  />
-                  <p className="ml-2 mt-1 block text-gray-600 ">
-                    ({product.ratings})
-                  </p>
+                <div className="flex gap-2 items-center">
+                  <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">
+                    Buy Now
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault(), handleCart(product, 1);
+                    }}
+                    className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
-
-                <button
-                  onClick={() => handleCart(product)}
-                  className="bg-[#1A1A7E] text-white w-full py-2 rounded-lg font-semibold  transition-colors"
-                >
-                  Add to Cart
-                </button>
-              </Link>
+              </li>
             );
           })}
+          </ul>
         </div>
+        
       </div>
     </>
   );

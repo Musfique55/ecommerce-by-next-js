@@ -50,7 +50,7 @@ const Navbar = () => {
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
                         colletion.map((item,idx) => {
-                            return <Link key={idx} href={item.category} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.category}</Link>
+                            return <Link key={idx} href={`/category/${item.category}`} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.category}</Link>
                         })
                     }
                     <Link href={'/'} className='flex items-center'>
