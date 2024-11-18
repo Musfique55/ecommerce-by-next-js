@@ -12,6 +12,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import {Navigation } from 'swiper/modules';
 import Heading from "@/app/CustomHooks/heading";
+import { useRouter } from "next/navigation";
 
 const Page = ({ params }) => {
   const title = params.slug.split("%20").join(" ");
@@ -19,7 +20,7 @@ const Page = ({ params }) => {
   const [scroll,setScroll] = useState(0);
   const product = products.find((item) => item.title === title);
   const [images,setImages] = useState(product?.image ||[]);
-  const { handleCart,handleWishlist,getCartItems,refetch,setRefetch } = useStore();
+  const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [recentItems,setRecentItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [quantity,setQuantity] = useState(1);
@@ -69,7 +70,6 @@ const Page = ({ params }) => {
    },[scroll])
 
 
-   
 
   //  const handleMobileSlider = (idx) => {
       
@@ -204,7 +204,7 @@ const Page = ({ params }) => {
                 +
               </button>
             </div>
-            <button className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
+            <button onClick={() => handleBuy(product,quantity)} className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
 
             <button disabled={cartItems.length > 0} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
       cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product,quantity)}>{cartItems.length > 0 ? 'Added' : 'Add to Cart'}</button>
@@ -253,7 +253,7 @@ const Page = ({ params }) => {
                             </div>
                         </Link>
                         <div className='flex gap-2 items-center'>
-                          <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                          <button onClick={(e) => {e.preventDefault(),handleBuy(product,quantity)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                           <button
                               onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
                               className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
@@ -561,7 +561,7 @@ const Page = ({ params }) => {
                     </Link>
                     <p className="text-[#1A1A7E] font-bold">{product?.price} ৳</p>
                     <div className="flex items-center space-x-2 mt-2">
-                      <button className="bg-[#1A1A7E] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                      <button onClick={() => handleBuy(product,quantity)} className="bg-[#1A1A7E] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                         Buy Now
                       </button>
                       <button className="border border-gray-300 text-gray-700 px-2 py-1 rounded-md text-xs font-medium hover:bg-gray-100 transition-colors duration-200">

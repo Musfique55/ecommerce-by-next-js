@@ -1,15 +1,14 @@
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 import Heading from '../CustomHooks/heading';
-import { storeContext } from '../StoreContext/store';
 import useStore from '../CustomHooks/useStore';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
 
 const NewArrival = ({products}) => {
     const filteredProducts = products.filter((product) => product.category === 'Smart Watch');
-    const {handleCart} = useStore();
+    const {handleCart,handleBuy} = useStore();
     return (
         <div className="mt-12">
           <Heading title={'New Arrival'}/>
@@ -39,39 +38,35 @@ const NewArrival = ({products}) => {
                     filteredProducts.length > 0 ? 
                     filteredProducts.map((product,idx) => {
                          return (
-                          <Link
-                            key={idx}
-                            href={`products/${product.title}`}
-                            className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
-                          >
-                            <Image
-                              src={product?.image[0]}
-                              height="256"
-                              width="256"
-                              alt="mobile-phone"
-                              quality={75}
-                            />
-    
-    
-                            <h3 className="text-sm font-medium mb-2 text-black">
-                              {product.title}
-                            </h3>
-    
-                            <p className="text-sm text-gray-800 font-bold mb-4">
-                              {product.price} ৳
-                            </p>
-    
-    
-                           <div className='flex gap-2 items-center'>
-                            <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
-                            <button
-                                onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                                className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
-                                >
-                                Add to Cart
-                                </button>
-                           </div>
-                          </Link>
+                          <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg">
+                      <Link
+                        href={`products/${product.title}`}
+                      >
+                        <Image
+                          src={product?.image[0]}
+                          height="256"
+                          width="256"
+                          alt="mobile-phone"
+                          quality={75}
+                        />
+                        <h3 className="text-sm font-medium mb-2 text-black">
+                          {product.title}
+                        </h3>
+
+                        <p className="text-sm text-gray-800 font-bold mb-4">
+                          {product.price} ৳
+                        </p>
+                      </Link>
+                       <div className='flex gap-2 items-center'>
+                        <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                        <button
+                            onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
+                            className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                            >
+                            Add to Cart
+                        </button>
+                       </div>
+                      </div>
                         );
                     })
                     : <p>No products found</p>

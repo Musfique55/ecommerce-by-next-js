@@ -13,7 +13,7 @@ import {Navigation } from 'swiper/modules';
 import '../globals.css'
 const ReadyForOrder = ({products}) => {
     const filteredProducts = products.filter(product => product.category === 'Speaker');
-    const {handleCart} = useStore();
+    const {handleCart,handleBuy} = useStore();
 
     return (
         <div className='mt-10'>
@@ -60,7 +60,7 @@ const ReadyForOrder = ({products}) => {
   
   
                        <div className='flex gap-2 items-center'>
-                        <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                        <button onClick={(e) => {e.preventDefault(),handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                         <button
                             onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
                             className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"

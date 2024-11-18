@@ -10,7 +10,7 @@ const TopBrandProducts = ({
   products,
 }) => {
   const [index, setIndex] = useState(-1);
-  const { handleCart } = useStore();
+  const { handleCart,handleBuy } = useStore();
   const [brand,setBrand] = useState(''); 
   const myStyles = {
     itemShapes: [
@@ -149,39 +149,35 @@ const TopBrandProducts = ({
                 ) : 
                 products.slice(0,18).map((product,idx) => {
                   return (
-                    <Link
-                      key={idx}
-                      href={`products/${product.title}`}
-                      className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
-                    >
-                      <Image
-                        src={product?.image[0]}
-                        height="256"
-                        width="256"
-                        alt="mobile-phone"
-                        quality={75}
-                      />
+                    <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg">
+                      <Link
+                        href={`products/${product.title}`}
+                      >
+                        <Image
+                          src={product?.image[0]}
+                          height="256"
+                          width="256"
+                          alt="mobile-phone"
+                          quality={75}
+                        />
+                        <h3 className="text-sm font-medium mb-2 text-black">
+                          {product.title}
+                        </h3>
 
-
-                      <h3 className="text-sm font-medium mb-2 text-black">
-                        {product.title}
-                      </h3>
-
-                      <p className="text-sm text-gray-800 font-bold mb-4">
-                        {product.price} ৳
-                      </p>
-
-
-                     <div className='flex gap-2 items-center'>
-                      <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
-                      <button
-                          onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                          className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
-                          >
-                          Add to Cart
-                          </button>
-                     </div>
-                    </Link>
+                        <p className="text-sm text-gray-800 font-bold mb-4">
+                          {product.price} ৳
+                        </p>
+                      </Link>
+                       <div className='flex gap-2 items-center'>
+                        <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                        <button
+                            onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
+                            className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                            >
+                            Add to Cart
+                        </button>
+                       </div>
+                      </div>
                   );
                 })
                 }

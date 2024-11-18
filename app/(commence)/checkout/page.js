@@ -14,7 +14,7 @@ const CheckoutPage = () => {
     
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
-    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.price,0);
+    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.price * curr.quantity,0);
 
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const CheckoutPage = () => {
                                     <h3>{item.title}</h3>
                                    
                                 </div>
-                                <p>${item.price}</p>
+                                <p>{item.price} ৳</p>
                             </div>
                         })     
                    
@@ -69,15 +69,15 @@ const CheckoutPage = () => {
 
                 <div className='flex justify-between text-sm font-medium'>
                     <p className='flex gap-2 items-center'>Subtotal<span>{quantity}</span></p>
-                    <p>${Subtotal}</p>
+                    <p>{Subtotal}৳</p>
                 </div>
                 <div className="flex items-center justify-between text-sm font-medium">
                     <p>Shipping</p>
-                    <p>$400</p>
+                    <p>400৳</p>
                 </div>
                 <div className='flex justify-between items-center font-medium text-gray-600 text-lg pb-12'>
                     <p>Total</p>
-                    <p>${Subtotal + 400}</p>
+                    <p>{(Subtotal + 400).toFixed(2)}৳</p>
                 </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ const Page = ({ params }) => {
   const [cpu, setCpu] = useState("");
   const [ram, setRam] = useState(0);
   const [rom, setRom] = useState(0);
-  const { handleCart } = useStore();
+  const { handleCart,handleBuy } = useStore();
   const [isChecked, setIsChecked] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
   const [sortBy, setSortBy] = useState("");
@@ -515,7 +515,7 @@ const Page = ({ params }) => {
                 </p>
 
                 <div className="flex gap-2 items-center">
-                  <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">
+                  <button onClick={(e) => {e.preventDefault(),handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">
                     Buy Now
                   </button>
                   <button

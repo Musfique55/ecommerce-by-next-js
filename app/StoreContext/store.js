@@ -1,6 +1,8 @@
 'use client';
 import React, { createContext, useEffect, useState } from 'react';
 import products from '/products.json';
+import { useRouter } from 'next/navigation';
+
 export const storeContext = createContext(null);
 const StoreProvider = ({children}) => {
     const [refetch,setRefetch] = useState(false);
@@ -11,8 +13,10 @@ const StoreProvider = ({children}) => {
         setIsMounted(true);
     },[])
 
+    const router = useRouter(); 
+
     const brands  = [...new Set(products.map(product => product.brand_name))];
-    console.log(brands);
+    // console.log(brands);
 
     const handleCart = (item,quantity) => {
         if(!isMounted) return;
@@ -102,10 +106,15 @@ const StoreProvider = ({children}) => {
         localStorage.setItem('wishlist',JSON.stringify(remainingItems));
     }
 
+    const handleBuy = (item,quantity) => {
+        handleCart(item,quantity);
+        router.push('/checkout');
+    }
+
     const reload = (boolean) => {
         setRefetch(boolean)
     }
-    const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleWishlistDelete}
+    const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete}
     return (
         <storeContext.Provider value={values}>
             {children}

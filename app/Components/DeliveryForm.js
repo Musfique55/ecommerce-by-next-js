@@ -80,7 +80,7 @@ const DeliveryForm = ({cartItems}) => {
         
       }
        
-      <h2 className="text-2xl font-bold mb-4">Delivery</h2>
+      <h2 className="text-2xl font-bold my-4">Delivery</h2>
       <form onSubmit={handleOrderComplete}>
         {/* Country/Region */}
         <div className="mb-4">
@@ -233,7 +233,7 @@ const DeliveryForm = ({cartItems}) => {
 
         {/* Billing Address */}
         <h2 className="text-xl font-semibold mb-4">Billing Address</h2>
-        <div className="border">
+        <div className="border rounded-b-lg">
         <div className={`px-4 py-3 ${billingSameAsShipping ? 'bg-[#F0F7FF] border border-blue-400' : ''} `}>
             <label className="flex items-center">
             <input
@@ -247,8 +247,8 @@ const DeliveryForm = ({cartItems}) => {
             Same as shipping address
             </label>
         </div>
-        <div className={`px-4 py-3 ${!billingSameAsShipping ? 'bg-[#F0F7FF] border border-blue-400' :''}`}>
-            <label className="flex items-center">
+        <div className={`px-4 py-3  ${!billingSameAsShipping ? 'bg-[#F0F7FF] border border-blue-400' :''}`}>
+            <label className="flex items-center ">
             <input
                 type="radio"
                 name="billingAddress"
