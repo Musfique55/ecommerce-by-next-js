@@ -145,7 +145,7 @@ const Page = ({ params }) => {
             <p className="text-gray-800 text-sm bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
           </div>
           <Link
-            href="https://wa.me/1234567890" // Replace with your WhatsApp number
+            href="https://wa.me/01639-147270" // Replace with your WhatsApp number
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-colors duration-200 mb-3"
@@ -550,7 +550,7 @@ const Page = ({ params }) => {
                       alt={product?.title}
                       width={80}
                       height={80}
-                      objectFit="cover"
+                      style={{objectFit : 'cover'}}
                       className="rounded-md"
                     />
                   </Link>

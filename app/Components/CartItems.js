@@ -82,7 +82,7 @@ const CartItems = () => {
                         </button>
                         <button
                           onClick={() =>
-                            handleDncQuantity(item.title, item.quantity)
+                            item.quantity> 0 &&  handleDncQuantity(item.title, item.quantity)
                           }
                           className="px-2 border-l border-gray-300"
                         >

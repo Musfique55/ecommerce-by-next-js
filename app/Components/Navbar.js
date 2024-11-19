@@ -41,11 +41,11 @@ const Navbar = () => {
         <div className='relative'>
         {/* desktop menu */}
             <div className='border-t w-full bg-gradient-to-r from-[#141129]  to-[#040209] text-white z-40 py-3 px-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
-                <Link href={'#'}>
+                
                 <div onMouseEnter={() => setIsHovered(true)}  className='flex items-center gap-3'>
                     <Link href={'/'} className='font-semibold text-[13px]'>Home</Link>
                 </div>
-                </Link>
+                
                 <div className='flex justify-between items-center flex-1'>
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {

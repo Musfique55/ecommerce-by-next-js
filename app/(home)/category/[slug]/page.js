@@ -160,7 +160,7 @@ const Page = ({ params }) => {
               key={idx}
               className={`${
                 brand !== undefined
-                  ? "border border-[#1A1A7E] text-sm rounded-full px-2 py-1 hover:bg-[#1A1A7E] hover:text-white"
+                  ? "border border-[#1A1A7E] text-black text-sm rounded-full px-2 py-1 hover:bg-[#1A1A7E] hover:text-white"
                   : ""
               } `}
             >

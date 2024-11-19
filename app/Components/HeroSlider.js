@@ -43,12 +43,14 @@ const HeroSlider = ({ slides }) => {
         >
           {slides?.images.map((img, idx) => (
             <SwiperSlide key={idx}>
-              <div className="relative w-full h-full">
+              <div className="relative ">
                 <Image
                   src={img}
-                  layout="fill"
+                  height={500}
+                  width={500}
                   alt="slider-image"
-                  objectFit="cover"
+                  style={{objectFit: 'cover'}}
+                  quality={100}
                   className="rounded-md"
                 />
               </div>
