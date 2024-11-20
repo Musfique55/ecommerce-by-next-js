@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Image from "next/image";
 import "@smastrom/react-rating/style.css";
@@ -15,7 +15,7 @@ const TopBrandProducts = ({
 }) => {
   const [id, setId] = useState(-1);
   const { handleCart,handleBuy } = useStore();
-
+  
 
   const {data} = useSWR('https://www.outletexpense.xyz/api/public/brands/3',fetcher);
 
@@ -26,6 +26,9 @@ const TopBrandProducts = ({
   // console.log(pdByBrands.data);
   if(isLoading) return 'Loading....'
   if(error) return 'error occured'
+
+ 
+
 
   // const brands = [...new Set(products.map(brand => brand.brand_name))];
   // const filterByBrands = products.filter(product => product.brand_name === brand);
@@ -41,7 +44,7 @@ const TopBrandProducts = ({
                     ? "font-semibold border-b-2 text-[#1A1A7E] border-[#1A1A7E]"
                     : "text-black"
                 }`}>All</Tab>
-          {brands.slice(0,6).map((brand,idx) => {
+          {brands?.slice(0,6).map((brand,idx) => {
             return (
               <Tab
                 key={brand.id}
@@ -60,7 +63,7 @@ const TopBrandProducts = ({
           })}
         </TabList>
 
-        {brands.map((_, idx) => {
+        {brands?.map((_, idx) => {
           return (
             <TabPanel key={idx}>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">

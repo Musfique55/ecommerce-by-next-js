@@ -5,10 +5,20 @@ import products from '/products.json'
 import useStore from "@/app/CustomHooks/useStore";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-// import { TbFilters } from "react-icons/tb";
 import Link from "next/link";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
+import axios from "axios";
+import useSWR from "swr";
+
+
+const fetcher = (url) => fetch(url).then(res => res.json());
+
 const Page = ({ params }) => {
+  const {slug} = params;
+  const {data : products} = useSWR(`https://outletexpense.xyz/api/public/categorywise-products/${slug}`,fetcher);
+
+
+
   const title = params.slug.split("%20").join(" ");
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -31,8 +41,8 @@ const Page = ({ params }) => {
   const [isRegionExpanded, setIsRegionExpanded] = useState(true);
   const [isBatteryHealthExpanded, setIsBatteryHealthExpanded] = useState(true);
   const [isNetworkExpanded, setIsNetworkExpanded] = useState(true);
-  const colors = [...new Set(items.map((item) => item.color))];
-  const brands = [...new Set(items.map(item  => item.brand_name))];
+  // const colors = [...new Set(items.map((item) => item.color))];
+  // const brands = [...new Set(items.map(item  => item.brand_name))];
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(undefined);
 
@@ -41,7 +51,7 @@ const Page = ({ params }) => {
       setContentHeight(contentRef.current.scrollHeight)
     }
   }, [])
-
+ 
     useEffect(() => {
       if(selectedBrand){
       const filteredProducts = items.filter((item) => item.brand_name === selectedBrand);
@@ -55,9 +65,9 @@ const Page = ({ params }) => {
         setFilteredItems(filteredProducts);
       }
       }else{
-        const filteredProducts = products.filter((item) => item.category === title);
+        const filteredProducts = products?.data.filter((item) => item.id === slug);
         setItems(filteredProducts);
-        if (filteredProducts.length > 0) {
+        if (filteredProducts?.length > 0) {
           const maxPrice = Math.ceil(
             filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
           );
@@ -70,12 +80,12 @@ const Page = ({ params }) => {
       
     }, [selectedBrand,title]);
 
-    useEffect(() => {
-      const rangedProducts = items.filter(
-        (item) => item.price >= range[0] && item.price <= range[1]
-      );
-      setFilteredItems(rangedProducts);
-    }, [range,items]);
+    // useEffect(() => {
+    //   const rangedProducts = items.filter(
+    //     (item) => item.price >= range[0] && item.price <= range[1]
+    //   );
+    //   setFilteredItems(rangedProducts);
+    // }, [range,items]);
 
     useEffect(() => {
       if (cpu) {
@@ -151,7 +161,7 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <div className="flex gap-3 flex-wrap">
+      {/* <div className="flex gap-3 flex-wrap">
         {!selectedBrand ? 
         brands?.map((brand, idx) => {
           return (
@@ -168,7 +178,7 @@ const Page = ({ params }) => {
             </button>
           );
         }) : <button onClick={() => setSelectedBrand('')} className="bg-[#1A1A7E] text-white rounded-full text-sm px-2 py-1 flex items-center gap-1">{selectedBrand} <X size={16}/></button>}
-      </div>
+      </div> */}
       {/* <div className="flex  items-center text-black my-5">
         <div className="flex gap-2 items-center">
           <TbFilters />
@@ -448,7 +458,7 @@ const Page = ({ params }) => {
           <div className="color-filter bg-white p-3 rounded-lg">
             <h3 className="font-semibold text-sm mb-4">BY COLOR</h3>
             <div className="flex gap-2">
-              {colors.map((color, idx) => (
+              {/* {colors.map((color, idx) => (
                 <input
                   type="checkbox"
                   checked={color === selectedColor && isChecked}
@@ -466,7 +476,7 @@ const Page = ({ params }) => {
                     height: "30px",
                   }}
                 />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -492,26 +502,26 @@ const Page = ({ params }) => {
             </div> 
           </div>
           <ul className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {filteredItems.map((product, idx) => {
+          {products?.data.map((product, idx) => {
             return (
               <li
                 key={idx}
                 className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
               >
-                <Link href={`/products/${product.title}`}>
+                <Link href={`/products/${product?.name}`}>
                     <Image
-                      src={product?.image[0]}
-                      height="256"
-                      width="256"
-                      alt="mobile-phone"
+                      src={product?.image_path}
+                      height={256}
+                      width={256}
+                      alt={product?.name}
                     />
                 </Link>
                 <h3 className="text-sm font-medium mb-2 text-black">
-                  {product.title}
+                  {product?.name}
                 </h3>
 
                 <p className="text-sm text-gray-800 font-bold mb-4">
-                  {product.price} ৳
+                  {product?.retails_price} ৳
                 </p>
 
                 <div className="flex gap-2 items-center">

@@ -27,7 +27,7 @@ const FeaturedCategories = async() => {
                 categories.length > 0 &&
                 categories?.map((item,idx) => (
                     item.image_path &&
-                     (<Link href={`category/${item?.name}`} key={idx}>
+                     (<Link href={`category/${item?.category_id}`} key={idx}>
                     <div  className='flex flex-col items-center justify-between space-y-3'>
                         <div className='p-5 rounded-full relative h-20 w-20 bg-white'>
                         <Image 

@@ -54,16 +54,16 @@ const CartItems = () => {
           {
             items?.map((item, idx) => {
               return (
-                <div key={idx} className="flex items-center">
+                <div key={idx} className="flex gap-2 items-center">
                   <Image
-                    src={item.image[0]}
+                    src={item.image_path}
                     alt="cart-products"
                     height={100}
                     width={100}
                   />
                   <div className="space-y-1 font-semibold">
-                    <p>{item?.title}</p>
-                    <p>{item?.price} ৳</p>
+                    <p>{item?.name}</p>
+                    <p>{item?.retails_price} ৳</p>
                     
                     <div className="flex items-center border border-gray-300 rounded w-fit">
                       <input

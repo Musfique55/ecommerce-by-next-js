@@ -6,9 +6,13 @@ import Heading from '../CustomHooks/heading';
 import useStore from '../CustomHooks/useStore';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
+import useSWR from 'swr';
 
-const NewArrival = ({products}) => {
-    const filteredProducts = products.filter((product) => product.category === 'Smart Watch');
+const fetcher = (url) => fetch(url).then(res => res.json());
+
+const NewArrival = () => {
+    const {data : newArrivals} = useSWR(`https://outletexpense.xyz/api/public/new-arrivals/3`,fetcher);
+
     const {handleCart,handleBuy} = useStore();
     return (
         <div className="mt-12">
@@ -25,37 +29,40 @@ const NewArrival = ({products}) => {
                         </Link>
                         
                     </div>
-                    <Image
-                    src={filteredProducts[0].image[0]}
-                    width="500"
-                    height="500"
-                    className="static md:absolute md:transform md:left-1/2 md:-translate-x-1/2 md:bottom-4"
-                    alt="apple-watch"/>
-                    
+                    {
+                      newArrivals?.data.length > 0 && <Image
+                      src={newArrivals?.data[1]?.image_path || ''}
+                      width={500}
+                      height={500}
+                      className="static md:absolute md:transform md:left-1/2 md:-translate-x-1/2 md:bottom-4"
+                      alt={newArrivals?.data[1]?.name}/>
+                    }
+                  
                 </div>
                 {/* products */}
                 <div className="col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 md:col-span-3 lg:col-span-4">
                 {
-                    filteredProducts.length > 0 ? 
-                    filteredProducts.map((product,idx) => {
+                    newArrivals?.data.length > 0 ? 
+                    newArrivals?.data.map((product,idx) => {
                          return (
                           <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg">
                       <Link
-                        href={`products/${product.title}`}
+                        href={`products/${product?.id}`}
                       >
-                        <Image
-                          src={product?.image[0]}
-                          height="256"
-                          width="256"
-                          alt="mobile-phone"
+                        {product.image_path ? <Image
+                          src={product?.image_path}
+                          height={256}
+                          width={256}
+                          alt={product?.name}
                           quality={75}
-                        />
+                        /> : 'No Image'}
+                        
                         <h3 className="text-sm font-medium mb-2 text-black">
-                          {product.title}
+                          {product?.name}
                         </h3>
 
                         <p className="text-sm text-gray-800 font-bold mb-4">
-                          {product.price} ৳
+                          {product?.retails_price} ৳
                         </p>
                       </Link>
                        <div className='flex gap-2 items-center'>

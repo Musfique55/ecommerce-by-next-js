@@ -6,9 +6,16 @@ import products from "/products.json";
 import Image from 'next/image';
 import Link from 'next/link';
 import useStore from '../CustomHooks/useStore';
+import useSWR from 'swr';
+const fetcher = (url) => fetch(url).then(res => res.json());
 const FeaturedProducts = () => {
     const [index, setIndex] = useState(0);
     const { handleCart,handleBuy } = useStore();
+
+    const {data : bestSellers} = useSWR(`https://outletexpense.xyz/api/public/best-sellers/3`,fetcher);
+
+    const {data : bestDeals} = useSWR(`https://outletexpense.xyz/api/public/best-deals/3`);
+
     return (
         <div className='mt-20'>
             <Heading title={"Featured Products"}/>
@@ -30,26 +37,26 @@ const FeaturedProducts = () => {
 
                 <TabPanel>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {products.length > 0 && (
-                  products.slice(0,12).map((product, idx) => {
+                {bestDeals?.data.length > 0 ? (
+                  bestDeals?.data.map((product, idx) => {
                     return (
                       <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg">
                       <Link
-                        href={`products/${product.title}`}
+                        href={`products/${product?.name}`}
                       >
                         <Image
-                          src={product?.image[0]}
-                          height="256"
-                          width="256"
-                          alt="mobile-phone"
+                          src={product?.image_path}
+                          height={256}
+                          width={256}
+                          alt={product?.name}
                           quality={75}
                         />
                         <h3 className="text-sm font-medium mb-2 text-black">
-                          {product.title}
+                          {product?.name}
                         </h3>
 
                         <p className="text-sm text-gray-800 font-bold mb-4">
-                          {product.price} ৳
+                          {product?.retails_price} ৳
                         </p>
                       </Link>
                        <div className='flex gap-2 items-center'>
@@ -64,31 +71,31 @@ const FeaturedProducts = () => {
                       </div>
                     );
                   })
-                )}
+                ) : <p>No products found</p>}
               </div>
                 </TabPanel>
                 <TabPanel>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {products.length > 0 && (
-                  products.slice(13,19).map((product, idx) => {
+                {bestSellers?.data.length > 0 ? (
+                  bestSellers?.data.map((product, idx) => {
                     return (
                       <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg">
                       <Link
-                        href={`products/${product.title}`}
+                        href={`products/${product?.name}`}
                       >
                         <Image
-                          src={product?.image[0]}
-                          height="256"
-                          width="256"
+                          src={product?.image_path}
+                          height={256}
+                          width={256}
                           alt="mobile-phone"
                           quality={75}
                         />
                         <h3 className="text-sm font-medium mb-2 text-black">
-                          {product.title}
+                          {product?.name}
                         </h3>
 
                         <p className="text-sm text-gray-800 font-bold mb-4">
-                          {product.price} ৳
+                          {product?.retails_price} ৳
                         </p>
                       </Link>
                        <div className='flex gap-2 items-center'>
@@ -103,7 +110,7 @@ const FeaturedProducts = () => {
                       </div>
                     );
                   })
-                )}
+                ): <p>No products found</p>}
               </div>
                 </TabPanel>
             </Tabs>

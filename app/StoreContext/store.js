@@ -114,6 +114,8 @@ const StoreProvider = ({children}) => {
     const reload = (boolean) => {
         setRefetch(boolean)
     }
+
+    
     const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete}
     return (
         <storeContext.Provider value={values}>

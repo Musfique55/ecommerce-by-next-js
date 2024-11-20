@@ -22,7 +22,7 @@ export default function Home() {
       <ReadyForOrder products={products}/>
       <FeaturedProducts />
       <BannerSection />
-      <NewArrival products={products}/>
+      <NewArrival/>
       <TopBrandProducts products={products} />
       <Brands/>
       {/* <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/> */}
