@@ -15,7 +15,7 @@ const getCategories = async() => {
 const FeaturedCategories = async() => {
    
     const categories = await getCategories();
-    
+    // console.log(categories);
     return (
         <div>
            <div className='mt-12 mb-8'>

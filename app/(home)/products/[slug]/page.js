@@ -111,7 +111,7 @@ const Page = ({ params }) => {
                     <Image
                       onClick={() => setImageIndex(idx)}
                       src={image}
-                      alt="iPhone 16"
+                      alt={product?.title}
                       fill
                       quality={100}
                       className=" "
@@ -137,7 +137,7 @@ const Page = ({ params }) => {
             </div> */}
           </div>
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-[#1A1A7E]">৳{product?.price}</span>
+            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.price} ৳</span>
             <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: In Stock</span>
           </div>
           <div className="mb-4 flex items-center gap-3">

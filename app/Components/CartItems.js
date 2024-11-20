@@ -63,7 +63,8 @@ const CartItems = () => {
                   />
                   <div className="space-y-1 font-semibold">
                     <p>{item?.title}</p>
-                    <p>${item?.price}</p>
+                    <p>{item?.price} ৳</p>
+                    
                     <div className="flex items-center border border-gray-300 rounded w-fit">
                       <input
                         type="number"
@@ -109,11 +110,12 @@ const CartItems = () => {
             Subtotal :{" "}
             <span className="text-[#4EB0BE] font-normal">
               {" "}
-              $
-              {items.reduce(
+              {(items.reduce(
                 (prev, curr) => prev + curr.price * curr.quantity,
                 0
-              )}
+              )).toFixed(2)}
+
+              ৳
             </span>
           </h5>
           <Link href={"/cart"}>

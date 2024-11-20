@@ -96,7 +96,7 @@ const Header = () => {
                 <button className='bg-[#1A1A7E] text-white px-6 text-sm rounded-md'>Search</button>
             </div>
             <div className='flex items-center gap-4 mr-10'>
-                <button className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</button>
+                <Link target='_blank' href={'https://www.google.com/maps/search/?api=1&query=Jamuna+Future+Park+Level+4,+Block+C+Shop+19C+KA+244,+Kuril+Progoti+Soroni+1229'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</Link>
                 
                 <Link target='_blank' href={'https://www.facebook.com/brothersmobile520'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><FaFacebook /> Facebook Page</Link>
             </div>

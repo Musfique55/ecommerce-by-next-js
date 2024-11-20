@@ -6,33 +6,17 @@ import { RiMenu4Fill } from "react-icons/ri";
 import CategoryPopup from './CategoryPopup';
 import colletion from '/collection.json';
 import { FaPhoneAlt } from 'react-icons/fa';
-import { HiOutlineHome } from 'react-icons/hi2';
+import useSWR from 'swr';
+
+
+const fetcher = (url) => fetch(url).then(res => res.json());
+
 const Navbar = () => {
     const [isOpen,setIsOpen] = useState(false);
     const [isHovered,setIsHovered] =useState(false);
+    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/3',fetcher);
 
-// const navItems = [
-//     {
-//         title : 'Home',
-//         link : '/' 
-//     },
-//     {
-//         title : 'Products',
-//         link : '/products' 
-//     },
-//     {
-//         title : 'About',
-//         link : '/' 
-//     },
-//     {
-//         title : 'Contact',
-//         link : '/' 
-//     },
-//     {
-//         title : 'Blog',
-//         link : '/' 
-//     }
-// ]
+    
 
     const handleMobileCategory = () => {
         setIsHovered(!isHovered)
@@ -49,8 +33,8 @@ const Navbar = () => {
                 <div className='flex justify-between items-center flex-1'>
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
-                        colletion.map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.category}`} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.category}</Link>
+                        data?.data.slice(0,12).map((item,idx) => {
+                            return <Link key={idx} href={`/category/${item.name}`} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
                         })
                     }
                     <Link href={'/'} className='flex items-center'>
