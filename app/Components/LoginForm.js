@@ -19,13 +19,14 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://www.outletexpense.xyz/api/user-login", formData, {
+      .post("https://www.outletexpense.xyz/api/customer-login", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        if (res.data.status === "success") {
+        console.log(res.data);
+        if (res.data.token) {
           setFormData({
             email: "",
             password: "",
@@ -33,8 +34,8 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
           setReload(true)
           onClose();
           router.push('/');
-          localStorage.setItem("token", res.data.authorisation.token);
-          localStorage.setItem("user", JSON.stringify(res.data.user));
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(res.data.customer));
         }
       })
       .catch((error) => console.log(error));

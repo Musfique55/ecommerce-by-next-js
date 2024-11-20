@@ -21,15 +21,17 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
     // Handle form submission here
     console.log(formData);
     axios
-      .post("https://www.outletexpense.xyz/api/user-registration", formData, {
+      .post("https://www.outletexpense.xyz/api/customer-registration", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
+
+        console.log(res.data.data);
         setFormData({
-          outletName: "",
-          ownerName: "",
+          first_name: "",
+          last_name: "",
           phone : "",
           email: "",
           password: "",
@@ -43,11 +45,11 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
       <form className="w-full space-y-4 bg-transparent relative" onSubmit={handleSubmit}>
         {/* First Name */}
         <div className="flex flex-col relative">
-          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1 font-semibold">Owner Name</label>
+          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1 font-semibold">First Name</label>
           <input
             type="text"
-            name="ownerName"
-            value={formData.ownerName}
+            name="first_name"
+            value={formData.first_name}
             onChange={handleChange}
             placeholder="First Name"
              className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
@@ -56,11 +58,11 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
 
         {/* Last Name */}
         <div className="flex flex-col relative">
-          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1 font-semibold">Outlet Name</label>
+          <label className="absolute font-nunito text-xs text-[#102048] -top-[10px] left-[12px] bg-white px-1 font-semibold">Last Name</label>
           <input
             type="text"
-            name="outletName"
-            value={formData.outletName}
+            name="last_name"
+            value={formData.last_name}
             onChange={handleChange}
             placeholder="Last Name"
              className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
@@ -73,7 +75,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="Last Name"
+            placeholder="Phone Number"
             className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
           />
         </div>
