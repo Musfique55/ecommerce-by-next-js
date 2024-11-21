@@ -15,7 +15,7 @@ const getCategories = async() => {
 const FeaturedCategories = async() => {
    
     const categories = await getCategories();
-    // console.log(categories);
+    
     return (
         <div>
            <div className='mt-12 mb-8'>
@@ -27,7 +27,7 @@ const FeaturedCategories = async() => {
                 categories.length > 0 &&
                 categories?.map((item,idx) => (
                     item.image_path &&
-                     (<Link href={`category/${item?.category_id}`} key={idx}>
+                     (<Link href={`category/${item?.category_id}?category=${item.name}`} key={idx}>
                     <div  className='flex flex-col items-center justify-between space-y-3'>
                         <div className='p-5 rounded-full relative h-20 w-20 bg-white'>
                         <Image 

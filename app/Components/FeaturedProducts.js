@@ -12,9 +12,9 @@ const FeaturedProducts = () => {
     const [index, setIndex] = useState(0);
     const { handleCart,handleBuy } = useStore();
 
-    const {data : bestSellers} = useSWR(`https://outletexpense.xyz/api/public/best-sellers/3`,fetcher);
+    const {data : bestSellers} = useSWR(`https://outletexpense.xyz/api/public/best-sellers/38`,fetcher);
 
-    const {data : bestDeals} = useSWR(`https://outletexpense.xyz/api/public/best-deals/3`);
+    const {data : bestDeals} = useSWR(`https://outletexpense.xyz/api/public/best-deals/38`);
 
     return (
         <div className='mt-20'>
@@ -44,13 +44,18 @@ const FeaturedProducts = () => {
                       <Link
                         href={`products/${product?.name}`}
                       >
-                        <Image
+                        {
+                          product?.image_path ? 
+                          <Image
                           src={product?.image_path}
                           height={256}
                           width={256}
                           alt={product?.name}
                           quality={75}
                         />
+                          : <p>No Image</p>
+                        }
+                        
                         <h3 className="text-sm font-medium mb-2 text-black">
                           {product?.name}
                         </h3>
@@ -83,13 +88,17 @@ const FeaturedProducts = () => {
                       <Link
                         href={`products/${product?.name}`}
                       >
-                        <Image
+                        {
+                          product?.image_path ? 
+                          <Image
                           src={product?.image_path}
                           height={256}
                           width={256}
-                          alt="mobile-phone"
+                          alt={product?.name}
                           quality={75}
                         />
+                          : <p>No Image</p>
+                        }
                         <h3 className="text-sm font-medium mb-2 text-black">
                           {product?.name}
                         </h3>

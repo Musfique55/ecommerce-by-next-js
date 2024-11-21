@@ -3,7 +3,11 @@ import Link from 'next/link';
 import React from 'react';
 import Heading from '../CustomHooks/heading';
 import appleLogo from '/app/assets/galati-romania-april-29-2023-600nw-2295394661-ezgif.com-webp-to-png-converter-removebg-preview.png';
+import oneplusLogo from '/app/assets/OnePlus-Logo.png'
+import honorLogo  from '/app/assets/Honor_(brand)-Logo.wine.png'
+import googleLogo from '/app/assets/google-logo-editorial-vector-symbol-260nw-2317648589.webp';
 import samsungLogo from '/app/assets/Samsung-Logo-2005-present-removebg-preview.png';
+import xioamiLogo from '/app/assets/png-transparent-xiaomi-logo-robot-vacuums-brands.png';
 const Brands = () => {
     return (
         <div className=' mt-12'>
@@ -51,27 +55,27 @@ const Brands = () => {
             />
             </Link>
             <Link href={'/brands'}><Image
-            alt='huawei'
-            src={'https://upload.wikimedia.org/wikipedia/commons/f/fa/Huawei_logo_icon_170010.png'}
+            alt='honor'
+            src={honorLogo}
             height={75}
             width={75}
             /></Link>
             <Link href={'/brands'}><Image
-            alt='nokia'
-            src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMXP6Yq-KaR8wTfr8fPYuaOLPxazR9jT0qJA&s'}
+            alt='oneplus'
+            src={oneplusLogo}
             height={75}
             width={75}
             /></Link>
             <Link href={'/brands'}><Image
-            alt='canon'
-            src={'https://global.canon/en/corporate/logo/img/logo_01.png'}
+            alt='google'
+            src={googleLogo}
             height={75}
             width={75}
             /></Link>
             <Link href={'/brands'}>
             <Image
-            alt='sharp'
-            src={'https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_of_the_Sharp_Corporation.svg'}
+            alt='xiaomi'
+            src={xioamiLogo}
             height={75}
             width={75}
             />

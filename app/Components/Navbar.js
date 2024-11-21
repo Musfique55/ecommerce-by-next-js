@@ -9,12 +9,13 @@ import { FaPhoneAlt } from 'react-icons/fa';
 import useSWR from 'swr';
 
 
+
 const fetcher = (url) => fetch(url).then(res => res.json());
 
 const Navbar = () => {
     const [isOpen,setIsOpen] = useState(false);
     const [isHovered,setIsHovered] =useState(false);
-    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/3',fetcher);
+    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/38',fetcher);
 
     
 
@@ -34,7 +35,7 @@ const Navbar = () => {
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
                         data?.data.slice(0,12).map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.name}`} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
+                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`} className={`text-white text-[13px] font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
                         })
                     }
                     <Link href={'/'} className='flex items-center'>

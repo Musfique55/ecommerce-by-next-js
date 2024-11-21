@@ -34,6 +34,8 @@ const CartItems = () => {
       : alert("Please Accept Terms & Conditions First");
   };
 
+
+
   return (
     <div >
       {
@@ -55,12 +57,17 @@ const CartItems = () => {
             items?.map((item, idx) => {
               return (
                 <div key={idx} className="flex gap-2 items-center">
-                  <Image
+                  {
+                    item.image_path ? 
+                    <Image
                     src={item.image_path}
                     alt="cart-products"
                     height={100}
                     width={100}
                   />
+                    :  <p>No Image</p>
+                  }
+                  
                   <div className="space-y-1 font-semibold">
                     <p>{item?.name}</p>
                     <p>{item?.retails_price} ৳</p>
@@ -75,7 +82,7 @@ const CartItems = () => {
                       <div className="flex flex-col justify-between ">
                         <button
                           onClick={() =>
-                            handleIncQuantity(item.title, item.quantity)
+                            handleIncQuantity(item?.id, item.quantity)
                           }
                           className="px-2 border-b border-l border-gray-300"
                         >
@@ -83,7 +90,7 @@ const CartItems = () => {
                         </button>
                         <button
                           onClick={() =>
-                            item.quantity> 0 &&  handleDncQuantity(item.title, item.quantity)
+                            item.quantity> 0 &&  handleDncQuantity(item?.id, item.quantity)
                           }
                           className="px-2 border-l border-gray-300"
                         >
@@ -93,7 +100,7 @@ const CartItems = () => {
                     </div>
                   </div>
                   <div
-                    onClick={() => handleCartItemDelete(item.title)}
+                    onClick={() => handleCartItemDelete(item?.id)}
                     className="flex-1 flex justify-end cursor-pointer"
                   >
                     <IoClose className="text-xl" />
@@ -111,7 +118,7 @@ const CartItems = () => {
             <span className="text-[#4EB0BE] font-normal">
               {" "}
               {(items.reduce(
-                (prev, curr) => prev + curr.price * curr.quantity,
+                (prev, curr) => prev + curr?.retails_price * curr.quantity,
                 0
               )).toFixed(2)}
 

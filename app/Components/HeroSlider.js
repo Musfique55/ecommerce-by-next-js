@@ -1,10 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { GoDotFill } from "react-icons/go";
-import banners from "/banners.json";
-// import { baseUrl } from "./config";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -12,9 +8,17 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../globals.css'
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then(res => res.json());
 const HeroSlider = ({ slides }) => {
 
+  const {data : slider} = useSWR(`https://www.outletexpense.xyz/api/get-sliders`,fetcher);
 
+  const {data : banner} = useSWR(`https://www.outletexpense.xyz/api/get-banners`,fetcher);
+
+
+  console.log(banner?.data);
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">

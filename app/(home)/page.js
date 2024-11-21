@@ -4,7 +4,6 @@ import NewArrival from '../Components/NewArrival';
 import HeroSlider from "../Components/HeroSlider";
 import TopBrandProducts from '../Components/TopBrandProducts';
 import products from "/products.json";
-import RecommendedProducts from '../Components/RecommendedProducts';
 import ReadyForOrder from '../Components/ReadyForOrder';
 import BannerSection from '../Components/BannerSection';
 import FeaturedCategories from '../Components/FeaturedCategories';

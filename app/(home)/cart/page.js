@@ -34,7 +34,7 @@ const CartPage = () => {
 
 
     useEffect(() => {
-        const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+        const total = cartItems.reduce((acc, curr) => acc + curr?.retails_price * curr.quantity, 0);
         setCartTotal(total);
     }, [cartItems]);
 
@@ -49,6 +49,8 @@ const CartPage = () => {
         setRefetch(true);
         localStorage.removeItem('cart');
     }
+
+    console.log(cartItems);
 
     return (
         <div className='text-black '>
@@ -71,17 +73,22 @@ const CartPage = () => {
                             return <tr key={idx} className='text-black  justify-items-center items-center  border-gray-300 border-t-0 border'>
                                 
                                 <td className=' flex gap-10 align-middle'>
-                                    <Image 
-                                    src={item.image[0]}
-                                    height={100}
-                                    width={100}
-                                    alt='product-image'
-                                    />
-                                    <p className='font-semibold my-auto'>{item.title}</p>
+                                    {
+                                       item?.image_path ? 
+                                       <Image 
+                                        src={item?.image_path}
+                                        height={100}
+                                        width={100}
+                                        alt='product-image'
+                                        />
+                                       : <p>No Image</p> 
+                                    }
+                                    
+                                    <p className='font-semibold my-auto'>{item?.name}</p>
                                 </td>
                                
                                 <td className='font-semibold text-center align-middle'>
-                                    ${item.price}
+                                    {item?.retails_price} ৳
                                 </td>
                                 <td className='text-center align-middle'>
                                 <div className="flex mx-auto items-center border border-gray-300 rounded w-fit">
@@ -94,7 +101,7 @@ const CartPage = () => {
                                     <div className="flex flex-col justify-between ">
                                     <button
                                         onClick={() =>
-                                            handleIncQuantity(item.title,item.quantity)
+                                            handleIncQuantity(item?.id,item.quantity)
                                         }
                                         className="px-2 border-b border-l border-gray-300"
                                     >
@@ -102,7 +109,7 @@ const CartPage = () => {
                                     </button>
                                     <button
                                         onClick={() =>
-                                            handleDncQuantity(item.title,item.quantity)
+                                            handleDncQuantity(item?.id,item.quantity)
                                         }
                                         className="px-2 border-l border-gray-300"
                                     >
@@ -112,10 +119,10 @@ const CartPage = () => {
                                 </div>
                                 </td>
                                 <td className='font-semibold text-center align-middle'>
-                                    ${item.quantity * item.price}
+                                    {item?.quantity * item?.retails_price} ৳
                                 </td>
                                 <td className='text-center align-middle px-4'>
-                                    <IoClose onClick={() => handleCartItemDelete(item.title)} className='cursor-pointer'/>
+                                    <IoClose onClick={() => handleCartItemDelete(item?.id)} className='cursor-pointer'/>
                                 </td>
                                 
                             </tr>
@@ -141,22 +148,26 @@ const CartPage = () => {
                     cartItems.length > 0  ?
                     cartItems.map((item,idx) => {
                         return <div key={idx} className='flex gap-3 space-y-3 items-center bg-white p-5'>
-                            <Image height={100} width={100} src={item.image[0]} alt='products'/>
+                            {
+                             item?.image_path ?   
+                            <Image height={100} width={100} src={item.image_path} alt='products'/> :
+                            <p>No Image</p>
+                            }
                             <div className=' flex-1'>
-                                <h3 className='font-semibold'>{item.title}</h3>
+                                <h3 className='font-semibold'>{item?.name}</h3>
                                 <div className="flex items-center justify-between">
-                                    <p className='font-semibold'>${item.price}</p>
+                                    <p className='font-semibold'>{item?.retails_price} ৳</p>
                                     <div className="flex mx-auto items-center border border-gray-300 rounded w-fit gap-5">
                                     <input
                                     type="number"
-                                    value={ item.quantity}
+                                    value={ item?.quantity}
                                     min={1}
                                     className="w-12 h-10  text-center border-none focus:outline-none no-arrows"
                                     />
                                     <div className="flex flex-col justify-between ">
                                     <button
                                         onClick={() =>
-                                            handleIncQuantity(item.title,item.quantity)
+                                            handleIncQuantity(item?.id,item?.quantity)
                                         }
                                         className="px-2 border-b border-l border-gray-300"
                                     >
@@ -164,7 +175,7 @@ const CartPage = () => {
                                     </button>
                                     <button
                                         onClick={() =>
-                                            handleDncQuantity(item.title,item.quantity)
+                                            handleDncQuantity(item?.id,item?.quantity)
                                         }
                                         className="px-2 border-l border-gray-300"
                                     >
@@ -174,7 +185,7 @@ const CartPage = () => {
                                 </div>
                                 </div>
                             </div>
-                            <FaRegTrashAlt onClick={() => handleCartItemDelete(item.title)} className='text-xl'/>
+                            <FaRegTrashAlt onClick={() => handleCartItemDelete(item?.id)} className='text-xl'/>
                         </div>
 
                     }) : <p className='text-black text-center border border-gray-300 border-t-0'>No products were added to the cart</p>
@@ -213,7 +224,7 @@ const CartPage = () => {
                         <h3 className='text-[#4D5959]  text-lg font-semibold'>Cart Totals</h3>
                         <div className='border border-gray-300 font-semibold p-5 text-[#4D5959] flex gap-20 text-base mt-10'>
                             <p>Cart Totals</p>
-                            <p>${shippingCost ?  cartTotal + shippingCost : cartTotal.toFixed(2)}</p>
+                            <p>{shippingCost ?  cartTotal + shippingCost : cartTotal.toFixed(2)} ৳</p>
                         </div>
                         <p className='text-[#575E63] text-sm mt-4'>* The final price with your coupon code will apply in Checkout page</p>
                         <p className='text-[#575E63] text-sm mt-4'>

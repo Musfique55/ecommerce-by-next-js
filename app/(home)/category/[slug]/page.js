@@ -9,15 +9,17 @@ import Link from "next/link";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import axios from "axios";
 import useSWR from "swr";
+import { useSearchParams } from "next/navigation";
+
 
 
 const fetcher = (url) => fetch(url).then(res => res.json());
 
 const Page = ({ params }) => {
+  const searchParams = useSearchParams();
+  const searchedCategory = searchParams.get('category');
   const {slug} = params;
   const {data : products} = useSWR(`https://outletexpense.xyz/api/public/categorywise-products/${slug}`,fetcher);
-
-
 
   const title = params.slug.split("%20").join(" ");
   const [items, setItems] = useState([]);
@@ -484,7 +486,7 @@ const Page = ({ params }) => {
         {/* products */}
         <div className="md:col-span-3 lg:col-span-4">
           <div className="flex flex-1 justify-between bg-white p-2 rounded-xl items-center mb-5">
-            <h1 className="font-semibold text-black text-xl ">{title}</h1>
+            <h1 className="font-semibold text-black text-xl ">{searchedCategory}</h1>
             <div className="flex gap-2 items-center">
               <p className="font-semibold">Sort By : </p>
               <select
@@ -502,19 +504,22 @@ const Page = ({ params }) => {
             </div> 
           </div>
           <ul className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {products?.data.map((product, idx) => {
+          {
+          products?.data.length > 0 ?  
+          products?.data.map((product, idx) => {
             return (
               <li
                 key={idx}
                 className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
               >
-                <Link href={`/products/${product?.name}`}>
-                    <Image
-                      src={product?.image_path}
-                      height={256}
-                      width={256}
-                      alt={product?.name}
-                    />
+                <Link href={`/products/${product?.id}`}>
+                {product.image_path ? <Image
+                          src={product?.image_path}
+                          height={256}
+                          width={256}
+                          alt={product?.name}
+                          quality={75}
+                        /> : 'No Image'}
                 </Link>
                 <h3 className="text-sm font-medium mb-2 text-black">
                   {product?.name}
@@ -539,7 +544,8 @@ const Page = ({ params }) => {
                 </div>
               </li>
             );
-          })}
+          }) : <p>No products found</p>
+          }
           </ul>
         </div>
         

@@ -12,13 +12,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import {Navigation } from 'swiper/modules';
 import Heading from "@/app/CustomHooks/heading";
-import { useRouter } from "next/navigation";
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then(res => res.json());
 
 const Page = ({ params }) => {
+  const {data : product,isLoading,error} = useSWR(`https://www.outletexpense.xyz/api/public/products-detail/${params.slug}`,fetcher) ;
+
+  // console.log(product);
   const title = params.slug.split("%20").join(" ");
   const [imageIndex, setImageIndex] = useState(0);
   const [scroll,setScroll] = useState(0);
-  const product = products.find((item) => item.title === title);
+  // const product = products.find((item) => item.title === title);
   const [images,setImages] = useState(product?.image ||[]);
   const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [recentItems,setRecentItems] = useState([]);
@@ -34,23 +39,23 @@ const Page = ({ params }) => {
     }
   }, [refetch]);
   
-  const handleRecentView = (item) => {
-    const getItem = localStorage.getItem('recentViewItems');
-    let items = getItem ? JSON.parse(getItem) : [];
-    if(!items.some(existingItem => existingItem.title === item.title)){
-      items.push(item);
-    }
-    if(getItem){
-      setRecentItems(items);
-    }
-    localStorage.setItem('recentViewItems',JSON.stringify(items));
-  }
+  // const handleRecentView = (item) => {
+  //   const getItem = localStorage.getItem('recentViewItems');
+  //   let items = getItem ? JSON.parse(getItem) : [];
+  //   if(!items.some(existingItem => existingItem.title === item.title)){
+  //     items.push(item);
+  //   }
+  //   if(getItem){
+  //     setRecentItems(items);
+  //   }
+  //   localStorage.setItem('recentViewItems',JSON.stringify(items));
+  // }
 
-  useEffect(() => {
-    handleRecentView(product);
-  },[])
+  // useEffect(() => {
+  //   handleRecentView(product);
+  // },[])
 
-  const matchWithCart = cartItems.filter(item => item.title === product.title);
+  // const matchWithCart = cartItems.filter(item => item.title === product.title);
   // console.log(matchWithCart);
 
   const [selectedColor, setSelectedColor] = useState('Space Black')
@@ -59,7 +64,9 @@ const Page = ({ params }) => {
   const colors = ['Space Black', 'Gold', 'Pink', 'Blue', 'White']
   const storages = ['128GB', '256GB', '512GB']
 
-  
+  const isCartItem  = cartItems.find(item => item?.id === product?.data?.id || undefined); 
+
+  console.log(cartItems);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,6 +87,8 @@ const Page = ({ params }) => {
 
   //  console.log(product);
   
+  isLoading && <p>Loading....</p>
+  
   return (
     <div className="bg-white p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
       
@@ -95,17 +104,19 @@ const Page = ({ params }) => {
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <div className="mb-4 border rounded-2xl p-2 ">
-            <Image
-              src={images[imageIndex]}
+            { product?.data?.image_path ? 
+              <Image
+              src={product?.data?.image_path}
               alt="iPhone 16"
               width={400}
               height={400}
               className="mx-auto"
             />
+           : <p>No Image</p> }
           </div>
           <div className="flex space-x-2 mb-4 ">
             
-                {
+                {/* {
                   images.map((image,idx) => {
                     return <div key={idx} className={`relative w-[130px] p-2 h-[130px] ${imageIndex === idx ? 'border-2 border-[#0F98BA]' : ''}   overflow-hidden `}>
                     <Image
@@ -119,13 +130,13 @@ const Page = ({ params }) => {
                     />
                   </div>
                   })
-                }
+                } */}
                 
           </div>
         </div>
 
         <div>
-          <h1 className="text-2xl font-bold mb-2">{product?.title}</h1>
+          <h1 className="text-2xl font-bold mb-2">{product?.data?.name}</h1>
           <div className="flex items-center mb-4">
             {/* <Badge variant="secondary" className="mr-2">New</Badge> */}
             {/* <div className="flex items-center">
@@ -137,15 +148,15 @@ const Page = ({ params }) => {
             </div> */}
           </div>
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.price} ৳</span>
-            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: In Stock</span>
+            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.data?.regular_price} ৳</span>
+            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.data?.status}</span>
           </div>
           <div className="mb-4 flex items-center gap-3">
             <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center  gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
             <p className="text-gray-800 text-sm bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
           </div>
           <Link
-            href="https://wa.me/01639-147270" // Replace with your WhatsApp number
+            href="https://wa.me/01639-147270" 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-colors duration-200 mb-3"
@@ -156,7 +167,9 @@ const Page = ({ params }) => {
           <div className="mb-4">
             <h3 className="font-semibold mb-2">Color: {selectedColor}</h3>
             <div className="flex space-x-2">
-              {colors.map((color) => (
+              {/* {
+              product?.data?.color.length > 0 &&
+              product?.data?.color.map((color) => (
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
@@ -165,7 +178,7 @@ const Page = ({ params }) => {
                   }`}
                   style={{ backgroundColor: color.toLowerCase().replace(' ', '') }}
                 />
-              ))}
+              ))} */}
             </div>
           </div>
           <div className="mb-4">
@@ -204,10 +217,10 @@ const Page = ({ params }) => {
                 +
               </button>
             </div>
-            <button onClick={() => handleBuy(product,quantity)} className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
+            <button onClick={() => handleBuy(product?.data,quantity)} className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
 
-            <button disabled={cartItems.length > 0} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
-      cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product,quantity)}>{cartItems.length > 0 ? 'Added' : 'Add to Cart'}</button>
+            <button disabled={isCartItem !== undefined} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
+      isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product?.data,quantity)}>{isCartItem !== undefined ? 'Added' : 'Add to Cart'}</button>
           </div>
           {/* <p className="text-sm text-gray-500">Apple Store 1 Year Warranty Support</p> */}
         </div>
@@ -255,7 +268,7 @@ const Page = ({ params }) => {
                         <div className='flex gap-2 items-center'>
                           <button onClick={(e) => {e.preventDefault(),handleBuy(product,quantity)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                           <button
-                              onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
+                              onClick={(e) => {e.preventDefault(),handleCart(product?.data,1)}}
                               className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
                               >
                               Add to Cart
@@ -324,9 +337,12 @@ const Page = ({ params }) => {
         </div>
         <div className="border p-4 rounded-lg">
         <h2 className="text-[#4D5959] text-xl mb-2 font-semibold">Specification</h2>
+
+
         <div className="w-[7.5rem] h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
         <table id="Specification" className="table-auto w-full text-sm text-left">
-        {[
+         <tbody>
+         {[
                     { label: "Brand", value: "Apple" },
                     { label: "Model", value: "iPhone 16" },
                     { label: "Network", value: "GSM / CDMA / HSPA / EVDO / LTE / 5G" },
@@ -345,12 +361,14 @@ const Page = ({ params }) => {
                     { label: "Sound", value: "Built-in stereo speaker | Spatial Audio playback | Dolby Digital | Dolby Digital Plus | Dolby Atmos" },
                     { label: "Battery Info", value: "Li-Ion 3500 mAh | Non-removable | Up to 30W Wired Charging | 25W wireless (MagSafe) | 15W wireless (Qi2) | 7.5W wireless (Qi)" },
                     { label: "Sensors", value: "Face ID, accelerometer, gyro, proximity, compass, barometer" },
-                  ].map((item, index) => (
-                    <tr key={index} className="border-b">
-                      <td className="py-2 font-semibold border pl-3 ">{item.label}</td>
-                      <td className="py-2 pl-3 border">{item.value}</td>
-                    </tr>
-                  ))}
+          ].map((item, index) => (
+            <tr key={index} className="border-b">
+              <td className="py-2 font-semibold border pl-3 ">{item.label}</td>
+              <td className="py-2 pl-3 border">{item.value}</td>
+            </tr>
+        ))}
+          </tbody> 
+        
         </table>
         </div>
         {/* extra descriptions */}
@@ -609,8 +627,8 @@ const Page = ({ params }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button disabled={cartItems.length > 0} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
-          {cartItems.length > 0 ? 'Added' : 'ADD TO CART'}
+        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product?.data,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+          {isCartItem !== undefined ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}
@@ -650,8 +668,8 @@ const Page = ({ params }) => {
         {/* Quantity Selector */}
        
         {/* Add to Cart Button */}
-        <button disabled={cartItems.length > 0} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${cartItems.length > 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
-          {cartItems.length > 0 ? 'Added' : 'ADD TO CART'}
+        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product?.data,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+          {isCartItem !== undefined ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}

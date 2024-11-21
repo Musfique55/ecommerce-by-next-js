@@ -22,7 +22,7 @@ const StoreProvider = ({children}) => {
         if(!isMounted) return;
         setRefetch(true);
         const cartItems =JSON.parse(localStorage.getItem('cart')) || [];
-        const existingProducts = cartItems.find(product => product.title === item.title);
+        const existingProducts = cartItems.find(product => product.id === item.id);
         if(existingProducts){
             existingProducts.quantity += quantity;
         }else{
@@ -45,10 +45,10 @@ const StoreProvider = ({children}) => {
     }
 
     
-    const handleIncQuantity = (title,qty) => {
+    const handleIncQuantity = (id,qty) => {
         const items = getCartItems();
         const updatedItems = items.map(item => {
-            if(item.title === title){
+            if(item.id === id){
               return {...item,quantity : qty + 1}
             }
             return item
@@ -58,10 +58,10 @@ const StoreProvider = ({children}) => {
         handleCartUpdate();
     }
 
-    const handleDncQuantity = (title,qty) => {
+    const handleDncQuantity = (id,qty) => {
         const items = getCartItems();
         const updatedItems = items.map(item => {
-            if(item.title === title){
+            if(item.id === id){
               return {...item,quantity : qty - 1}
             }
             return item;
@@ -71,10 +71,10 @@ const StoreProvider = ({children}) => {
         handleCartUpdate();
     }
 
-    const handleCartItemDelete = (title) => {
+    const handleCartItemDelete = (id) => {
         setRefetch(true);
         const items = getCartItems();
-        const restItems = items.filter(item => item.title !== title);
+        const restItems = items.filter(item => item.id !== id);
         localStorage.removeItem('cart');
         localStorage.setItem('cart',JSON.stringify(restItems));
     }
