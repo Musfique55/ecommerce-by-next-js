@@ -199,8 +199,8 @@ const Page = ({ params }) => {
               ))}
             </div>
           </div>
-          <div className="flex space-x-4 mb-4">
-            <div className="flex items-center border border-[#0F98BA] rounded-md overflow-hidden">
+          {/* <div className="flex space-x-4 mb-4 flex-wrap justify-start">
+            <div className="flex items-center border border-[#0F98BA] rounded-md overflow-hidden  ">
               <button
                 onClick={quantity > 1 ? () => setQuantity(quantity - 1) : null}
                 className="px-4 py-2 text-[#0F98BA] font-semibold "
@@ -217,11 +217,58 @@ const Page = ({ params }) => {
                 +
               </button>
             </div>
-            <button onClick={() => handleBuy(product?.data,quantity)} className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
+            <div className="flex gap-4 mt-5 md:mt-5 lg:mt-0">
+              <button onClick={() => handleBuy(product?.data,quantity)} className="px-4 border border-transparent py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E]  hover:text-[#1A1A7E]">Buy Now</button>
 
-            <button disabled={isCartItem !== undefined} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
-      isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product?.data,quantity)}>{isCartItem !== undefined ? 'Added' : 'Add to Cart'}</button>
+              <button disabled={isCartItem !== undefined} variant="outline" className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${
+              isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`} onClick={() => handleCart(product?.data,quantity)}>{isCartItem !== undefined ? 'Added' : 'Add to Cart'}</button>
+            </div>
+           
+          </div> */}
+
+          <div className="flex flex-wrap items-center gap-4 justify-start mb-4">
+            {/* Quantity Controls */}
+            <div className="flex items-center border border-[#0F98BA] rounded-md overflow-hidden">
+              <button
+                onClick={quantity > 1 ? () => setQuantity(quantity - 1) : null}
+                className="px-4 py-2 text-[#0F98BA] font-semibold"
+              >
+                -
+              </button>
+              <div className="px-4 py-2 border-x border-[#0F98BA] text-[#0F98BA] font-semibold">
+                {quantity}
+              </div>
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="px-4 py-2 text-[#0F98BA] font-semibold"
+              >
+                +
+              </button>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => handleBuy(product?.data, quantity)}
+                className="px-4 py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E] hover:text-[#1A1A7E] border border-transparent"
+              >
+                Buy Now
+              </button>
+
+              <button
+                disabled={isCartItem !== undefined}
+                className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white rounded-sm ${
+                  isCartItem !== undefined
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : ''
+                }`}
+                onClick={() => handleCart(product?.data, quantity)}
+              >
+                {isCartItem !== undefined ? 'Added' : 'Add to Cart'}
+              </button>
+            </div>
           </div>
+
           {/* <p className="text-sm text-gray-500">Apple Store 1 Year Warranty Support</p> */}
         </div>
       </div>
@@ -231,11 +278,26 @@ const Page = ({ params }) => {
         <Heading title={'Related Products'}/>
         {/* sliders of related products */}
         <Swiper
-            slidesPerView={5}
+            slidesPerView={2}
             spaceBetween={20}
             navigation= {true}
             loop={true}
             modules={[Navigation]}
+            breakpoints={{
+              // Responsive breakpoints
+              640: {
+                slidesPerView: 2, // Show 2 slides for devices with width >= 640px
+                spaceBetween: 10, // Adjust space for mobile
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 5, // Show 4 slides for devices with width >= 1024px
+                spaceBetween: 20, // Default space for larger screens
+              },
+            }}
             className="trending-swiper"
             >
               {
@@ -265,7 +327,7 @@ const Page = ({ params }) => {
                               </p>
                             </div>
                         </Link>
-                        <div className='flex gap-2 items-center'>
+                        <div className='flex gap-2 flex-col md:flex-col lg:flex-row items-center'>
                           <button onClick={(e) => {e.preventDefault(),handleBuy(product,quantity)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                           <button
                               onClick={(e) => {e.preventDefault(),handleCart(product?.data,1)}}
@@ -605,7 +667,7 @@ const Page = ({ params }) => {
       {/* Product Information */}
       <div className="text-lg font-light">
         <span className="font-medium">
-          {product?.title}
+          {product?.data.name}
         </span>
       </div>
 
@@ -644,7 +706,7 @@ const Page = ({ params }) => {
       <div className="flex items-center justify-between w-full">
         <div className="text-lg font-light">
           <span className="font-medium">
-            {product?.title}
+            {product?.data.name}
           </span>
         </div>
 

@@ -162,7 +162,7 @@ const TopBrandProducts = ({ products }) => {
             // </TabPanel>
 
             <TabPanel key={idx}>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {id !== -1 ? (
                   // Check if the data is loading or undefined
                     pdcByBrands?.data.length > 0 ? (
@@ -230,7 +230,7 @@ const TopBrandProducts = ({ products }) => {
                           {product?.price} ৳
                         </p>
                       </Link>
-                      <div className="flex gap-2 items-center">
+                      <div className="flex flex-col gap-2 items-center md:flex-row">
                         <button
                           onClick={() => {
                             handleBuy(product, 1);

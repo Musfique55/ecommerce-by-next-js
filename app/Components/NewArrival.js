@@ -40,7 +40,7 @@ const NewArrival = () => {
                   
                 </div>
                 {/* products */}
-                <div className="col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 md:col-span-3 lg:col-span-4">
+                <div className="col-span-1 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 md:col-span-3 lg:col-span-4">
                 {
                     newArrivals?.data.length > 0 ? 
                     newArrivals?.data.map((product,idx) => {
@@ -65,7 +65,7 @@ const NewArrival = () => {
                           {product?.retails_price} ৳
                         </p>
                       </Link>
-                       <div className='flex gap-2 items-center'>
+                       <div className='flex flex-col gap-2 items-center md:flex-row'>
                         <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                         <button
                             onClick={(e) => {e.preventDefault(),handleCart(product,1)}}

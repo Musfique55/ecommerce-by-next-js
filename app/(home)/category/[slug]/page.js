@@ -53,34 +53,40 @@ const Page = ({ params }) => {
       setContentHeight(contentRef.current.scrollHeight)
     }
   }, [])
+
+  useEffect(() => {
+    if(products?.data){
+      setFilteredItems(products.data)
+    }
+  },[products])
  
-    useEffect(() => {
-      if(selectedBrand){
-      const filteredProducts = items.filter((item) => item.brand_name === selectedBrand);
-      setItems(filteredProducts);
-      if (filteredProducts.length > 0) {
-        const maxPrice = Math.ceil(
-          filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
-        );
-        setRange([0, maxPrice]);
-        setMax(maxPrice);
-        setFilteredItems(filteredProducts);
-      }
-      }else{
-        const filteredProducts = products?.data.filter((item) => item.id === slug);
-        setItems(filteredProducts);
-        if (filteredProducts?.length > 0) {
-          const maxPrice = Math.ceil(
-            filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
-          );
-          setRange([0, maxPrice]);
-          setMax(maxPrice);
-          setFilteredItems(filteredProducts);
-        }
-        setFilteredItems(filteredProducts)
-      }
+    // useEffect(() => {
+    //   if(selectedBrand){
+    //   const filteredProducts = items.filter((item) => item.brand_name === selectedBrand);
+    //   setItems(filteredProducts);
+    //   if (filteredProducts.length > 0) {
+    //     const maxPrice = Math.ceil(
+    //       filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
+    //     );
+    //     setRange([0, maxPrice]);
+    //     setMax(maxPrice);
+    //     setFilteredItems(filteredProducts);
+    //   }
+    //   }else{
+    //     const filteredProducts = products?.data.filter((item) => item.id === slug);
+    //     setItems(filteredProducts);
+    //     if (filteredProducts?.length > 0) {
+    //       const maxPrice = Math.ceil(
+    //         filteredProducts.reduce((max, item) => Math.max(max, item.price), 0)
+    //       );
+    //       setRange([0, maxPrice]);
+    //       setMax(maxPrice);
+    //       setFilteredItems(filteredProducts);
+    //     }
+    //     setFilteredItems(filteredProducts)
+    //   }
       
-    }, [selectedBrand,title]);
+    // }, [selectedBrand,title]);
 
     // useEffect(() => {
     //   const rangedProducts = items.filter(
@@ -132,34 +138,35 @@ const Page = ({ params }) => {
 
   //   sorting
   // console.log(selectedBrand);
+  console.log(filteredItems);
 
     useEffect(() => {
       if(sortBy === "low-to-high" && sortBy){
-          const lowToHigh = [...filteredItems].sort((a,b) => a.price - b.price);
+          const lowToHigh = [...filteredItems].sort((a,b) => a.retails_price - b.retails_price);
           setFilteredItems(lowToHigh)
       } else if(sortBy === "high-to-low" && sortBy){
-          const highToLow = [...filteredItems].sort((a,b) => b.price - a.price);
+          const highToLow = [...filteredItems].sort((a,b) => b.retails_price - a.retails_price);
           setFilteredItems(highToLow)
       }else if(sortBy === "a-z"){
-          const letterSort = [...filteredItems.sort((a,b) => a.title.localeCompare(b.title) )];
+          const letterSort = [...filteredItems.sort((a,b) => a.name.localeCompare(b.name) )];
           setFilteredItems(letterSort)
       }
       else if(sortBy === "z-a"){
-          const letterSort = [...filteredItems.sort((a,b) => b.title.localeCompare(a.title) )];
+          const letterSort = [...filteredItems.sort((a,b) => b.name.localeCompare(a.name) )];
           setFilteredItems(letterSort)
       }
-      else if(sortBy === "old-to-new"){
-          const oldToNew = [...filteredItems.sort((a,b) => new Date(a.date) - new Date(b.date) )];
-          setFilteredItems(oldToNew)
-      }
-      else if(sortBy === "new-to-old"){
-          const oldToNew = [...filteredItems.sort((a,b) => new Date(b.date) - new Date(a.date) )];
-          setFilteredItems(oldToNew)
-      }
+      // else if(sortBy === "old-to-new"){
+      //     const oldToNew = [...filteredItems.sort((a,b) => new Date(a.date) - new Date(b.date) )];
+      //     setFilteredItems(oldToNew)
+      // }
+      // else if(sortBy === "new-to-old"){
+      //     const oldToNew = [...filteredItems.sort((a,b) => new Date(b.date) - new Date(a.date) )];
+      //     setFilteredItems(oldToNew)
+      // }
       else{
-          setFilteredItems(items)
+          setFilteredItems(products?.data)
       }
-    },[sortBy,items])
+    },[sortBy,products?.data])
 
   return (
     <>
@@ -498,15 +505,15 @@ const Page = ({ params }) => {
               <option value="high-to-low">Price high to low</option>
               <option value="a-z">Alphabetically A-Z</option>
               <option value="z-a">Alphabetically Z-A</option>
-              <option value="old-to-new">Oldest First</option>
-              <option value="new-to-old">Newest First</option>
+              {/* <option value="old-to-new">Oldest First</option>
+              <option value="new-to-old">Newest First</option> */}
             </select>
             </div> 
           </div>
-          <ul className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {
-          products?.data.length > 0 ?  
-          products?.data.map((product, idx) => {
+          filteredItems && filteredItems.length > 0 ?  
+          filteredItems.map((product, idx) => {
             return (
               <li
                 key={idx}
@@ -529,7 +536,7 @@ const Page = ({ params }) => {
                   {product?.retails_price} ৳
                 </p>
 
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 flex-col md:flex-col lg:flex-row items-center">
                   <button onClick={(e) => {e.preventDefault(),handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">
                     Buy Now
                   </button>

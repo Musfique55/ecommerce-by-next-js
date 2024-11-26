@@ -1,10 +1,14 @@
+'use client'
 import React from 'react';
 import { FaFacebookF, FaLinkedin, FaPhone, FaTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
 import companyLogo from '/app/assets/download__4_-removebg-preview-removebg-preview (1).png';
 import colletion from '/collection.json';
 import Link from 'next/link';
+import useSWR from 'swr';
+const fetcher = (url) => fetch(url).then(res => res.json());
 const Footer = () => {
+    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/38',fetcher);
     return (
         <div >
             <div className='bg-[#F2F3F7] flex justify-between flex-wrap items-center p-5 md:px-12 md:flex-nowrap'>
@@ -35,8 +39,8 @@ const Footer = () => {
                     <h3 className="text-lg font-semibold mb-3">Popular Categories</h3>
                     <div className="space-y-2 text-sm flex flex-col justify-start">
                     {
-                        colletion.map((item,idx) => {
-                            return <Link key={idx} href={item.category} className={`text-white `}>{item.category}</Link>
+                        data?.data.slice(0,6).map((item,idx) => {
+                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`}  className={`text-white `}>{item.name}</Link>
                         })
                     }
                         

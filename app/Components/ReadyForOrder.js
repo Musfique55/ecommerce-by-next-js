@@ -16,16 +16,31 @@ const ReadyForOrder = ({products}) => {
     const {handleCart,handleBuy} = useStore();
 
     return (
-        <div className='mt-10'>
+        <div className='mt-20'>
             <Heading title={'Ready for Order'}/>
            <div >
-            <div className='swiper-hover'>
+            <div className='swiper-hover my-10'>
             <Swiper
-            slidesPerView={4}
+            slidesPerView={2}
             spaceBetween={20}
             navigation= {true}
             loop={true}
             modules={[Navigation]}
+            breakpoints={{
+              // Responsive breakpoints
+              640: {
+                slidesPerView: 2, // Show 2 slides for devices with width >= 640px
+                spaceBetween: 10, // Adjust space for mobile
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 4, // Show 4 slides for devices with width >= 1024px
+                spaceBetween: 20, // Default space for larger screens
+              },
+            }}
             className="trending-swiper"
             >
               {
@@ -59,7 +74,7 @@ const ReadyForOrder = ({products}) => {
                         </div>
   
   
-                       <div className='flex gap-2 items-center'>
+                       <div className='flex flex-col gap-2 items-center md:flex-row'>
                         <button onClick={(e) => {e.preventDefault(),handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                         <button
                             onClick={(e) => {e.preventDefault(),handleCart(product,1)}}

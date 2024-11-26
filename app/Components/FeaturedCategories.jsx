@@ -22,7 +22,7 @@ const FeaturedCategories = async() => {
            <Heading title={'FEATURED CATEGORIES'} />
            <SubHeading subheading={'Get your desired product from featured category'}/>
            </div>
-           <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-8 gap-x-5 gap-y-10'>
+           <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-5 gap-y-10'>
             {
                 categories.length > 0 &&
                 categories?.map((item,idx) => (
