@@ -20,7 +20,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
     e.preventDefault();
     
     axios
-      .post(`${process.env.NEXT_APP_API}/customer-registration`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_API}/customer-registration`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

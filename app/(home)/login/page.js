@@ -20,7 +20,7 @@ const LoginPage = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         axios
-          .post(`${process.env.NEXT_APP_API}/user-login`, formData, {
+          .post(`${process.env.NEXT_PUBLIC_API}/user-login`, formData, {
             headers: {
               "Content-Type": "application/json",
             },

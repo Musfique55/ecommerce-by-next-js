@@ -19,7 +19,7 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.NEXT_APP_API}/customer-login`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_API}/customer-login`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

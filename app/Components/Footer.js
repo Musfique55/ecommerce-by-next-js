@@ -33,10 +33,10 @@ const Footer = ({data}) => {
                     {/* Center Section - Links */}
                     <div>
                     <h3 className="text-lg font-semibold mb-3">Popular Categories</h3>
-                    <div className="space-y-2 text-sm flex flex-col justify-start">
+                    <div className="space-y-2  flex flex-col justify-start">
                     {
                         data?.data.slice(0,6).map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`}  className={`text-white `}>{item.name}</Link>
+                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`}  className={`text-white text-sm `}>{item.name}</Link>
                         })
                     }
                         

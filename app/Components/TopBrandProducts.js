@@ -9,20 +9,30 @@ import useStore from "../CustomHooks/useStore";
 import Link from "next/link";
 import axios from "axios";
 
-const TopBrandProducts = ({ brands }) => {
+const TopBrandProducts = ({ brands,products }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const { handleCart } = useStore();
   const [pdcByBrands, setPdcByBrands] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if(tabIndex === 0){
+      setPdcByBrands(products?.data)
+    }
+  },[tabIndex,pdcByBrands])
+
+
+
   const getProductsByBrands = async (brandId) => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `${process.env.NEXT_APP_API}/public/brandwise-products/${brandId === -1 ? '' : brandId}`
-      );
-      const data = res.data;
-      setPdcByBrands(data.data || []);
+      if(brandId > -1){
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${brandId}`
+        );
+        const data = res.data;
+        setPdcByBrands(data.data || []);
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
       setPdcByBrands([]);

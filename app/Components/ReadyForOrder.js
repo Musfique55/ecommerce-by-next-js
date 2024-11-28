@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 import {Navigation } from 'swiper/modules';
 import '../globals.css'
 const ReadyForOrder = ({products}) => {
-    const filteredProducts = products.filter(product => product.category === 'Speaker');
+
     const {handleCart,handleBuy} = useStore();
 
     return (
@@ -44,32 +44,37 @@ const ReadyForOrder = ({products}) => {
             className="trending-swiper"
             >
               {
-                filteredProducts.length > 0 ? (
-                  filteredProducts.map((product, idx) => {
+                products?.data.length > 0 ? (
+                  products?.data.map((product, idx) => {
                     return (
-                      <SwiperSlide key={idx} className="flex select-none justify-center">
+                      <SwiperSlide key={product.id} className="flex select-none justify-center">
                       <Link
-                      href={`products/${product.title}`}
+                      href={`products/${product.id}`}
                       className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg "
                       >
                         <div className="flex items-center justify-center">
-                        <Image
-                          src={product?.image[0]}
-                          height="200"
-                          width="200"
-                          alt="mobile-phone"
-                          quality={75}
-                        />
+                          {
+                            product?.image_path ?
+                            <Image
+                            src={product?.image_path}
+                            height="200"
+                            width="200"
+                            alt="mobile-phone"
+                            quality={75}
+                          />
+                            : <p>No image</p>
+                          }
+                        
                         </div>
   
   
                         <div>
                           <h3 className="text-sm font-medium mb-2 text-black">
-                            {product.title}
+                            {product.name}
                           </h3>
     
                           <p className="text-sm text-gray-800 font-bold mb-4">
-                            {product.price} ৳
+                            {product.retails_price} ৳
                           </p>
                         </div>
   

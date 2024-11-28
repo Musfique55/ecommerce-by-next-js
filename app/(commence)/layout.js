@@ -8,7 +8,7 @@ import Link from 'next/link';
 const CheckoutLayout = ({children}) => {
     return (
         <html>
-            <StoreProvider>
+        <StoreProvider>
             <body className='bg-white'>
             <div className='text-black h-full w-full   ' >
                 <div className='flex justify-between items-center border p-5  md:p-12'>

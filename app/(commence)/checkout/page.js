@@ -14,7 +14,7 @@ const CheckoutPage = () => {
     
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
-    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.price * curr.quantity,0);
+    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.retails_price * curr.quantity,0);
 
 
     useEffect(() => {
@@ -36,6 +36,8 @@ const CheckoutPage = () => {
     if (!token) {
       return null;
     }
+
+    console.log(cartItems);
     return (
             <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid  lg:grid-cols-3 relative'>
             <div className='col-span-1 md:col-span-2 border-gray-300 border-r p-5 md:pl-12 md:py-12'>
@@ -43,21 +45,44 @@ const CheckoutPage = () => {
             </div>
 
             {
-                cartItems.length > 0 ?  <div className='col-span-1 p-5  md:pb-12  bg-[#FAFAFA]   md:pr-12'>
+                cartItems.length > 0 ?  
+                <div className='col-span-1 p-5  md:pb-12  bg-[#FAFAFA]   md:pr-12'>
                 <div className='static w-full md:static md:w-full lg:fixed lg:w-[400px] gap-2  flex flex-col h-fit md:h-fit lg:min-h-screen '>
                 {
                     cartItems.length > 0 &&
-                        cartItems.map((item,idx) => {
-                            return <div key={idx} className='flex justify-between items-center '>
+                        cartItems.map((item) => {
+                            return <div key={item.id} className='flex justify-between items-center '>
                                 <div className='flex gap-3 items-center '>
                                     <div className='relative  p-2 '>
-                                    <Image height={80} width={80} alt='product' src={item.image[0]} className='border border-gray-300'/>
+                                    {
+                                       item?.images?.length > 0 ? (
+                                        <Image 
+                                            height={80} 
+                                            width={80} 
+                                            alt="product" 
+                                            src={item.images[0]} 
+                                            className="border border-gray-300" 
+                                        />
+                                    ) : item?.image_path ? (
+                                        <Image 
+                                            height={80} 
+                                            width={80} 
+                                            alt="product" 
+                                            src={item.image_path} 
+                                            className="border border-gray-300" 
+                                        />
+                                    ) : (
+                                        'No Image'
+                                    )
+                                    }
+                                   
+                                    
                                     <p className='absolute bg-[rgba(0,0,0,0.5)] text-[12px] text-white flex items-center justify-center w-6 h-6 -right-1 -top-2 rounded-full'>{item.quantity}</p>
                                     </div>
-                                    <h3>{item.title}</h3>
+                                    <h3>{item.name}</h3>
                                    
                                 </div>
-                                <p>{item.price} ৳</p>
+                                <p>{item.retails_price} ৳</p>
                             </div>
                         })     
                    

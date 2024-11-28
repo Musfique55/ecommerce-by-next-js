@@ -5,7 +5,7 @@ import SubHeading from '../CustomHooks/subHeading';
 
 
 const getCategories = async() => {
-    const res = await fetch(`${process.env.NEXT_APP_API}/public/categories/3`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/3`);
     const data = await res.json();
     return data.data
 }

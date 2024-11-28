@@ -27,7 +27,7 @@ export const metadata = {
 
 
 export default async function RootLayout({ children }) {
-  const res = await fetch(`${process.env.NEXT_APP_API}/public/categories/38`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/38`);
   const data = await res.json();
   return (
     <html lang="en">

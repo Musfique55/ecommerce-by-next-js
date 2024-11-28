@@ -19,13 +19,8 @@ const fetcher = (url) => fetch(url).then(res => res.json());
 
 
 const Page = ({ params }) => {
-  const {data : product,isLoading,error} = useSWR(`${process.env.NEXT_APP_API}/public/products-detail/${params.slug}`,fetcher) ;
-
-  const title = params.slug.split("%20").join(" ");
-  const [imageIndex, setImageIndex] = useState(0);
+  const {data : product,isLoading,error} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,fetcher) ;
   const [scroll,setScroll] = useState(0);
-  // const product = products.find((item) => item.title === title);
-  const [images,setImages] = useState(product?.image ||[]);
   const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [recentItems,setRecentItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -39,6 +34,8 @@ const Page = ({ params }) => {
       setRefetch(false);
     }
   }, [refetch]);
+
+  console.log(product);
   
   // const handleRecentView = (item) => {
   //   const getItem = localStorage.getItem('recentViewItems');
@@ -67,7 +64,6 @@ const Page = ({ params }) => {
 
   const isCartItem  = cartItems.find(item => item?.id === product?.data?.id || undefined); 
 
-  console.log(cartItems);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +71,7 @@ const Page = ({ params }) => {
     }
     window.addEventListener('scroll',handleScroll);
     return () => window.removeEventListener('scroll',handleScroll)  
-   },[scroll])
+   },[])
 
 
 
@@ -104,16 +100,28 @@ const Page = ({ params }) => {
 
       <div className="grid md:grid-cols-2 gap-8">
         <div>
-          <div className="mb-4 border rounded-2xl p-2 ">
-            { product?.data?.image_path ? 
-              <Image
-              src={product?.data?.image_path}
-              alt="iPhone 16"
-              width={400}
-              height={400}
-              className="mx-auto"
-            />
-           : <p>No Image</p> }
+          <div className="mb-4 border flex justify-center rounded-2xl p-2 ">
+            { 
+             product?.data?.images?.length > 0 ? (
+                  <Image 
+                      height={200} 
+                      width={200} 
+                      alt="product" 
+                      src={product?.data.images[0]} 
+                      className="border border-gray-300" 
+                  />
+              ) : product?.data?.image_path ? (
+                  <Image 
+                      height={200} 
+                      width={200} 
+                      alt="product" 
+                      src={product?.data.image_path} 
+                      className="border border-gray-300" 
+                  />
+              ) : (
+                  'No Image'
+              ) 
+            }
           </div>
           <div className="flex space-x-2 mb-4 ">
             
@@ -149,7 +157,7 @@ const Page = ({ params }) => {
             </div> */}
           </div>
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.data?.regular_price} ৳</span>
+            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.data?.retails_price} ৳</span>
             <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.data?.status}</span>
           </div>
           <div className="mb-4 flex items-center gap-3">
@@ -668,7 +676,7 @@ const Page = ({ params }) => {
       {/* Product Information */}
       <div className="text-lg font-light">
         <span className="font-medium">
-          {product?.data.name}
+          {product?.data?.name}
         </span>
       </div>
 
@@ -707,7 +715,7 @@ const Page = ({ params }) => {
       <div className="flex items-center justify-between w-full">
         <div className="text-lg font-light">
           <span className="font-medium">
-            {product?.data.name}
+            {product?.data?.name}
           </span>
         </div>
 
