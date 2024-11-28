@@ -11,17 +11,26 @@ import axios from "axios";
 import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
 
+// export async function getServerSideProps (context) {
+//   const {id} = context.params;
+//   const res = await fetch(`https://outletexpense.xyz/api/public/categorywise-products/${id}`);
+//   const data = await res.json();
 
+//   return {
+//     props: {
+//        data,
+//     },
+//   };
+// }
 
 const fetcher = (url) => fetch(url).then(res => res.json());
 
 const Page = ({ params }) => {
+  // console.log(data);
   const searchParams = useSearchParams();
   const searchedCategory = searchParams.get('category');
-  const {slug} = params;
-  const {data : products} = useSWR(`https://outletexpense.xyz/api/public/categorywise-products/${slug}`,fetcher);
-
-  const title = params.slug.split("%20").join(" ");
+  const {slug: id} = params;
+  const {data : products} = useSWR(`https://outletexpense.xyz/api/public/categorywise-products/${id}`,fetcher);
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [range, setRange] = useState([0, 0]);

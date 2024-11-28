@@ -4,19 +4,10 @@ import React, { useState } from 'react';
 import { RiMenu4Fill } from "react-icons/ri";
 import CategoryPopup from './CategoryPopup';
 import { FaPhoneAlt } from 'react-icons/fa';
-import useSWR from 'swr';
 
-
-
-
-const fetcher = (url) => fetch(url).then(res => res.json());
-
-const Navbar = () => {
+const Navbar = ({data}) => {
     const [isOpen,setIsOpen] = useState(false);
     const [isHovered,setIsHovered] =useState(false);
-    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/38',fetcher);
-
-    
 
     const handleMobileCategory = () => {
         setIsHovered(!isHovered)
@@ -106,5 +97,7 @@ const Navbar = () => {
         </div>
     );
 };
+
+
 
 export default Navbar;

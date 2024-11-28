@@ -18,10 +18,9 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    
     axios
-      .post("https://www.outletexpense.xyz/api/customer-registration", formData, {
+      .post(`${process.env.NEXT_APP_API}/customer-registration`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

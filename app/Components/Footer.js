@@ -3,12 +3,8 @@ import React from 'react';
 import { FaFacebookF, FaLinkedin, FaPhone, FaTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
 import companyLogo from '/app/assets/download__4_-removebg-preview-removebg-preview (1).png';
-import colletion from '/collection.json';
 import Link from 'next/link';
-import useSWR from 'swr';
-const fetcher = (url) => fetch(url).then(res => res.json());
-const Footer = () => {
-    const {data, error, isLoading} = useSWR('https://www.outletexpense.xyz/api/public/categories/38',fetcher);
+const Footer = ({data}) => {
     return (
         <div >
             <div className='bg-[#F2F3F7] flex justify-between flex-wrap items-center p-5 md:px-12 md:flex-nowrap'>

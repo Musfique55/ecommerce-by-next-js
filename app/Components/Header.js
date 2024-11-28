@@ -15,7 +15,7 @@ import Modal from './Modal';
 import RegisterForm from './RegisterForm';
 import 'animate.css';
 import { IoLocationOutline } from 'react-icons/io5';
-const Header = () => {
+const Header = ({data}) => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
     const [scroll,setScroll] = useState(0);
     const [searchText,setSearchText] = useState('');
@@ -25,6 +25,7 @@ const Header = () => {
     const [showUserInfo,setShowUserInfo] = useState(false);
     const [email,setEmail] = useState(null);
     const [reload,setReload] = useState(false);
+
     useEffect(() => {
         const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
         if(userEmail){
@@ -125,7 +126,7 @@ const Header = () => {
                 }
             </div>
            </div>
-           <Navbar />
+           <Navbar data={data}/>
            {
             openCart && <CartItems />
            }

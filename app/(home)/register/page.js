@@ -22,7 +22,7 @@ const RegisterPage = () => {
     // Handle form submission here
     console.log(formData);
     axios
-      .post("https://www.outletexpense.xyz/api/user-registration", formData, {
+      .post(`${process.env.NEXT_APP_API}/user-registration`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

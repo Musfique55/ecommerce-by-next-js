@@ -20,7 +20,7 @@ const LoginPage = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         axios
-          .post("https://www.outletexpense.xyz/api/user-login", formData, {
+          .post(`${process.env.NEXT_APP_API}/user-login`, formData, {
             headers: {
               "Content-Type": "application/json",
             },

@@ -16,10 +16,11 @@ import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then(res => res.json());
 
-const Page = ({ params }) => {
-  const {data : product,isLoading,error} = useSWR(`https://www.outletexpense.xyz/api/public/products-detail/${params.slug}`,fetcher) ;
 
-  // console.log(product);
+
+const Page = ({ params }) => {
+  const {data : product,isLoading,error} = useSWR(`${process.env.NEXT_APP_API}/public/products-detail/${params.slug}`,fetcher) ;
+
   const title = params.slug.split("%20").join(" ");
   const [imageIndex, setImageIndex] = useState(0);
   const [scroll,setScroll] = useState(0);

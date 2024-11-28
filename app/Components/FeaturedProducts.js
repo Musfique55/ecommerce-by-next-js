@@ -1,20 +1,16 @@
 'use client'
 import React, { useState } from 'react';
+
+
 import Heading from '../CustomHooks/heading';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
-import products from "/products.json";
 import Image from 'next/image';
 import Link from 'next/link';
 import useStore from '../CustomHooks/useStore';
-import useSWR from 'swr';
-const fetcher = (url) => fetch(url).then(res => res.json());
-const FeaturedProducts = () => {
+
+const FeaturedProducts = ({bestSellers,bestDeals}) => {
     const [index, setIndex] = useState(0);
     const { handleCart,handleBuy } = useStore();
-
-    const {data : bestSellers} = useSWR(`https://outletexpense.xyz/api/public/best-sellers/38`,fetcher);
-
-    const {data : bestDeals} = useSWR(`https://outletexpense.xyz/api/public/best-deals/38`);
 
     return (
         <div className='mt-20'>

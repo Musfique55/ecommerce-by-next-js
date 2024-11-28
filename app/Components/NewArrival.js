@@ -8,10 +8,10 @@ import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
 import useSWR from 'swr';
 
-const fetcher = (url) => fetch(url).then(res => res.json());
+// const fetcher = (url) => fetch(url).then(res => res.json());
 
-const NewArrival = () => {
-    const {data : newArrivals} = useSWR(`https://outletexpense.xyz/api/public/new-arrivals/38`,fetcher);
+const NewArrival = ({newArrivals}) => {
+    // const {data : newArrivals} = useSWR(`https://outletexpense.xyz/api/public/new-arrivals/38`,fetcher);
 
     const {handleCart,handleBuy} = useStore();
     return (

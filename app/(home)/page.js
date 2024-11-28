@@ -1,5 +1,4 @@
 
-import {SLIDES_DATA} from '../../constants';
 import NewArrival from '../Components/NewArrival';
 import HeroSlider from "../Components/HeroSlider";
 import TopBrandProducts from '../Components/TopBrandProducts';
@@ -11,21 +10,56 @@ import FeaturedProducts from '../Components/FeaturedProducts';
 import OurFeatures from '../Components/OurFeatures';
 import Brands from '../Components/Brands';
 
-export default function Home() {
-  
+
+
+export default async function Home() {
+  const res = await fetch(`${process.env.NEXT_APP_API}/get-sliders/3`,{
+    next : {revalidate : 60}
+  });
+  const slider = await res.json();
+
+  const bannerRes = await fetch(`${process.env.NEXT_APP_API}/get-banners/3`,{
+    next : {revalidate : 60}
+  })
+  const banner = await bannerRes.json();
+
+  const bestSellersRes = await fetch(`${process.env.NEXT_APP_API}/public/best-sellers/38`,{
+    next : {revalidate : 60}
+  });
+  const bestSellers = await bestSellersRes.json();
+
+
+  const bestDealsRes = await fetch(`${process.env.NEXT_APP_API}/public/best-deals/38`,{
+    next : {revalidate : 60}
+  });
+  const bestDeals = await bestDealsRes.json();
+
+
+  const newArrivalsRes = await fetch(`${process.env.NEXT_APP_API}/public/new-arrivals/38`,{
+    next : {revalidate : 60}
+  });
+  const newArrivals = await newArrivalsRes.json();
+
+
+  const brandsRes = await fetch(`${process.env.NEXT_APP_API}/public/brands/38`,{
+    next : {revalidate : 60}
+  });
+  const brands = await brandsRes.json();
+
+
   return (
     <>
-      <HeroSlider slides={SLIDES_DATA}/>
+
+      <HeroSlider slider={slider} banner={banner}/>
       <OurFeatures />
       <FeaturedCategories products={products}/>
       <ReadyForOrder products={products}/>
-      <FeaturedProducts />
+      <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals}/>
       <BannerSection />
-      <NewArrival/>
-      <TopBrandProducts products={products} />
-      <Brands/>
-      {/* <RecommendedProducts categories={categories} products={products}  filteredProducts={filteredProducts}/> */}
-      
+      <NewArrival newArrivals={newArrivals}/>
+      <TopBrandProducts products={products} brands={brands.data}/>
+      <Brands/>      
     </>
   );
 }
+

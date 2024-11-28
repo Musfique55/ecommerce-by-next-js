@@ -1,5 +1,3 @@
-
-import collections from '/collection.json';
 import Heading from '../CustomHooks/heading';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +5,7 @@ import SubHeading from '../CustomHooks/subHeading';
 
 
 const getCategories = async() => {
-    const res = await fetch('https://www.outletexpense.xyz/api/public/categories/3');
+    const res = await fetch(`${process.env.NEXT_APP_API}/public/categories/3`);
     const data = await res.json();
     return data.data
 }
