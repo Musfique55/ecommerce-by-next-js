@@ -59,13 +59,19 @@ const CartItems = () => {
                 <div key={idx} className="flex gap-2 items-center">
                   {
                     item.image_path ? 
-                    <Image
+                    <img
                     src={item.image_path}
                     alt="cart-products"
                     height={100}
                     width={100}
                   />
-                    :  <p>No Image</p>
+                    :  <img
+                    src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                    height="200"
+                    width="200"
+                    alt="mobile-phone"
+                    quality={75}
+                  />
                   }
                   
                   <div className="space-y-1 font-semibold">
@@ -149,7 +155,7 @@ const CartItems = () => {
           >
             Check Out
           </button>
-          <Image
+          <img
             src={
               "https://www.custommacbd.com/cdn/shop/files/SSL_Commerz_Pay_With_logo_All_Size-01_320x.png?v=1614930139"
             }

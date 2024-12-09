@@ -56,7 +56,7 @@ const CheckoutPage = () => {
                                     <div className='relative  p-2 '>
                                     {
                                        item?.images?.length > 0 ? (
-                                        <Image 
+                                        <img
                                             height={80} 
                                             width={80} 
                                             alt="product" 
@@ -64,7 +64,7 @@ const CheckoutPage = () => {
                                             className="border border-gray-300" 
                                         />
                                     ) : item?.image_path ? (
-                                        <Image 
+                                        <img 
                                             height={80} 
                                             width={80} 
                                             alt="product" 
@@ -72,7 +72,13 @@ const CheckoutPage = () => {
                                             className="border border-gray-300" 
                                         />
                                     ) : (
-                                        'No Image'
+                                        <img
+                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                            height="200"
+                            width="200"
+                            alt="mobile-phone"
+                            quality={75}
+                          />
                                     )
                                     }
                                    

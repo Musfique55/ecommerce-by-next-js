@@ -47,22 +47,30 @@ const ReadyForOrder = ({products}) => {
                 products?.data.length > 0 ? (
                   products?.data.map((product, idx) => {
                     return (
-                      <SwiperSlide key={product.id} className="flex select-none justify-center">
+                      <SwiperSlide key={product.id} className=" select-none">
                       <Link
                       href={`products/${product.id}`}
-                      className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg "
+                      className=" bg-white text-center w-60 h-80 border-gray-200 gap-4 p-4 border rounded-lg "
                       >
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center h-52">
                           {
                             product?.image_path ?
-                            <Image
+                            <img
                             src={product?.image_path}
-                            height="200"
-                            width="200"
+                            height="208"
+                            width="208"
+                            alt="mobile-phone"
+                            // quality={75}
+                            className='object-cover'
+                          />
+                              : 
+                            <img
+                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                            height="208"
+                            width="208"
                             alt="mobile-phone"
                             quality={75}
                           />
-                            : <p>No image</p>
                           }
                         
                         </div>

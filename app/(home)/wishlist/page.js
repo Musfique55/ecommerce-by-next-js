@@ -47,7 +47,7 @@ const WishList = () => {
                                     <IoClose onClick={() => handleWishlistDelete(item.title)} className='cursor-pointer'/>
                                 </td>
                                 <td className=''>
-                                    <Image 
+                                    <img 
                                     src={item.image[0]}
                                     height={100}
                                     width={100}

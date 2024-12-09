@@ -75,13 +75,19 @@ const CartPage = () => {
                                 <td className=' flex gap-10 align-middle'>
                                     {
                                        item?.image_path ? 
-                                       <Image 
+                                       <img 
                                         src={item?.image_path}
                                         height={100}
                                         width={100}
                                         alt='product-image'
                                         />
-                                       : <p>No Image</p> 
+                                       : <img
+                                       src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                                       height="200"
+                                       width="200"
+                                       alt="mobile-phone"
+                                       quality={75}
+                                     />
                                     }
                                     
                                     <p className='font-semibold my-auto'>{item?.name}</p>
@@ -150,8 +156,14 @@ const CartPage = () => {
                         return <div key={idx} className='flex gap-3 space-y-3 items-center bg-white p-5'>
                             {
                              item?.image_path ?   
-                            <Image height={100} width={100} src={item.image_path} alt='products'/> :
-                            <p>No Image</p>
+                            <img height={100} width={100} src={item.image_path} alt='products'/> :
+                            <img
+                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                            height="200"
+                            width="200"
+                            alt="mobile-phone"
+                            quality={75}
+                          />
                             }
                             <div className=' flex-1'>
                                 <h3 className='font-semibold'>{item?.name}</h3>
@@ -234,7 +246,7 @@ const CartPage = () => {
                             <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} />
                             <label >I agree with the terms and conditions.</label>
                         </div>
-                        <Image 
+                        <img 
                             src={'https://www.custommacbd.com/cdn/shop/files/SSL_Commerz_Pay_With_logo_All_Size-01_320x.png?v=1614930139'}
                             height={500}
                             width={500}

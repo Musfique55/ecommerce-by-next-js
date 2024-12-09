@@ -103,7 +103,7 @@ const Page = ({ params }) => {
           <div className="mb-4 border flex justify-center rounded-2xl p-2 ">
             { 
              product?.data?.images?.length > 0 ? (
-                  <Image 
+                  <img 
                       height={200} 
                       width={200} 
                       alt="product" 
@@ -111,7 +111,7 @@ const Page = ({ params }) => {
                       className="border border-gray-300" 
                   />
               ) : product?.data?.image_path ? (
-                  <Image 
+                  <img 
                       height={200} 
                       width={200} 
                       alt="product" 
@@ -119,7 +119,13 @@ const Page = ({ params }) => {
                       className="border border-gray-300" 
                   />
               ) : (
-                  'No Image'
+                <img
+                src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                height="200"
+                width="200"
+                alt="mobile-phone"
+                quality={75}
+              />
               ) 
             }
           </div>
@@ -318,7 +324,7 @@ const Page = ({ params }) => {
                         <Link
                           href={`/products/${product.title}`}>
                             <div className="flex items-center justify-center">
-                            <Image
+                            <img
                               src={product?.image[0]}
                               height="200"
                               width="200"
@@ -634,7 +640,7 @@ const Page = ({ params }) => {
                   className="flex px-2 py-3 items-center bg-white rounded-lg hover:shadow-md transition-shadow duration-200"
                 >
                   <Link href={`/products/${product.title}`}>
-                    <Image
+                    <img
                       src={product?.image[0]}
                       alt={product?.title}
                       width={80}

@@ -42,14 +42,20 @@ const FeaturedProducts = ({bestSellers,bestDeals}) => {
                       >
                         {
                           product?.image_path ? 
-                          <Image
+                          <img
                           src={product?.image_path}
                           height={256}
                           width={256}
                           alt={product?.name}
                           quality={75}
                         />
-                          : <p>No Image</p>
+                          : <img
+                          src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                          height="200"
+                          width="200"
+                          alt="mobile-phone"
+                          quality={75}
+                        />
                         }
                         
                         <h3 className="text-sm font-medium mb-2 text-black">
@@ -86,14 +92,20 @@ const FeaturedProducts = ({bestSellers,bestDeals}) => {
                       >
                         {
                           product?.image_path ? 
-                          <Image
+                          <img
                           src={product?.image_path}
                           height={256}
                           width={256}
                           alt={product?.name}
                           quality={75}
                         />
-                          : <p>No Image</p>
+                          : <img
+                          src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                          height="200"
+                          width="200"
+                          alt="mobile-phone"
+                          quality={75}
+                        />
                         }
                         <h3 className="text-sm font-medium mb-2 text-black">
                           {product?.name}

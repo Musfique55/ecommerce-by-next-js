@@ -89,7 +89,7 @@ const TopBrandProducts = ({ brands,products }) => {
                       className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
                     >
                       {product.image_path ? (
-                        <Image
+                        <img
                           src={product?.image_path}
                           height={256}
                           width={256}
@@ -97,7 +97,13 @@ const TopBrandProducts = ({ brands,products }) => {
                           quality={75}
                         />
                       ) : (
-                        "No Image"
+                        <img
+                          src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                          height="200"
+                          width="200"
+                          alt="mobile-phone"
+                          quality={75}
+                        />
                       )}
                       <h3 className="text-sm font-medium mb-2 text-black">
                         {product.name}

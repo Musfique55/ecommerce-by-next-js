@@ -14,41 +14,41 @@ import Brands from '../Components/Brands';
 export default async function Home() {
 
   const productRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/products/3`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const products = await productRes.json();
 
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/get-sliders/3`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const slider = await res.json();
 
   const bannerRes = await fetch(`${process.env.NEXT_PUBLIC_API}/get-banners/3`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   })
   const banner = await bannerRes.json();
 
   const bestSellersRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/38`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const bestSellers = await bestSellersRes.json();
 
 
   const bestDealsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-deals/38`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const bestDeals = await bestDealsRes.json();
 
 
   const newArrivalsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/38`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const newArrivals = await newArrivalsRes.json();
 
 
   const brandsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/brands/38`,{
-    next : {revalidate : 60}
+    cache : "no-store"
   });
   const brands = await brandsRes.json();
 
@@ -63,8 +63,8 @@ export default async function Home() {
       <FeaturedCategories products={products}/>
       <ReadyForOrder products={products}/>
       <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals}/>
-      <BannerSection />
-      <NewArrival newArrivals={newArrivals}/>
+      <BannerSection banner={banner}/>
+      <NewArrival newArrivals={newArrivals} banner={banner}/>
       <TopBrandProducts products={products} brands={brands.data}/>
       <Brands/>      
     </>

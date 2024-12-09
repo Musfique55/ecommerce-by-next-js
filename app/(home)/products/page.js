@@ -28,7 +28,7 @@ const AllProducts = () => {
                     categories.length > 0 ? 
                     categories.map((item,idx) => {
                         return <Link href={`/category/${item?.category}`} key={idx} ref={collectionRef} onMouseEnter={ () => handleMouseEnter(item?.category)} onMouseLeave={handleMouseLeave} className=' relative flex flex-col items-center justify-between'>
-                            <Image 
+                            <img 
                             src={item?.image}
                             width={200}
                             height={200}

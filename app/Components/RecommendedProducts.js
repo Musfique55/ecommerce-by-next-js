@@ -39,7 +39,7 @@ const RecommendedProducts = ({categories,products}) => {
                                 href={`products/${product.title}`}
                                 className="max-w-sm bg-white  border-gray-200 flex flex-col justify-between p-4 border rounded-lg md:flex-row "
                               >
-                                <Image
+                                <img
                                 src={product?.image[0]}
                                 height='150'
                                 width='150'

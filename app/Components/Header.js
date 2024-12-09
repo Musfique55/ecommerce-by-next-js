@@ -8,17 +8,17 @@ import Image from 'next/image';
 import useStore from '../CustomHooks/useStore';
 import CartItems from './CartItems';
 import Link from 'next/link';
-import products from '/products.json';
 import Search from './Search';
 import LoginForm from './LoginForm';
 import Modal from './Modal';
 import RegisterForm from './RegisterForm';
 import 'animate.css';
 import { IoLocationOutline } from 'react-icons/io5';
+import axios from 'axios';
 const Header = ({data}) => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
     const [scroll,setScroll] = useState(0);
-    const [searchText,setSearchText] = useState('');
+    const [keyword,setKeyword] = useState('');
     const [searchedItem,setSearchedItem] = useState([]);
     const [isShowModal,setIsShowModal] = useState(false); 
     const [isRegistered,setIsRegistered] = useState(false);
@@ -50,7 +50,7 @@ const Header = ({data}) => {
         }
     },[refetch,getWishList])
    
-    const wishList = getWishList();
+   const wishList = getWishList();
    const items =  getCartItems();
    const total = items?.reduce((acc,curr) => acc += curr.quantity,0) || 0;
 
@@ -62,18 +62,16 @@ const Header = ({data}) => {
    },[scroll])
 
    const searchedItems = () => {
-    if(searchText){
-        const items = products.filter(item => {
-            const regex = new RegExp(searchText,'i');
-            return regex.test(item.title)
-        });
-        setSearchedItem(items);
+    if(keyword){
+        axios.post('https://www.outletexpense.xyz/api/public/search-product',{keyword})
+        .then(res => setSearchedItem(res.data.data.data))
+        .catch(err => console.log(err))
     }
    }
 
    useEffect(() => {
     searchedItems()
-   },[searchText])
+   },[keyword])
 
    const handleModalClose = () => setIsShowModal(false);
 
@@ -93,7 +91,7 @@ const Header = ({data}) => {
            <div className='flex justify-between bg-white text-black p-3 md:px-12'>
            <Link href={'/'}><Image src={companyLogo} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
             <div className='hidden md:flex lg:flex gap-2 flex-1'>
-                <input onChange={(e) => setSearchText(e.target.value)} value={searchText}  type="text" placeholder='Search for Products' className='border ml-8 px-2 py-1 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white text-sm rounded-md'/>
+                <input onChange={(e) => setKeyword(e.target.value)} value={keyword}  type="text" placeholder='Search for Products' className='border ml-8 px-2 py-1 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white text-sm rounded-md'/>
                 <button className='bg-[#1A1A7E] text-white px-6 text-sm rounded-md'>Search</button>
             </div>
             <div className='hidden md:hidden lg:flex items-center gap-4 mr-10'>
@@ -133,9 +131,9 @@ const Header = ({data}) => {
 
            {/* searchedItems */}
            {
-            searchText ? <Search 
+            keyword ? <Search 
             searchedItem={searchedItem}
-            setSearchText={setSearchText}
+            setKeyword={setKeyword}
             setSearchedItem={setSearchedItem}
             /> : null
            }

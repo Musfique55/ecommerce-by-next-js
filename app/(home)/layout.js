@@ -4,7 +4,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import StoreProvider from "../StoreContext/store";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "../Components/loading";
 import AvatarChat from "../Components/AvatarChat";
 
 const geistSans = localFont({
