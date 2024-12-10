@@ -73,7 +73,7 @@ const Page = ({ params }) => {
   const colors = ['Space Black', 'Gold', 'Pink', 'Blue', 'White']
   const storages = ['128GB', '256GB', '512GB']
 
-  const isCartItem  = cartItems.find(item => item?.id === product?.data?.id || undefined); 
+  const isCartItem  = cartItems.find(item => item?.id === product?.id || undefined); 
 
 
   useEffect(() => {
@@ -113,20 +113,20 @@ const Page = ({ params }) => {
         <div>
           <div className="mb-4 border flex justify-center rounded-2xl p-2 ">
             { 
-             product?.data?.images?.length > 0 ? (
+             product?.images?.length > 0 ? (
                   <img 
                       height={200} 
                       width={200} 
                       alt="product" 
-                      src={product?.data.images[0]} 
+                      src={product?.images[0]} 
                       className="border border-gray-300" 
                   />
-              ) : product?.data?.image_path ? (
+              ) : product?.image_path ? (
                   <img 
                       height={200} 
                       width={200} 
                       alt="product" 
-                      src={product?.data.image_path} 
+                      src={product?.image_path} 
                       className="border border-gray-300" 
                   />
               ) : (
@@ -288,7 +288,7 @@ const Page = ({ params }) => {
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : ''
                 }`}
-                onClick={() => handleCart(product?.data, quantity)}
+                onClick={() => handleCart(product, quantity)}
               >
                 {isCartItem !== undefined ? 'Added' : 'Add to Cart'}
               </button>
@@ -693,7 +693,7 @@ const Page = ({ params }) => {
       {/* Product Information */}
       <div className="text-lg font-light">
         <span className="font-medium">
-          {product?.data?.name}
+          {product?.name}
         </span>
       </div>
 
@@ -715,12 +715,12 @@ const Page = ({ params }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product?.data,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
           {isCartItem !== undefined ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}
-        <button  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
+        <button onClick={() => handleBuy(product,quantity)}  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
           BUY IT NOW
         </button>
       </div>
@@ -732,7 +732,7 @@ const Page = ({ params }) => {
       <div className="flex items-center justify-between w-full">
         <div className="text-lg font-light">
           <span className="font-medium">
-            {product?.data?.name}
+            {product?.name}
           </span>
         </div>
 
@@ -756,12 +756,12 @@ const Page = ({ params }) => {
         {/* Quantity Selector */}
        
         {/* Add to Cart Button */}
-        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product?.data,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
+        <button disabled={isCartItem !== undefined} onClick={() => handleCart(product,quantity)} className={`border px-4 py-1 border-[#1A1A7E] text-[#1A1A7E] hover:bg-[#1A1A7E] hover:text-white  ${isCartItem !== undefined ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}>
           {isCartItem !== undefined ? 'Added' : 'ADD TO CART'}
         </button>
 
         {/* Buy It Now Button */}
-        <button  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
+        <button onClick={() => handleBuy(product,quantity)}  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded transition duration-300">
           BUY IT NOW
         </button>
       </div>

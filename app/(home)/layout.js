@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import StoreProvider from "../StoreContext/store";
 import AvatarChat from "../Components/AvatarChat";
+import { userId } from "./page";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,7 +26,7 @@ export const metadata = {
 
 
 export default async function RootLayout({ children }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/38`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/${userId}`);
   const data = await res.json();
   return (
     <html lang="en">
