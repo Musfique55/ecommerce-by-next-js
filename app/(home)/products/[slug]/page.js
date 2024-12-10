@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import products from "/products.json";
 import Image from "next/image";
 import relatedProducts from '/products.json'
@@ -12,15 +12,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import {Navigation } from 'swiper/modules';
 import Heading from "@/app/CustomHooks/heading";
-import useSWR from "swr";
-
-const fetcher = (url) => fetch(url).then(res => res.json());
-
-
+import axios from "axios";
 
 const Page = ({ params }) => {
-  const {data : product,isLoading,error} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,fetcher) ;
+  // const {data : product,isLoading,error} =  useSWR(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,fetcher);
   const [scroll,setScroll] = useState(0);
+  const [product,setProduct] = useState({});
   const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [recentItems,setRecentItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -35,7 +32,21 @@ const Page = ({ params }) => {
     }
   }, [refetch]);
 
-  console.log(product);
+  // console.log(product);
+
+  const getProductDetails =  useCallback(()  => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,{cache : "no-cache"})
+    .then(res => {
+      setProduct(res.data.data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  },[params.slug])
+
+  useEffect(() => {
+    getProductDetails();
+  },[getProductDetails])
   
   // const handleRecentView = (item) => {
   //   const getItem = localStorage.getItem('recentViewItems');
@@ -84,7 +95,7 @@ const Page = ({ params }) => {
 
   //  console.log(product);
   
-  isLoading && <p>Loading....</p>
+  // isLoading && <p>Loading....</p>
   
   return (
     <div className="bg-white p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
@@ -151,7 +162,7 @@ const Page = ({ params }) => {
         </div>
 
         <div>
-          <h1 className="text-2xl font-bold mb-2">{product?.data?.name}</h1>
+          <h1 className="text-2xl font-bold mb-2">{product?.name}</h1>
           <div className="flex items-center mb-4">
             {/* <Badge variant="secondary" className="mr-2">New</Badge> */}
             {/* <div className="flex items-center">
@@ -163,8 +174,8 @@ const Page = ({ params }) => {
             </div> */}
           </div>
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.data?.retails_price} ৳</span>
-            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.data?.status}</span>
+            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.retails_price} ৳</span>
+            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.status}</span>
           </div>
           <div className="mb-4 flex items-center gap-3">
             <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center  gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>

@@ -2,10 +2,11 @@ import Heading from '../CustomHooks/heading';
 import Image from 'next/image';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
+import { userId } from '../(home)/page';
 
 
 const getCategories = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/3`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/${userId}`);
     const data = await res.json();
     return data.data
 }

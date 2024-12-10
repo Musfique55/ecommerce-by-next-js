@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../globals.css'
 
-const HeroSlider = ({ slider,banner }) => {
+const HeroSlider = ({slider,banner}) => {
   
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
@@ -36,7 +36,7 @@ const HeroSlider = ({ slider,banner }) => {
           modules={[Navigation,Autoplay,Pagination]}
           className="trending-swiper"
         >
-          {slider?.data[1]?.image_path.map((img, idx) => (
+          {slider?.data?.image_path.map((img, idx) => (
            
             <SwiperSlide key={idx}>
               <div className="relative ">
@@ -68,28 +68,28 @@ const HeroSlider = ({ slider,banner }) => {
        {/*bg-gradient-to-b  from-[#751C6B] via-[#5C0D81] to-[#2A2047] */}
         <div
           className={`col-span-3 flex  items-center px-5 space-y-5   relative rounded-md lg:h-[194px] md:col-span-1  justify-start lg:col-span-3`}
-          style={{background : banner?.data[0].background_color}}
+          // style={{background : banner?.data[0]?.background_color}}
         >
           <div className="flex flex-col space-y-3 md:space-y-5 justify-center">
             <h3 className="text-white text-2xl font-semibold text-wrap">
-            { banner?.data[0].title}
+            {/* { banner?.data[0].title} */}
             </h3>
             <div className="flex items-center gap-3 justify-start">
-              <Link href={banner?.data[0].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
+              {/* <Link href={banner?.data[0].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
                 { banner?.data[0].button_text}{" "}
-              </button></Link>
+              </button></Link> */}
               <span className="text-white">
                 <FaArrowRight />
               </span>
             </div>
           </div>
-          <Image
-            src={banner?.data[0].image_path}
+          {/* <Image
+            src={banner?.data[0]?.image_path}
             width="200"
             height="200"
             className=" "
             alt="apple-watch"
-          />
+          /> */}
         </div>
 
         <div

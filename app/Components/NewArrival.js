@@ -17,21 +17,21 @@ const NewArrival = ({newArrivals,banner}) => {
                 {/* left banner */}
                 <div className="col-span-1 flex flex-col-reverse w-full items-center p-5 space-y-5 bg-gradient-to-b  from-[#2A2047] via-[#5C0D81] to-[#751C6B] relative rounded-md  md:flex-col md:justify-start md:items-start">
                     <div className="space-y-7 flex flex-col items-center md:items-start">
-                        <h3 className="text-white text-2xl font-semibold text-wrap">{banner.data[2].title ||'Hot Deals'}</h3>
+                        <h3 className="text-white text-2xl font-semibold text-wrap">{'Hot Deals'}</h3>
                         <p className="text-gray-400 text-wrap">Grab the best deals now! Enjoy massive discounts on top products, from tech to fashion. Hurry, these offers {`won't`} last long!</p>
                         <Link  href={'/category/Smart Watch'}>
                         <button className="flex items-center gap-3 text-black bg-white font-semibold px-4 py-3 rounded-md ">Shop Now <span className="text-black"><FaArrowRight /></span></button>
                         </Link>
                         
                     </div>
-                    {
+                    {/* {
                       banner?.data.length > 0 && <img
                       src={banner.data[2]?.image_path || 'https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png'}
                       width={500}
                       height={500}
                       className="static md:absolute md:transform md:left-1/2 md:-translate-x-1/2 md:bottom-4"
                       alt={banner.data[2].title || ''}/>
-                    }
+                    } */}
                   
                 </div>
                 {/* products */}

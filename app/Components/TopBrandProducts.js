@@ -19,7 +19,7 @@ const TopBrandProducts = ({ brands,products }) => {
     if(tabIndex === 0){
       setPdcByBrands(products?.data)
     }
-  },[tabIndex,pdcByBrands])
+  },[tabIndex,pdcByBrands,products?.data])
 
 
 
@@ -41,6 +41,7 @@ const TopBrandProducts = ({ brands,products }) => {
     }
   };
 
+ 
   useEffect(() => {
     const brandId = tabIndex === 0 ? -1 : brands[tabIndex - 1]?.id;
     getProductsByBrands(brandId);
