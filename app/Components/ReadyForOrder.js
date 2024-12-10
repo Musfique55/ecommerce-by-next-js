@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import Heading from '../CustomHooks/heading';
-import ReactStars from "react-rating-stars-component";
 import Image from 'next/image';
 import { GoChevronRight } from 'react-icons/go';
 import Link from 'next/link';

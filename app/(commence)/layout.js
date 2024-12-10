@@ -12,7 +12,7 @@ const CheckoutLayout = ({children}) => {
             <body className='bg-white'>
             <div className='text-black h-full w-full   ' >
                 <div className='flex justify-between items-center border p-5  md:p-12'>
-                    <Link href={'/'}><img height={100} alt='company-logo' width={100} src={companyLogo}/> </Link>
+                    <Link href={'/'}><Image height={100} alt='company-logo' width={100} src={companyLogo}/> </Link>
                     <Link href={'/cart'}><HiOutlineShoppingBag className='text-[rgba(25,144,198,1)] text-xl'/></Link>
                 </div>
                 <div className='nunito'>

@@ -9,6 +9,7 @@ const StoreProvider = ({children}) => {
     const [isMounted, setIsMounted] = useState(false);
     const [openCart,setOpenCart] = useState(false);
     const [cartItems,setCartItems] = useState([]);
+
     useEffect(() => {
         setIsMounted(true);
     },[])
@@ -21,6 +22,7 @@ const StoreProvider = ({children}) => {
     const handleCart = (item,quantity) => {
         if(!isMounted) return;
         setRefetch(true);
+        console.log(item);
         const cartItems =JSON.parse(localStorage.getItem('cart')) || [];
         const existingProducts = cartItems.find(product => product.id === item.id);
         if(existingProducts){

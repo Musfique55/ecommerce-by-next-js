@@ -3,8 +3,6 @@ import "../globals.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import StoreProvider from "../StoreContext/store";
-import { Suspense } from "react";
-import Loading from "../Components/loading";
 import AvatarChat from "../Components/AvatarChat";
 
 const geistSans = localFont({
@@ -36,12 +34,10 @@ export default async function RootLayout({ children }) {
       >
       <StoreProvider>
           <Header data={data}/>
-          <Suspense fallback={<Loading />}>
           <div className="p-5 md:px-12 bg-[#F2F3F7] py-7">
             {children}
             <AvatarChat />
           </div>
-          </Suspense>
           <Footer data={data}/>
       </StoreProvider>
       </body>

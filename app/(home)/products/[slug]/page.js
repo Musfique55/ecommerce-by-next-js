@@ -275,7 +275,7 @@ const Page = ({ params }) => {
             {/* Action Buttons */}
             <div className="flex gap-4">
               <button
-                onClick={() => handleBuy(product?.data, quantity)}
+                onClick={() => handleBuy(product, quantity)}
                 className="px-4 py-1 bg-[#1A1A7E] text-white rounded-sm hover:bg-white hover:border-[#1A1A7E] hover:text-[#1A1A7E] border border-transparent"
               >
                 Buy Now
@@ -333,7 +333,7 @@ const Page = ({ params }) => {
                       <SwiperSlide key={idx} className="flex select-none justify-center">
                         <div className="max-w-sm bg-white text-center border-gray-200 grid grid-rows-[auto,1fr,auto] gap-4 p-4 border rounded-lg ">
                         <Link
-                          href={`/products/${product.title}`}>
+                          href={`/products/${product?.name}`}>
                             <div className="flex items-center justify-center">
                             <img
                               src={product?.image[0]}
@@ -345,18 +345,18 @@ const Page = ({ params }) => {
                             </div>
                             <div>
                               <h3 className="text-sm font-medium mb-2 text-black">
-                                {product?.title}
+                                {product?.name}
                               </h3>
         
                               <p className="text-sm text-gray-800 font-bold mb-4">
-                                {product?.price} ৳
+                                {product?.retails_price} ৳
                               </p>
                             </div>
                         </Link>
                         <div className='flex gap-2 flex-col md:flex-col lg:flex-row items-center'>
                           <button onClick={(e) => {e.preventDefault(),handleBuy(product,quantity)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                           <button
-                              onClick={(e) => {e.preventDefault(),handleCart(product?.data,1)}}
+                              onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
                               className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
                               >
                               Add to Cart
