@@ -105,6 +105,21 @@ const Page = ({ params }) => {
     // }, [range,items]);
 
     useEffect(() => {
+        const maxProductsRange = products?.data.length > 0 ? products?.data.reduce((prev,curr) => {
+          return prev + curr.retails_price
+        },0) : 0;
+        setRange([0, maxProductsRange]);
+        setMax(maxProductsRange)
+    },[products?.data])
+
+    useEffect(() => {
+        const rangedProducts =  products?.data.filter(item => {
+         return item.retails_price >= range[0] && item.retails_price <= range[1];
+        })
+        setFilteredItems(rangedProducts)
+    },[range,products?.data])
+
+    useEffect(() => {
       if (cpu) {
         const cpuBasedProducts = items.filter((item) => item.cpu === cpu);
         setFilteredItems(cpuBasedProducts);
@@ -147,7 +162,7 @@ const Page = ({ params }) => {
 
   //   sorting
   // console.log(selectedBrand);
-  console.log(filteredItems);
+ 
 
     useEffect(() => {
       if(sortBy === "low-to-high" && sortBy){

@@ -15,7 +15,7 @@ import Heading from "@/app/CustomHooks/heading";
 import axios from "axios";
 
 const Page = ({ params }) => {
-  // const {data : product,isLoading,error} =  useSWR(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,fetcher);
+  
   const [scroll,setScroll] = useState(0);
   const [product,setProduct] = useState({});
   const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
@@ -32,7 +32,6 @@ const Page = ({ params }) => {
     }
   }, [refetch]);
 
-  // console.log(product);
 
   const getProductDetails =  useCallback(()  => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/public/products-detail/${params.slug}`,{cache : "no-cache"})

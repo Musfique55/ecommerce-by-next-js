@@ -59,7 +59,7 @@ export default async function Home() {
     <>
       <HeroSlider slider={slider} banner={banner}/>
       <OurFeatures />
-      <FeaturedCategories products={products}/>
+      <FeaturedCategories />
       <ReadyForOrder products={products}/>
       <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals}/>
       <BannerSection banner={banner}/>
