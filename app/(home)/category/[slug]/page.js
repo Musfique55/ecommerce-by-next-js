@@ -42,7 +42,7 @@ const Page = ({ params }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedColor, setSelectedColor] = useState(null);
   const [sortBy, setSortBy] = useState("");
-  const [selectedBrand,setSelectedBrand] = useState('');
+  // const [selectedBrand,setSelectedBrand] = useState('');
   const [isExpanded, setIsExpanded] = useState(true);
   const [isStorageExpanded, setIsStorageExpanded] = useState(true);
   const [isTypeExpanded, setIsTypeExpanded] = useState(true);
@@ -68,6 +68,8 @@ const Page = ({ params }) => {
       setFilteredItems(products.data)
     }
   },[products])
+
+  // console.log(products.data);
  
     // useEffect(() => {
     //   if(selectedBrand){

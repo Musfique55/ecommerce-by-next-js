@@ -19,30 +19,28 @@ export default async function Home() {
   const products = await productRes.json();
 
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/get-sliders/$${userId}`,{
-    cache : "no-store"
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/get-sliders/${userId}`,{cache : 'no-cache'});
   const slider = await res.json();
 
   const bannerRes = await fetch(`${process.env.NEXT_PUBLIC_API}/get-banners/${userId}`,{
-    cache : "no-store"
+    cache : 'no-cache'
   })
   const banner = await bannerRes.json();
 
   const bestSellersRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,{
-    cache : "no-store"
+    cache : 'no-cache'
   });
   const bestSellers = await bestSellersRes.json();
 
 
   const bestDealsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,{
-    cache : "no-store"
+    cache : 'no-cache'
   });
   const bestDeals = await bestDealsRes.json();
 
 
   const newArrivalsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,{
-    cache : "no-store"
+    cache : 'no-cache'
   });
   const newArrivals = await newArrivalsRes.json();
 
@@ -51,8 +49,6 @@ export default async function Home() {
     cache : "no-cache"
   });
   const brands = await brandsRes.json();
-
-
 
 
   return (

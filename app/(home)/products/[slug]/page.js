@@ -15,14 +15,14 @@ import Heading from "@/app/CustomHooks/heading";
 import axios from "axios";
 
 const Page = ({ params }) => {
-  
+  const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [scroll,setScroll] = useState(0);
   const [product,setProduct] = useState({});
-  const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
   const [recentItems,setRecentItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [quantity,setQuantity] = useState(1);
   const [activeTab,setActiveTab] = useState('Specification');
+  
   
   useEffect(() => {
     setCartItems(getCartItems());
@@ -46,6 +46,9 @@ const Page = ({ params }) => {
   useEffect(() => {
     getProductDetails();
   },[getProductDetails])
+
+  console.log(product);
+
   
   // const handleRecentView = (item) => {
   //   const getItem = localStorage.getItem('recentViewItems');

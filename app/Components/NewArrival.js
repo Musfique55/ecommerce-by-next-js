@@ -5,10 +5,12 @@ import Heading from '../CustomHooks/heading';
 import useStore from '../CustomHooks/useStore';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
+import Image from 'next/image';
 
 
 const NewArrival = ({newArrivals,banner}) => {
     const {handleCart,handleBuy} = useStore();
+    console.log(banner);
     return (
         <div className="mt-12">
           <Heading title={'New Arrival'}/>
@@ -24,14 +26,16 @@ const NewArrival = ({newArrivals,banner}) => {
                         </Link>
                         
                     </div>
-                    {/* {
-                      banner?.data.length > 0 && <img
-                      src={banner.data[2]?.image_path || 'https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png'}
+                    {
+                      banner?.data.length > 0 && banner?.data && banner?.data[5] && <Image
+                      src={banner?.data && banner?.data[5] && banner.data[5]?.image_path}
                       width={500}
                       height={500}
                       className="static md:absolute md:transform md:left-1/2 md:-translate-x-1/2 md:bottom-4"
                       alt={banner.data[2].title || ''}/>
-                    } */}
+                    }
+
+                    {/* 'https://gtawebsite.azurewebsites.net/media/2701/apple-watch_s8_45mm_midnight_610x610.png' */}
                   
                 </div>
                 {/* products */}

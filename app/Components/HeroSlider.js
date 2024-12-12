@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '../globals.css'
 
+
 const HeroSlider = ({slider,banner}) => {
   
   return (
@@ -36,7 +37,9 @@ const HeroSlider = ({slider,banner}) => {
           modules={[Navigation,Autoplay,Pagination]}
           className="trending-swiper"
         >
-          {slider?.data?.image_path.map((img, idx) => (
+          { slider.status == 200 && slider?.data.length > 0 &&
+          
+          slider.data[0].image_path.map((img, idx) => (
            
             <SwiperSlide key={idx}>
               <div className="relative ">
@@ -46,8 +49,7 @@ const HeroSlider = ({slider,banner}) => {
                   width={500}
                   alt="slider-image"
                   style={{objectFit: 'cover'}}
-                  quality={75}
-                  className="rounded-md"
+                  className="rounded-md "
                 />
               </div>
             </SwiperSlide>
@@ -72,47 +74,54 @@ const HeroSlider = ({slider,banner}) => {
         >
           <div className="flex flex-col space-y-3 md:space-y-5 justify-center">
             <h3 className="text-white text-2xl font-semibold text-wrap">
-            {/* { banner?.data[0].title} */}
+            {/* { banner?.data[1].title} */}
             </h3>
             <div className="flex items-center gap-3 justify-start">
-              {/* <Link href={banner?.data[0].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
-                { banner?.data[0].button_text}{" "}
+              {/* <Link href={banner?.data[1].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
+                { banner?.data[1].button_text}{" "}
               </button></Link> */}
               <span className="text-white">
                 <FaArrowRight />
               </span>
             </div>
           </div>
-          {/* <Image
-            src={banner?.data[0]?.image_path}
-            width="200"
-            height="200"
-            className=" "
-            alt="apple-watch"
-          /> */}
+          {
+              banner?.data && banner?.data[1] &&  <Image
+              src={banner?.data && banner?.data[1] && banner?.data[1]?.image_path}
+              width={200}
+              height={200}
+              className="cursor-pointer"
+              alt="apple-watch"  
+            />
+          }
+         
         </div>
 
         <div
-        className={'col-span-3 bg-gradient-to-t from-[#33B852] to-[#78D86A] rounded-md px-5 py-2 flex lg:h-[194px]  justify-between  md:col-span-1 lg:col-span-3 '}
+        className={'col-span-3 bg-gradient-to-t  rounded-md px-5 py-2 flex lg:h-[194px]  justify-between  md:col-span-1 lg:col-span-3 '}
+        // style={{background : banner?.data[2]?.background_color}}
       >
         <div className="flex flex-col space-y-3 md:space-y-5 justify-center ">
-          <h3 className="text-white text-2xl mt-5 font-semibold md:mt-0">Beats Studio Buds</h3>
+          <h3 className="text-white text-2xl mt-5 font-semibold md:mt-0">{banner?.data[2]?.title}</h3>
           <div className="flex items-center  gap-3 justify-start">
-           <Link href={'/category/Smart Buds'}> <button className="flex gap-3 items-center border-b text-white font-medium text-lg p-0">
-              Shop Now{" "}
-            </button></Link>
+           {/* <Link href={banner?.data[2].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
+                { banner?.data[2].button_text}{" "}
+              </button></Link> */}
             <span className="text-white">
               <FaArrowRight />
             </span>
           </div>
         </div>
-        <Image
-          src={`https://i.ibb.co.com/Qpp0fPK/studiobudsplus-blackgold-01-removebg-preview.png`}
+        {
+          banner?.data && banner?.data[2] && <Image
+          src={banner?.data && banner?.data[2] && banner?.data[2]?.image_path}
           width="200"
           height="200"
-          className="object-cover"
+          className="object-cover cursor-pointer"
           alt="Beats-Studio-Buds"
         />
+        }
+        
         </div>
       </div>
       
