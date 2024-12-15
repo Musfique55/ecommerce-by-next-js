@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
   const [formData, setFormData] = useState({
@@ -17,8 +18,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    
+    e.preventDefault();  
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/customer-registration`, formData, {
         headers: {
@@ -26,16 +26,17 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
         },
       })
       .then((res) => {
-
-        console.log(res.data.data);
-        setFormData({
-          first_name: "",
-          last_name: "",
-          phone : "",
-          email: "",
-          password: "",
-        });
-        onClose();
+        if(res.data.success){
+          setFormData({
+            first_name: "",
+            last_name: "",
+            phone : "",
+            email: "",
+            password: "",
+          });
+          toast('Registered Successfully');
+          setIsRegistered(true);
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -118,6 +119,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
               
         }
       </form>
+      
     </div>
   );
 };

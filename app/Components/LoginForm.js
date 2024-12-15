@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReload }) => {
   const [formData, setFormData] = useState({
@@ -25,13 +26,13 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
         },
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.token) {
           setFormData({
             email: "",
             password: "",
           })
           setReload(true)
+          toast('Loggedin Successfully');
           onClose();
           router.push('/');
           localStorage.setItem("token", res.data.token);

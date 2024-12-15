@@ -15,6 +15,7 @@ import RegisterForm from './RegisterForm';
 import 'animate.css';
 import { IoLocationOutline } from 'react-icons/io5';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 const Header = ({data}) => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
     const [scroll,setScroll] = useState(0);
@@ -158,6 +159,22 @@ const Header = ({data}) => {
             title={isRegistered ? "Sign In" : 'Sign Up'}/> : null
            }
            
+           <Toaster 
+       toastOptions={{
+        className: '',
+        style: {
+        background : '#161616',
+        padding: '10px 16px 10px 16px',
+        color: '#C7C6D3',
+        },
+    }}
+    containerStyle={{
+        top: 20,
+        left: 50,
+        bottom: 20,
+        // right: 20,
+      }}
+      />
         </div>
     );
 };
