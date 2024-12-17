@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 const NewArrival = ({newArrivals,banner}) => {
     const {handleCart,handleBuy} = useStore();
-    console.log(banner);
+    // console.log(banner);
     return (
         <div className="mt-12">
           <Heading title={'New Arrival'}/>

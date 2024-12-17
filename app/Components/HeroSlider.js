@@ -11,12 +11,14 @@ import '../globals.css'
 
 
 const HeroSlider = ({slider,banner}) => {
+
+  console.log(banner.data[0]);
   
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
       {/* slider */}
       <div
-        className="col-span-3  swiper-container-2 bg-no-repeat bg-center md:bg-left-top bg-cover h-[400px] flex flex-col justify-center items-start space-y-5 overflow-hidden rounded-md relative md:col-span-4 lg:col-span-6"
+        className="col-span-3  bg-no-repeat bg-center md:bg-left-top bg-cover h-[400px] flex flex-col justify-center items-start space-y-5 overflow-hidden rounded-md relative md:col-span-4 lg:col-span-6"
         >
         {/* Swiper component */}
         <Swiper
@@ -49,7 +51,7 @@ const HeroSlider = ({slider,banner}) => {
                   width={500}
                   alt="slider-image"
                   style={{objectFit: 'cover'}}
-                  className="rounded-md "
+                  className="rounded-md"
                 />
               </div>
             </SwiperSlide>
@@ -66,64 +68,36 @@ const HeroSlider = ({slider,banner}) => {
         </div>
         </div>
       {/* right banner */}
-      <div className="col-span-3 md:col-span-4 grid grid-cols-2 gap-5 lg:col-span-3 lg:space-y-3 lg:gap-0">
-       {/*bg-gradient-to-b  from-[#751C6B] via-[#5C0D81] to-[#2A2047] */}
-        <div
-          className={`col-span-3 flex  items-center px-5 space-y-5   relative rounded-md lg:h-[194px] md:col-span-1  justify-start lg:col-span-3`}
-          // style={{background : banner?.data[0]?.background_color}}
-        >
-          <div className="flex flex-col space-y-3 md:space-y-5 justify-center">
-            <h3 className="text-white text-2xl font-semibold text-wrap">
-            {/* { banner?.data[1].title} */}
-            </h3>
-            <div className="flex items-center gap-3 justify-start">
-              {/* <Link href={banner?.data[1].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
-                { banner?.data[1].button_text}{" "}
-              </button></Link> */}
-              <span className="text-white">
-                <FaArrowRight />
-              </span>
-            </div>
-          </div>
+      <div className="col-span-3">
+      <div className="col-span-3 md:col-span-4  lg:col-span-3 lg:space-y-3 lg:gap-0 lg:h-[194px]">
           {
-              banner?.data && banner?.data[1] &&  <Image
-              src={banner?.data && banner?.data[1] && banner?.data[1]?.image_path}
-              width={200}
-              height={200}
-              className="cursor-pointer"
-              alt="apple-watch"  
+              banner?.data && banner?.data[0] && <Image
+              src={banner.data[0].image_path}
+              width={500}
+              height={500}
+              className="cursor-pointer h-[190px] rounded-md"
+              alt="apple-watch" 
+               
             />
-          }
-         
-        </div>
+          }     
+      </div>
 
         <div
-        className={'col-span-3 bg-gradient-to-t  rounded-md px-5 py-2 flex lg:h-[194px]  justify-between  md:col-span-1 lg:col-span-3 '}
+        className={'col-span-3 md:col-span-4 lg:col-span-3 lg:space-y-3 lg:gap-0 lg:h-[194px]'}
         // style={{background : banner?.data[2]?.background_color}}
       >
-        <div className="flex flex-col space-y-3 md:space-y-5 justify-center ">
-          <h3 className="text-white text-2xl mt-5 font-semibold md:mt-0">{banner?.data[2]?.title}</h3>
-          <div className="flex items-center  gap-3 justify-start">
-           {/* <Link href={banner?.data[2].button_url ? banner?.data[0].button_url : '/'}><button className="flex  items-center border-b text-white font-medium text-lg p-0">
-                { banner?.data[2].button_text}{" "}
-              </button></Link> */}
-            <span className="text-white">
-              <FaArrowRight />
-            </span>
-          </div>
-        </div>
         {
-          banner?.data && banner?.data[2] && <Image
-          src={banner?.data && banner?.data[2] && banner?.data[2]?.image_path}
-          width="200"
-          height="200"
+          banner?.data && banner?.data[1] && <Image
+          src={banner?.data[1]?.image_path}
+          width={200}
+          height={200}
           className="object-cover cursor-pointer"
           alt="Beats-Studio-Buds"
         />
-        }
-        
+        }       
         </div>
       </div>
+      
       
     </div>
   );
