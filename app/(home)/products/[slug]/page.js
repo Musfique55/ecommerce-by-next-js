@@ -1,6 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import products from "/products.json";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import relatedProducts from '/products.json'
 import useStore from "@/app/CustomHooks/useStore";
@@ -10,9 +9,12 @@ import Link from "next/link";
 import {Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css';
 import {Navigation } from 'swiper/modules';
 import Heading from "@/app/CustomHooks/heading";
 import axios from "axios";
+import ReactImageMagnify from "react-image-magnify";
+
 
 const Page = ({ params }) => {
   const { handleCart,getCartItems,refetch,setRefetch,handleBuy } = useStore();
@@ -22,7 +24,7 @@ const Page = ({ params }) => {
   const [cartItems, setCartItems] = useState([]);
   const [quantity,setQuantity] = useState(1);
   const [activeTab,setActiveTab] = useState('Specification');
-  
+  const [imageIndex,setImageIndex] = useState(0); 
   
   useEffect(() => {
     setCartItems(getCartItems());
@@ -30,7 +32,7 @@ const Page = ({ params }) => {
       setCartItems(getCartItems());
       setRefetch(false);
     }
-  }, [refetch]);
+  }, [refetch,setRefetch,getCartItems]);
 
 
   const getProductDetails =  useCallback(()  => {
@@ -47,7 +49,8 @@ const Page = ({ params }) => {
     getProductDetails();
   },[getProductDetails])
 
-  console.log(product);
+
+
 
   
   // const handleRecentView = (item) => {
@@ -70,13 +73,26 @@ const Page = ({ params }) => {
   // console.log(matchWithCart);
 
   const [selectedColor, setSelectedColor] = useState('Space Black')
-  const [selectedStorage, setSelectedStorage] = useState('128GB')
+  const [selectedStorage, setSelectedStorage] = useState('');
+
+  const [storages,setStorages] = useState(''); 
 
   const colors = ['Space Black', 'Gold', 'Pink', 'Blue', 'White']
-  const storages = ['128GB', '256GB', '512GB']
+
+  
 
   const isCartItem  = cartItems.find(item => item?.id === product?.id || undefined); 
 
+  useEffect(() => {
+    if(storages && storages.length > 0) setSelectedStorage(storages[0])
+  },[storages])
+
+  useMemo(() => {
+    if(product && product?.imeis && product.imeis.length > 0){
+     const uniqueStorage =  [...new Set(product.imeis.map((item) => item.storage))];
+     setStorages(uniqueStorage)
+    }
+  },[product])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,7 +101,6 @@ const Page = ({ params }) => {
     window.addEventListener('scroll',handleScroll);
     return () => window.removeEventListener('scroll',handleScroll)  
    },[])
-
 
 
   //  const handleMobileSlider = (idx) => {
@@ -100,7 +115,7 @@ const Page = ({ params }) => {
   // isLoading && <p>Loading....</p>
   
   return (
-    <div className="bg-white p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
+    <div className="bg-white mt-32 p-4 sm:p-6 lg:p-8 mx-auto text-black max-w-7xl overflow-hidden">
       
       <div className="container mx-auto px-4 py-8">
       {/* <div className="flex items-center text-sm mb-4">
@@ -111,83 +126,127 @@ const Page = ({ params }) => {
         <span className="text-gray-500">iPhone 16</span>
       </div> */}
 
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <div className="mb-4 border flex justify-center rounded-2xl p-2 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="relative">
+          {/* desktop */}
+          <div id="magnify" className="hidden  mb-4 col-span-1 border lg:flex justify-center rounded-2xl p-2 cursor-zoom-in fluid__image-container">
             { 
-             product?.images?.length > 0 ? (
-                  <img 
-                      height={200} 
-                      width={200} 
-                      alt="product" 
-                      src={product?.images[0]} 
-                      className="border border-gray-300" 
-                  />
-              ) : product?.image_path ? (
-                  <img 
-                      height={200} 
-                      width={200} 
-                      alt="product" 
-                      src={product?.image_path} 
-                      className="border border-gray-300" 
-                  />
-              ) : (
-                <img
-                src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                height="200"
-                width="200"
-                alt="mobile-phone"
-                quality={75}
-              />
-              ) 
+            product?.images?.length > 0 ? 
+            <>
+              <ReactImageMagnify {...{
+                smallImage: {
+                    alt: 'Wristwatch by Ted Baker London',
+                    // isFluidWidth: true,
+                    height: 300,
+                    width : 300,
+                    src: product?.images[imageIndex],
+                    
+                },
+                largeImage: {
+                    src: product?.images[imageIndex],
+                    width: 400,
+                    height: 500,
+                    
+                }
+            }} />
+            </> :
+            <>
+              <ReactImageMagnify {...{
+                smallImage: {
+                    alt: 'Wristwatch by Ted Baker London',
+                    // isFluidWidth: true,
+                    height: 300,
+                    width : 300,
+                    src: product?.image_path
+                },
+                largeImage: {
+                    src:  product?.image_path,
+                    width: 400,
+                    height: 500
+                }
+            }} />
+            </>
             }
           </div>
-          <div className="flex space-x-2 mb-4 ">
-            
-                {/* {
-                  images.map((image,idx) => {
-                    return <div key={idx} className={`relative w-[130px] p-2 h-[130px] ${imageIndex === idx ? 'border-2 border-[#0F98BA]' : ''}   overflow-hidden `}>
+
+            {/* mobile */}
+          <div className="flex justify-center lg:hidden ">
+            {
+               product?.images?.length > 0 ? 
+               ( <Image 
+                    height={200} 
+                    width={200} 
+                    alt="product" 
+                    src={product?.images[imageIndex]} 
+                />
+            ) : product?.image_path ? (
+                <Image 
+                    height={200} 
+                    width={200} 
+                    alt="product" 
+                    src={product?.image_path} 
+                />
+            ) : (
+              <Image
+              src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+              height={200} 
+              width={200} 
+              alt="mobile-phone"
+              quality={75}
+            />
+            )
+            }
+          </div>
+            {/* discount ribon */}
+          {
+              product.discount ?
+              <p className="text-white bg-[#178489] rounded-md  absolute py-1 
+              px-[6px] text-sm -top-5 lg:top-3 left-12">SAVE {product.discount}%</p> : ''
+          }
+          <div className="flex justify-center space-x-2 mb-4 ">
+                {
+                  product?.images &&  product?.images.length > 0 ?
+                  product.images.map((image,idx) => {
+                    return <div key={idx} className={`relative p-2  ${imageIndex === idx ? 'border-2 border-[#0F98BA]': ''} }   overflow-hidden `}>
                     <Image
                       onClick={() => setImageIndex(idx)}
                       src={image}
                       alt={product?.title}
-                      fill
+                      height={71}
+                      width={71}
                       quality={100}
-                      className=" "
-                      placeholder="empty"
+                      className="cursor-pointer"
                     />
                   </div>
-                  })
-                } */}
-                
+                  }) : 
+                  ''
+                }  
           </div>
         </div>
 
         <div>
-          <h1 className="text-2xl font-bold mb-2">{product?.name}</h1>
-          <div className="flex items-center mb-4">
-            {/* <Badge variant="secondary" className="mr-2">New</Badge> */}
-            {/* <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-            </div> */}
-          </div>
+          <h1 className="text-base lg:text-2xl font-bold mb-2 text-nowrap">{product?.name}</h1>
+          
           <div className="mb-4 flex items-center ">
-            <span className="text-3xl font-bold text-[#1A1A7E]">{product?.retails_price} ৳</span>
-            <span className="text-sm text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.status}</span>
+            {
+              product?.discount ? <div className="text-nowrap flex gap-2 items-center">
+                <span className="text-sm lg:text-2xl font-bold text-[#1A1A7E] line-through">{product?.retails_price} ৳</span>
+                <span className="text-base lg:text-3xl font-bold text-[#1A1A7E]">{product?.retails_price - ((product?.retails_price * product.discount) / 100).toFixed(0)} ৳</span>
+              </div> :
+              <span className="text-base lg:text-3xl font-bold text-[#1A1A7E]">{product?.retails_price} ৳</span>
+            }
+            
+            <span className="text-sm text-nowrap text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.status}</span>
           </div>
-          <div className="mb-4 flex items-center gap-3">
-            <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center  gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
-            <p className="text-gray-800 text-sm bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
+          <div className="mb-4 flex items-center flex-wrap lg:flex-nowrap gap-3">
+            <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center text-nowrap gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
+            <p className="text-gray-800 text-sm text-nowrap bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
           </div>
           <Link
-            href="https://wa.me/01639-147270" 
+            href="https://wa.me/+8809638668562" 
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-colors duration-200 mb-3"
+            className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 hover:text-white transition-colors duration-200 mb-3"
           >
             <FaWhatsapp className="text-2xl" />
             <span>Message <br /> on WhatsApp</span>
@@ -210,9 +269,11 @@ const Page = ({ params }) => {
             </div>
           </div>
           <div className="mb-4">
-            <h3 className="font-semibold mb-2">Storage: {selectedStorage}</h3>
+            <h3 className="font-semibold mb-2">Storage: {selectedStorage ? `${selectedStorage}` : 'N/A'}</h3>
             <div className="flex space-x-2">
-              {storages.map((storage) => (
+              { storages && storages.length > 0 &&
+              storages.map((storage) => (
+                storage ?
                 <button
                   key={storage}
                   onClick={() => setSelectedStorage(storage)}
@@ -222,8 +283,9 @@ const Page = ({ params }) => {
                       : 'bg-gray-200 text-gray-800'
                   }`}
                 >
-                  {storage}
+                  {storage} 
                 </button>
+                : ''
               ))}
             </div>
           </div>
@@ -302,9 +364,8 @@ const Page = ({ params }) => {
       </div>
 
       {/* related products */}
-      <div className="my-12">
+      {/* <div className="my-12">
         <Heading title={'Related Products'}/>
-        {/* sliders of related products */}
         <Swiper
             slidesPerView={2}
             spaceBetween={20}
@@ -337,7 +398,7 @@ const Page = ({ params }) => {
                         <Link
                           href={`/products/${product?.name}`}>
                             <div className="flex items-center justify-center">
-                            <img
+                            <Image
                               src={product?.image[0]}
                               height="200"
                               width="200"
@@ -375,38 +436,8 @@ const Page = ({ params }) => {
               }
               
         </Swiper>
-      </div>
-
-      
-   
-
-      {/* <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Specifications</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {[
-            { label: 'Brand', value: 'Apple' },
-            { label: 'Model', value: 'iPhone 16' },
-            { label: 'Network', value: 'GSM / CDMA / HSPA / EVDO / LTE / 5G' },
-            { label: 'Dimensions', value: '147.6 x 71.6 x 7.8 mm' },
-            { label: 'Weight', value: '170 g' },
-            { label: 'SIM', value: 'Nano-SIM and eSIM' },
-            { label: 'Display Type', value: 'Super Retina XDR OLED, 120Hz, HDR10, Dolby Vision, 1200 nits (HBM)' },
-            { label: 'Display Size', value: '6.1 inches' },
-            { label: 'Resolution', value: '1170 x 2532 pixels' },
-            { label: 'OS', value: 'iOS 18' },
-            { label: 'Chipset', value: 'Apple A17 Bionic (3 nm)' },
-            { label: 'CPU', value: 'Hexa-core' },
-            { label: 'GPU', value: 'Apple GPU (5-core graphics)' },
-            { label: 'Main Camera', value: '48 MP, f/1.8, 26mm (wide), 1.22µm, dual pixel PDAF, sensor-shift OIS' },
-            { label: 'Selfie Camera', value: '12 MP, f/2.2, 23mm (wide), 1/3.6"' },
-          ].map(({ label, value }) => (
-            <div key={label} className="flex justify-between p-3 border rounded-lg">
-              <span className="text-gray-600">{label}</span>
-              <span className="font-medium">{value}</span>
-            </div>
-          ))}
-        </div>
       </div> */}
+
     </div>
       
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -432,7 +463,16 @@ const Page = ({ params }) => {
         <div className="w-[7.5rem] h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
         <table id="Specification" className="table-auto w-full text-sm text-left">
          <tbody>
-         {[
+         {
+          product.specifications && product.specifications.length > 0 ?
+          product.specifications.map((item, index) => (
+            <tr key={index} className="border-b">
+              <td className="py-2 font-semibold border pl-3 ">{item.name}</td>
+              <td className="py-2 pl-3 border">{item.description}</td>
+            </tr>
+        ))
+          :
+          [
                     { label: "Brand", value: "Apple" },
                     { label: "Model", value: "iPhone 16" },
                     { label: "Network", value: "GSM / CDMA / HSPA / EVDO / LTE / 5G" },
@@ -456,7 +496,9 @@ const Page = ({ params }) => {
               <td className="py-2 font-semibold border pl-3 ">{item.label}</td>
               <td className="py-2 pl-3 border">{item.value}</td>
             </tr>
-        ))}
+        ))
+        
+        }
           </tbody> 
         
         </table>
@@ -465,167 +507,15 @@ const Page = ({ params }) => {
         <div  id="Description" className="mt-5 p-3 text-sm border rounded-lg">
         <h2 className="text-xl font-bold text-gray-900">Description</h2>
         <div className="w-[6.5rem] h-[2px] bg-[#1A1A7E] mt-1 mb-4"></div>
-          <h3 className="text-xl font-bold mb-2">
-            Immerse Yourself in Stunning Clarity: Apple Studio Display 27-Inch 5K
-            Retina Display
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Experience an unparalleled visual treat through the 27-inch 5K Retina
-            display at the Apple Studio Display. Hosting a resolution of 5120 x
-            2880 pixels at 218 pixels per inch, this display brings razor-sharp
-            text, lifelike images, and vibrant colors to life, whether you&apos;re
-            editing videos, working on graphic design, or simply enjoying
-            content.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Brilliant Visuals and True-to-Life Colors: Discover the Power of 600
-            nits Brightness
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Ensuring vivid visuals in bright lighting conditions, the display&apos;s
-            remarkable 600 nits brightness is complemented by support for one
-            billion colors and the P3 color gamut. Opt for Nano-texture glass to
-            eliminate glare and reflections, offering an uninterrupted, immersive
-            display experience.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            True Tone Technology: Enhancing Your Viewing Experience
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Adapting to ambient lighting, {`Apple’s`} True Tone Technology ensures a
-            natural and comfortable viewing experience. The Apple Studio Display
-            adjusts the color temperature to match the environment, reducing eye
-            strain and enhancing color accuracy.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Capturing Your World with Precision: High-Quality 12MP Ultra Wide
-            Camera
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Participate in video calls with exceptional clarity using the built-in
-            12MP Ultra Wide camera with a 122° field of view. Supporting Center
-            Stage, this camera ensures you stay in the frame, even in motion, with
-            a wide aperture of ƒ/2.4 for sharp and clear video calls in low-light
-            conditions.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Center Stage for Unmatched Video Calls
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Automatically keeping you in the spotlight during video calls, Center
-            Stage ensures you remain perfectly framed, whether on a conference
-            call or catching up with loved ones.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Reference Modes for Perfectly Optimized Display
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Tailor the display to your specific use case with a range of reference
-            modes, including HDTV Video, Apple Display, PAL and SECAM Video, NTSC
-            Video, Digital Cinema, Photography, Internet and Web, and Design and
-            Print. Achieve accurate color representation and optimal viewing
-            experiences.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Immersive Audio Experience: Wide Stereo Sound and Studio-Quality
-            Three-Mic Array
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Experience high-fidelity audio with wide stereo sound and
-            force-cancelling woofers. The six-speaker system complements your
-            visual experience, while the integrated studio-quality three-mic array
-            with directional beamforming ensures crystal-clear voice capture for
-            virtual meetings.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Customizable Ergonomics: Tilt- and Height-Adjustable Stand
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Achieve the perfect viewing angle and ergonomic setup with the tilt-
-            and height-adjustable stand of the Apple Studio Display. Tilt the
-            display from -5° to +25°, adjust its height up to 105 mm, and use it
-            in landscape or portrait orientation. VESA mount compatibility adds
-            versatility.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            High-Speed Connectivity with Thunderbolt 3 and USB-C Ports
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Seamlessly connect compatible devices with one upstream Thunderbolt 3
-            port for host with 96W host charging and one additional Thunderbolt 3
-            port. Three downstream USB-C ports (up to 10Gb/s) provide high-speed
-            data transfer and charging capabilities.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Compatibility and System Requirements: Your Device&apos;s Perfect Companion
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Compatible with various Mac models running macOS Monterey 12.3 or
-            later, including MacBook Air (2018 or later), Mac Pro (2019 or later),
-            Mac mini (2018 or later), iMac Pro (2017), and select iPad models
-            running iPadOS 15.4 or later.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Sleek Design and VESA Mount Capability: Apple Studio Display 27-Inch
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Add a touch of elegance to any workspace with the sleek and modern
-            design of the Apple Studio Display. VESA mount compatibility offers a
-            clean and space-saving wall mounting option.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            The Apple Studio Display: Electrical and Operating Requirements for
-            Optimal Performance
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Operating at a frequency of 50Hz to 60Hz and with a line voltage range
-            of 100-240V AC, the display is suitable for use in various regions.
-            Tested up to an altitude of 16,400 feet (5000 meters) and functioning
-            in a relative humidity range of 5% to 90% non-condensing, with a
-            recommended operating temperature of 50° to 95° F (10° to 35° C).
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Package Contents: What&apos;s Included in the Box of Apple Studio Display
-          </h3>
-          <p className="text-gray-600 mb-4">
-            The Apple Studio Display includes a Thunderbolt cable (1 m) for
-            convenient connectivity. All necessary components are included to
-            ensure a seamless setup.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            Unparalleled Warranty and Support: 1-Year Apple International Warranty
-            of Apple Studio Display
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Rest easy with {`Apple’s`} 1-Year International Warranty, protecting your
-            investment against manufacturing defects and malfunctions.
-          </p>
-
-          <h3 className="text-xl font-bold mb-2">
-            The Best Deal in Bangladesh: Price and Where to Buy Apple Studio
-            Display 27-Inch 5K Retina Display
-          </h3>
-          <p className="text-gray-600 mb-4">
-            As of 8th June 2023, the base model of the Apple Studio Display starts
-            at 235,000 Tk in Bangladesh. For the best price and a genuine product,
-            consider purchasing from Custom Mac {`BD’s`} website or visiting their
-            physical stores for a hassle-free buying experience. Elevate your
-            workspace with the stunning Apple Studio Display 27-Inch 5K Retina
-            Display.
-          </p>
+        {
+          product.description ?
+              <p className="text-gray-600 mb-4">
+                {product.description}
+              </p>
+        
+          : <p>Description is not Available</p>
+        }
+          
         </div>
         {/* warranty */}
         <div id="Warranty" className="bg-white text-sm border rounded-lg p-6 mt-5 shadow-sm">
@@ -653,7 +543,7 @@ const Page = ({ params }) => {
                   className="flex px-2 py-3 items-center bg-white rounded-lg hover:shadow-md transition-shadow duration-200"
                 >
                   <Link href={`/products/${product.title}`}>
-                    <img
+                    <Image
                       src={product?.image[0]}
                       alt={product?.title}
                       width={80}

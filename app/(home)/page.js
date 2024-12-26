@@ -1,19 +1,29 @@
 import NewArrival from '../Components/NewArrival';
 import HeroSlider from "../Components/HeroSlider";
-import TopBrandProducts from '../Components/TopBrandProducts';
-import ReadyForOrder from '../Components/ReadyForOrder';
 import BannerSection from '../Components/BannerSection';
 import FeaturedCategories from '../Components/FeaturedCategories';
-import FeaturedProducts from '../Components/FeaturedProducts';
 import OurFeatures from '../Components/OurFeatures';
 import Brands from '../Components/Brands';
-
+import dynamic from 'next/dynamic';
 export const userId = 135;
+export const fetcher = (url) => fetch(url).then(res => res.json());
+
+const ReadyForOrder = dynamic(() => import('../Components/ReadyForOrder'), {
+  ssr: false,
+});
+
+const FeaturedProducts = dynamic(() => import('../Components/FeaturedProducts'), {
+  ssr: false,
+});
+
+const TopBrandProducts = dynamic(() => import('../Components/TopBrandProducts'), {
+  ssr: false,
+});
 
 
 export default async function Home() {
 
-  const productRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/products/${userId}`,{
+  const productRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/products/${userId}?page=1&limit=12`,{
     cache : "no-store"
   });
   const products = await productRes.json();
@@ -26,6 +36,11 @@ export default async function Home() {
     cache : 'no-cache'
   })
   const banner = await bannerRes.json();
+
+  const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/categories/${userId}`,{
+    cache : 'no-cache'
+  });
+  const categories = await categoriesRes.json();
 
   const bestSellersRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,{
     cache : 'no-cache'
@@ -55,13 +70,13 @@ export default async function Home() {
     <>
       <HeroSlider slider={slider} banner={banner}/>
       <OurFeatures />
-      <FeaturedCategories />
-      <ReadyForOrder products={products}/>
-      <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals}/>
+      <FeaturedCategories categories={categories}/>
+      <ReadyForOrder products={products}/> 
+      <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals} />
       <BannerSection banner={banner}/>
-      <NewArrival newArrivals={newArrivals} banner={banner}/>
-      <TopBrandProducts products={products} brands={brands.data}/>
-      <Brands/>      
+      <NewArrival newArrivals={newArrivals} banner={banner}/> 
+      <TopBrandProducts products={products} brands={brands.data}/> 
+      <Brands brands={brands}/>      
     </>
   );
 }

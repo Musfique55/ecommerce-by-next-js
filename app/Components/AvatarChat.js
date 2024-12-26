@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 
 export default function Component() {
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true);
 
   return (
     <div className="fixed cursor-pointer top-96 right-5 z-[100000000000]">
@@ -60,3 +60,8 @@ export default function Component() {
     </div>
   )
 }
+
+
+
+
+

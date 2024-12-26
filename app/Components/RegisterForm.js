@@ -2,9 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 
-const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
+const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal,onClose}) => {
   const [formData, setFormData] = useState({
     outletName: "",
     ownerName: "",
@@ -18,7 +17,8 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();  
+    e.preventDefault();
+    
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/customer-registration`, formData, {
         headers: {
@@ -26,17 +26,16 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
         },
       })
       .then((res) => {
-        if(res.data.success){
-          setFormData({
-            first_name: "",
-            last_name: "",
-            phone : "",
-            email: "",
-            password: "",
-          });
-          toast('Registered Successfully');
-          setIsRegistered(true);
-        }
+
+        console.log(res.data.data);
+        setFormData({
+          first_name: "",
+          last_name: "",
+          phone : "",
+          email: "",
+          password: "",
+        });
+        onClose();
       })
       .catch((error) => console.log(error));
   };
@@ -110,16 +109,15 @@ const RegisterForm = ({setIsRegistered,isRegistered,isShowModal,onClose}) => {
           type="submit"
           className="w-full py-2 bg-[#407bff] text-white rounded-lg "
         >
-          Register
+          Login
         </button>
         {
-             !isShowModal ?
+             !isLoginModal ?
                 <p className='text-black text-center'>Do Not Have an Account? <Link onClick={() => setIsRegistered(!isRegistered)} href={'/register'} className='hover:text-blue-500'>Register</Link></p>
               : <p className='text-black text-center'>Already Have an Account? <span onClick={() => setIsRegistered(!isRegistered)}  className='hover:text-blue-500 cursor-pointer'>Login</span></p>
               
         }
       </form>
-      
     </div>
   );
 };

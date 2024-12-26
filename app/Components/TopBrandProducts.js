@@ -1,51 +1,20 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Image from "next/image";
 import "@smastrom/react-rating/style.css";
 import Heading from "../CustomHooks/heading";
 import useStore from "../CustomHooks/useStore";
 import Link from "next/link";
-import axios from "axios";
+import useSWR from "swr";
+import { fetcher } from "../(home)/page";
 
-const TopBrandProducts = ({ brands,products }) => {
+const TopBrandProducts = ({brands }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const { handleCart } = useStore();
-  const [pdcByBrands, setPdcByBrands] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if(tabIndex === 0){
-      setPdcByBrands(products?.data)
-    }
-  },[tabIndex,pdcByBrands,products?.data])
-
-
-
-  const getProductsByBrands = async (brandId) => {
-    setLoading(true);
-    try {
-      if(brandId > -1){
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${brandId}`
-        );
-        const data = res.data;
-        setPdcByBrands(data.data || []);
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setPdcByBrands([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
- 
-  useEffect(() => {
-    const brandId = tabIndex === 0 ? -1 : brands[tabIndex - 1]?.id;
-    getProductsByBrands(brandId);
-  }, [tabIndex, brands]);
+  const {data : pdcByBrands,isLoading} =  useSWR(
+    `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${tabIndex === 0 ? 0 : brands[tabIndex - 1]?.id}`,fetcher
+  );
 
   return (
     <div className="mt-12">
@@ -78,41 +47,58 @@ const TopBrandProducts = ({ brands,products }) => {
 
         {[null, ...brands?.slice(0, 6)].map((_, index) => (
           <TabPanel key={index}>
-            {loading ? (
+            {isLoading ? (
               <p className="text-center">Loading...</p>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {pdcByBrands?.length > 0 ? (
-                  pdcByBrands.map((product) => (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                {pdcByBrands?.data.length > 0 ? (
+                  pdcByBrands?.data.slice(0,12).map((product) => (
                     <Link
                       key={product.id}
                       href={`products/${product.id}`}
                       className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
                     >
-                      {product.image_path ? (
-                        <img
-                          src={product?.image_path}
-                          height={256}
-                          width={256}
-                          alt={product.name}
-                          quality={75}
-                        />
-                      ) : (
-                        <img
-                          src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                          height="200"
-                          width="200"
-                          alt="mobile-phone"
-                          quality={75}
-                        />
-                      )}
-                      <h3 className="text-sm font-medium mb-2 text-black">
+                      <div className="flex justify-center relative">
+                        {console.log(product.image_path)}
+                        
+                        {product.image_path ? (
+                          <Image
+                            src={product?.image_path}
+                            height={145}
+                            width={145}
+                            alt={product.name}
+                            quality={75}
+                          />
+                        ) : (
+                          <Image
+                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                            height={145}
+                            width={145}
+                            alt="mobile-phone"
+                            quality={75}
+                            loading='lazy'
+                          />
+                        )}
+                        {
+                              product.discount ?
+                              <p className="text-white bg-[#178489] rounded-md  absolute py-1 
+                              px-[6px] text-sm top-0 left-0">SAVE {product.discount}%</p> : ''
+                          }
+                      </div>
+                      
+                      <h3 className="text-sm font-medium my-2 text-black">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-gray-800 font-bold mb-4">
-                        {product.retails_price} ৳
-                      </p>
-                      <div className="flex gap-2 items-center">
+                      <div className="mb-2">
+                        {
+                           product?.discount ? <div className="text-nowrap flex gap-2 justify-center items-center">
+                           <span className="text-xs font-bold text-[#1A1A7E] line-through">{product?.retails_price} ৳</span>
+                           <span className="text-sm font-bold text-[#1A1A7E]">{product?.retails_price - ((product?.retails_price * product.discount) / 100).toFixed(0)} ৳</span>
+                         </div> :
+                         <span className="text-sm font-bold text-[#1A1A7E]">{product?.retails_price} ৳</span>
+                        }  
+                        </div>  
+                      <div className="flex flex-col gap-2 items-center md:flex-row">
                         <button className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold transition-colors">
                           Buy Now
                         </button>

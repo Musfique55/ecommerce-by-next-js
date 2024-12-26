@@ -1,17 +1,18 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
-const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReload }) => {
+const LoginForm = ({ isRegistered, setIsRegistered, isLoginModal,onClose,setReload }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
    const router = useRouter(); 
+   const searchParams = useSearchParams();
+   const intendedUrl = searchParams.get('redirect');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,9 +33,12 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
             password: "",
           })
           setReload(true)
-          toast('Loggedin Successfully');
+          if(intendedUrl){
+            router.push(intendedUrl);
+          }else{
+            router.push('/');
+          }
           onClose();
-          router.push('/');
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.customer));
         }
@@ -83,7 +87,7 @@ const LoginForm = ({ isRegistered, setIsRegistered, isShowModal,onClose,setReloa
         >
           Login
         </button>
-        {!isShowModal ? (
+        {!isLoginModal ? (
           <p className="text-black text-center">
             Do Not Have an Account?{" "}
             <Link

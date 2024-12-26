@@ -14,7 +14,7 @@ const Footer = ({data}) => {
                     <button className='bg-[#1A1A7E] text-white p-2 rounded-sm'>Subscribe</button>
                 </div> */}
             </div>
-            <footer className="bg-gradient-to-r from-[#141129]  to-[#040209] text-white py-10 px-5 md:px-12">
+            <footer className="bg-zinc-900 text-white py-10 px-5 md:px-12">
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
                     {/* Left Section - Company Info */}
                     <div className="col-span-2 space-y-3">

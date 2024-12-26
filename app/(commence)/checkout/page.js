@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 
 const CheckoutPage = () => {
-    const {getCartItems} = useStore();
+    const {getCartItems,setIsLoginModal} = useStore();
     const [token, setToken] = useState(null);
 
     const router = useRouter();
@@ -19,35 +19,32 @@ const CheckoutPage = () => {
 
     useEffect(() => {
       if (typeof window !== 'undefined') {
-        // Check for the token after the component is mounted
         const storedToken = localStorage.getItem('token');
         setToken(storedToken);
   
         if (!storedToken) {
-          // Get the current URL for redirection
           const intendedUrl = window.location.pathname;
-          // Redirect to login page with the intended URL as a query param
-          router.push(`/login?redirect=${intendedUrl}`);
+          router.push(`/?redirect=${intendedUrl}&login=false`);
+          setIsLoginModal(true);
         }
       }
-    }, [router]);
+    }, [router,setIsLoginModal]);
   
-    // If the token is not set, return null to avoid rendering before the redirect happens
     if (!token) {
       return null;
     }
 
-    console.log(cartItems);
+
     return (
-            <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid  lg:grid-cols-3 relative'>
-            <div className='col-span-1 md:col-span-2 border-gray-300 border-r p-5 md:pl-12 md:py-12'>
+            <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid lg:grid-cols-3 relative pl-12'>
+            <div className='col-span-1 md:col-span-2 border-gray-300 border-r pr-5'>
                 <DeliveryForm cartItems={cartItems}/>
             </div>
 
             {
                 cartItems.length > 0 ?  
-                <div className='col-span-1 p-5  md:pb-12  bg-[#FAFAFA]   md:pr-12'>
-                <div className='static w-full md:static md:w-full lg:fixed lg:w-[400px] gap-2  flex flex-col h-fit md:h-fit lg:min-h-screen '>
+                <div className='col-span-1 bg-[#FAFAFA] md:py-10 md:px-5 space-y-5 rounded-tr-lg rounded-br-lg'>
+                <div className=' w-full gap-2 '>
                 {
                     cartItems.length > 0 &&
                         cartItems.map((item) => {
@@ -56,36 +53,37 @@ const CheckoutPage = () => {
                                     <div className='relative  p-2 '>
                                     {
                                        item?.images?.length > 0 ? (
-                                        <img
-                                            height={80} 
-                                            width={80} 
+                                        <Image
+                                            height={60} 
+                                            width={60} 
                                             alt="product" 
                                             src={item.images[0]} 
                                             className="border border-gray-300" 
                                         />
                                     ) : item?.image_path ? (
-                                        <img 
-                                            height={80} 
-                                            width={80} 
+                                        <Image 
+                                            height={60} 
+                                            width={60} 
                                             alt="product" 
                                             src={item.image_path} 
+
                                             className="border border-gray-300" 
                                         />
                                     ) : (
-                                        <img
-                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                            height="200"
-                            width="200"
-                            alt="mobile-phone"
-                            quality={75}
-                          />
+                                        <Image
+                                        src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                                        height={60} 
+                                        width={60}
+                                        loading='lazy'
+                                        alt="mobile-phone"
+                                        />
                                     )
                                     }
                                    
                                     
                                     <p className='absolute bg-[rgba(0,0,0,0.5)] text-[12px] text-white flex items-center justify-center w-6 h-6 -right-1 -top-2 rounded-full'>{item.quantity}</p>
                                     </div>
-                                    <h3>{item.name}</h3>
+                                    <h3 className='w-[225px] text-wrap'>{item.name}</h3>
                                    
                                 </div>
                                 <p>{item.retails_price} ৳</p>
@@ -93,6 +91,8 @@ const CheckoutPage = () => {
                         })     
                    
                 }
+                
+                </div>
                 <div className='flex gap-4'>
                     <input type="text" className='p-3 text-black bg-white outline-none border w-96 rounded-md' placeholder='Discount Code '/>
                     <button type="submit" className='border p-3 bg-[#F1F1F1] text-gray-400 rounded-md'>Apply</button>
@@ -109,7 +109,6 @@ const CheckoutPage = () => {
                 <div className='flex justify-between items-center font-medium text-gray-600 text-lg pb-12'>
                     <p>Total</p>
                     <p>{(Subtotal + 400).toFixed(2)}৳</p>
-                </div>
                 </div>
             </div>
                 : <p className='font-extrabold text-2xl text-center'>Cart is Empty</p>

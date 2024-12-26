@@ -16,16 +16,17 @@ import 'animate.css';
 import { IoLocationOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
+import { useSearchParams } from 'next/navigation';
 const Header = ({data}) => {
-    const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList} = useStore();
+    const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList,isLoginModal,setIsLoginModal} = useStore();
     const [scroll,setScroll] = useState(0);
     const [keyword,setKeyword] = useState('');
     const [searchedItem,setSearchedItem] = useState([]);
-    const [isShowModal,setIsShowModal] = useState(false); 
     const [isRegistered,setIsRegistered] = useState(false);
     const [showUserInfo,setShowUserInfo] = useState(false);
     const [email,setEmail] = useState(null);
     const [reload,setReload] = useState(false);
+    const pathname = useSearchParams();
 
     useEffect(() => {
         const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
@@ -50,6 +51,12 @@ const Header = ({data}) => {
             getWishList()
         }
     },[refetch,getWishList])
+
+    useEffect(() => {
+        if(pathname.get('login') == 'false'){
+            setIsLoginModal(true)
+        }
+    },[pathname])
    
    const wishList = getWishList();
    const items =  getCartItems();
@@ -74,7 +81,7 @@ const Header = ({data}) => {
     searchedItems()
    },[keyword])
 
-   const handleModalClose = () => setIsShowModal(false);
+   const handleModalClose = () => setIsLoginModal(false);
 
    const handleUserInfo = () => {
     setShowUserInfo(true);
@@ -87,7 +94,7 @@ const Header = ({data}) => {
    }
 
     return (
-        <div className={` w-full z-50  text-white  transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? 'fixed shadow-lg' : 'relative'}`}>
+        <div className={` w-full z-50 fixed text-white  transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? ' shadow-lg' : ''}`}>
             {/* desktop menu */}
            <div className='flex justify-between bg-white text-black p-3 md:px-12'>
            <Link href={'/'}><Image src={companyLogo} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
@@ -104,7 +111,7 @@ const Header = ({data}) => {
                {
                 email ?<div  onMouseEnter={handleUserInfo} onMouseLeave={() => setShowUserInfo(false)}>
                 <div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  className='font-semibold  text-xl  cursor-pointer hover:text-blue-500'/></div>
-                </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsShowModal(true)}} className='font-semibold  text-xl cursor-pointer hover:text-blue-500'/></div> 
+                </div> :<div className='border p-2 rounded-full border-[#1A1A7E]'><FaRegUser  onClick={() => {setIsLoginModal(true)}} className='font-semibold  text-xl cursor-pointer hover:text-blue-500'/></div> 
                }
                <div className='relative border p-2 rounded-full border-[#1A1A7E]'>
                <Link href={'/wishlist'}  >
@@ -140,20 +147,19 @@ const Header = ({data}) => {
            }
 
            {
-            isShowModal ? 
+            isLoginModal ? 
             <Modal 
             content={isRegistered ? 
             <LoginForm  
-            isShowModal={isShowModal} 
+            isLoginModal={isLoginModal} 
             onClose = {handleModalClose}
             setIsRegistered={setIsRegistered} 
             setReload={setReload}
             isRegistered={isRegistered}/> : 
             <RegisterForm 
             setIsRegistered={setIsRegistered} 
-            isShowModal={isShowModal} 
+            isLoginModal={isLoginModal} 
             isRegistered={isRegistered} />} 
-            isShowModal={isShowModal}
             onClose = {handleModalClose}
             setReload={setReload}
             title={isRegistered ? "Sign In" : 'Sign Up'}/> : null

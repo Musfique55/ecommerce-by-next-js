@@ -4,19 +4,21 @@ import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 
 const BannerSection = ({banner}) => {
-  console.log(banner);
     return (
-        <div className='grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 mt-24'>
+        <div className='grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 mt-24 relative'>
             {/* 
              */}
-            {
-              banner?.data && banner?.data[3] ? 
+             <div className='relative aspect-video'>
+             {
+              banner?.data && banner?.data[2] ? 
               <Image 
-            src={banner?.data && banner?.data[3] && banner?.data[3]?.image_path}
+            src={banner?.data && banner?.data[2] && banner?.data[2]?.image_path}
             alt='banner'
-            width={500}
-            height={500}
-            className='cursor-pointer'
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            fill={true}
+            style={{objectFit: 'cover'}}
+            quality={100}
+            className='cursor-pointer rounded-md'
             />
             :
 
@@ -38,15 +40,19 @@ const BannerSection = ({banner}) => {
             </div>
             
             }
-
+             </div>
+           
+            <div className="relative w-full aspect-video">
             {
-              banner?.data && banner?.data[4] ? 
+              banner?.data && banner?.data[3] ? 
               <Image 
-            src={banner?.data && banner?.data[4] && banner?.data[4]?.image_path}
+            src={banner?.data && banner?.data[3] && banner?.data[3]?.image_path}
             alt='banner'
-            width={500}
-            height={500}
-            className='cursor-pointer'
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            fill={true}
+            style={{objectFit: 'cover'}}
+            className='cursor-pointer rounded-md'
+            quality={100}
             /> :
             <div className='bg-gradient-to-br from-[#1B054E] to-[#6C157E] text-white p-8 rounded-lg flex flex-col-reverse gap-5 items-center md:flex-row md:justify-between md:items-center'>
             <div className='flex flex-col items-center md:items-start'>
@@ -67,6 +73,8 @@ const BannerSection = ({banner}) => {
             />
           </div>
             }
+            </div>
+            
             
             
         </div>

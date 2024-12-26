@@ -10,17 +10,18 @@ import Loader from "@/app/Components/Loader";
 import FilterProduct from "@/app/Components/FIlterProduct";
 
 
+
 const fetcher = (url) => fetch(url).then(res => res.json());
 
 const Page = ({ params }) => {
   const searchParams = useSearchParams();
-  const searchedCategory = searchParams.get('category');
+  const searchedCategory = searchParams.get('brand');
   const searchedTotal = searchParams.get('total');
   const [currentPage,setCurrentPage] = useState(1);
   const limit = 20;
   const totalPage = Math.ceil(parseInt(searchedTotal) / limit);
-  const {slug: id} = params;
-  const {data : products,isLoading} = useSWR(`https://outletexpense.xyz/api/public/categorywise-products/${id}?page=${currentPage}&limit=${limit}`,fetcher);
+  const {id} = params;
+  const {data : products,isLoading} = useSWR(`https://outletexpense.xyz/api/public/brandwise-products/${id}?page=${currentPage}&limit=${limit}`,fetcher);
   const [filteredItems, setFilteredItems] = useState([]);
   const { handleCart,handleBuy } = useStore();
   const [isChecked, setIsChecked] = useState(false);
@@ -30,6 +31,14 @@ const Page = ({ params }) => {
   // const brands = [...new Set(items.map(item  => item.brand_name))];
   const contentRef = useRef(null);
   
+  // const maxPrice = products?.data ? products.data.filter((item) => {
+  //   console.log(item);
+  //   return item.retails_price > minPrice;
+  // }) : 0;
+
+  
+
+
 
   const pages = [];
 
@@ -50,7 +59,6 @@ const Page = ({ params }) => {
     }
   },[products])
 
-  // console.log(products.data);
  
     // useEffect(() => {
     //   if(selectedBrand){
@@ -139,6 +147,11 @@ const Page = ({ params }) => {
           setFilteredItems(products?.data)
       }
     },[sortBy,products?.data])
+
+    console.log(products?.data);
+    if(!products?.data.length > 0) {
+      return <p className="text-center">No product Avilable</p>
+    }
 
   return (
     <>

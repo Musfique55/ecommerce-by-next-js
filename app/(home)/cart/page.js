@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStore from '../../CustomHooks/useStore';
 import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
@@ -22,7 +22,7 @@ const CartPage = () => {
             setRefetch(false)
             setCartItems(getCartItems());
         }
-    },[refetch,getCartItems,cartTotal])
+    },[refetch,getCartItems,cartTotal,setRefetch])
     
     const handleRedirect = () => {
         if(checked){
@@ -50,10 +50,9 @@ const CartPage = () => {
         localStorage.removeItem('cart');
     }
 
-    console.log(cartItems);
 
     return (
-        <div className='text-black '>
+        <div className='text-black mt-32'>
             {/* desktop cart */}
             <div className='overflow-x-scroll hidden md:block'>
             <table className='text-black min-w-[800px] md:w-full mt-10 bg-white'>
@@ -70,24 +69,33 @@ const CartPage = () => {
                     {
                        cartItems.length > 0  ?
                         cartItems.map((item,idx) => {
+                            console.log(item);
                             return <tr key={idx} className='text-black  justify-items-center items-center  border-gray-300 border-t-0 border'>
                                 
                                 <td className=' flex gap-10 align-middle'>
-                                    {
+                                    {  item?.images?.length > 0 ? 
+                                        <Image
+                                            src={item?.images[0]}
+                                            height={50} 
+                                            width={50} 
+                                            alt="mobile-phone"
+                                            quality={75}
+                                        />  : 
                                        item?.image_path ? 
-                                       <img 
-                                        src={item?.image_path}
-                                        height={100}
-                                        width={100}
-                                        alt='product-image'
+                                        <Image 
+                                        src={item.image_path}
+                                        height={50}
+                                        width={50}
+                                        alt='product'
                                         />
-                                       : <img
-                                       src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                                       height="200"
-                                       width="200"
-                                       alt="mobile-phone"
-                                       quality={75}
-                                     />
+                                        :
+                                        <Image
+                                            src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+                                            height={50} 
+                                            width={50} 
+                                            alt="mobile-phone"
+                                            quality={75}
+                                        />
                                     }
                                     
                                     <p className='font-semibold my-auto'>{item?.name}</p>
@@ -156,13 +164,14 @@ const CartPage = () => {
                         return <div key={idx} className='flex gap-3 space-y-3 items-center bg-white p-5'>
                             {
                              item?.image_path ?   
-                            <img height={100} width={100} src={item.image_path} alt='products'/> :
-                            <img
+                            <Image height={56}
+                            width={56} src={item.image_path} alt='products'/> :
+                            <Image
                             src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                            height="200"
-                            width="200"
+                            height={56}
+                            width={56}
                             alt="mobile-phone"
-                            quality={75}
+                            quality={100}
                           />
                             }
                             <div className=' flex-1'>
@@ -246,7 +255,7 @@ const CartPage = () => {
                             <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} />
                             <label >I agree with the terms and conditions.</label>
                         </div>
-                        <img 
+                        <Image 
                             src={'https://www.custommacbd.com/cdn/shop/files/SSL_Commerz_Pay_With_logo_All_Size-01_320x.png?v=1614930139'}
                             height={500}
                             width={500}

@@ -9,7 +9,7 @@ const StoreProvider = ({children}) => {
     const [isMounted, setIsMounted] = useState(false);
     const [openCart,setOpenCart] = useState(false);
     const [cartItems,setCartItems] = useState([]);
-
+    const [isLoginModal,setIsLoginModal] = useState(false); 
     useEffect(() => {
         setIsMounted(true);
     },[])
@@ -118,7 +118,7 @@ const StoreProvider = ({children}) => {
     }
 
     
-    const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete}
+    const values = {handleCart,getCartItems,refetch,brands,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete,isLoginModal,setIsLoginModal}
     return (
         <storeContext.Provider value={values}>
             {children}

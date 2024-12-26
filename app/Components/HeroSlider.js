@@ -11,14 +11,11 @@ import '../globals.css'
 
 
 const HeroSlider = ({slider,banner}) => {
-
-  console.log(banner.data[0]);
-  
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-4 lg:grid-cols-9">
+    <div className="grid grid-cols-1 mt-32 gap-5 md:grid-cols-4 lg:grid-cols-9">
       {/* slider */}
       <div
-        className="col-span-3  bg-no-repeat bg-center md:bg-left-top bg-cover h-[400px] flex flex-col justify-center items-start space-y-5 overflow-hidden rounded-md relative md:col-span-4 lg:col-span-6"
+        className="col-span-3  swiper-container-2 bg-no-repeat bg-center md:bg-left-top bg-cover h-full flex flex-col justify-center items-start space-y-5 overflow-hidden rounded-md relative md:col-span-4 lg:col-span-6"
         >
         {/* Swiper component */}
         <Swiper
@@ -36,25 +33,28 @@ const HeroSlider = ({slider,banner}) => {
           pagination={{
             clickable: true,
           }}
-          modules={[Navigation,Autoplay,Pagination]}
+          modules={[Navigation,Pagination,Autoplay]}
           className="trending-swiper"
         >
           { slider.status == 200 && slider?.data.length > 0 &&
           
           slider.data[0].image_path.map((img, idx) => (
            
-            <SwiperSlide key={idx}>
-              <div className="relative ">
-                <Image
-                  src={`${img}`}
-                  height={500}
-                  width={500}
-                  alt="slider-image"
-                  style={{objectFit: 'cover'}}
-                  className="rounded-md"
-                />
-              </div>
-            </SwiperSlide>
+            <SwiperSlide key={idx} className="relative">
+            <div className="relative w-full aspect-video "> 
+              <Image
+                src={img}
+                priority={true}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                alt="slider-image"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-md"
+                quality={100}
+              />
+            </div>
+          </SwiperSlide>
+
           ))}
         </Swiper>
 
@@ -68,36 +68,47 @@ const HeroSlider = ({slider,banner}) => {
         </div>
         </div>
       {/* right banner */}
-      <div className="col-span-3">
-      <div className="col-span-3 md:col-span-4  lg:col-span-3 lg:space-y-3 lg:gap-0 lg:h-[194px]">
+      <div className="col-span-3 md:col-span-4 grid grid-cols-2 gap-5 lg:col-span-3 lg:space-y-3 lg:gap-0">
+       {/*bg-gradient-to-b  from-[#751C6B] via-[#5C0D81] to-[#2A2047] */}
+        <div
+          className={`col-span-1 flex  items-center px-5 space-y-5   relative rounded-md aspect-video md:col-span-1  justify-start lg:col-span-3`}
+          // style={{background : banner?.data[0]?.background_color}}
+        >
+          
           {
-              banner?.data && banner?.data[0] && <Image
-              src={banner.data[0].image_path}
-              width={500}
-              height={500}
-              className="cursor-pointer h-[190px] rounded-md"
-              alt="apple-watch" 
-               
+              banner?.data && banner?.data[0] &&  <Image
+              src={banner?.data && banner?.data[0] && banner?.data[0]?.image_path}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              fill={true}
+              style={{objectFit: 'cover'}}
+              priority={true}
+              className="cursor-pointer rounded-md "
+              alt="apple-watch"  
+              
             />
-          }     
-      </div>
+          }
+         
+        </div>
 
         <div
-        className={'col-span-3 md:col-span-4 lg:col-span-3 lg:space-y-3 lg:gap-0 lg:h-[194px]'}
+        className={'col-span-1 bg-gradient-to-t  rounded-md px-5 pt-2 flex aspect-video relative justify-between  md:col-span-1 lg:col-span-3 '}
         // style={{background : banner?.data[2]?.background_color}}
       >
+       
         {
           banner?.data && banner?.data[1] && <Image
-          src={banner?.data[1]?.image_path}
-          width={200}
-          height={200}
-          className="object-cover cursor-pointer"
+          src={banner?.data && banner?.data[1] && banner?.data[1]?.image_path}
+          fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{objectFit: 'cover'}}
+          priority={true}
+          className=" cursor-pointer rounded-md "
           alt="Beats-Studio-Buds"
         />
-        }       
+        }
+        
         </div>
       </div>
-      
       
     </div>
   );
