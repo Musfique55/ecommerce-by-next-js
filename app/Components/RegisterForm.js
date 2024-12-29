@@ -2,8 +2,9 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
+import useStore from "../CustomHooks/useStore";
 
-const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal,onClose}) => {
+const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal}) => {
   const [formData, setFormData] = useState({
     outletName: "",
     ownerName: "",
@@ -25,9 +26,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal,onClose}) => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {
-
-        console.log(res.data.data);
+      .then(() => {
         setFormData({
           first_name: "",
           last_name: "",
@@ -35,7 +34,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal,onClose}) => {
           email: "",
           password: "",
         });
-        onClose();
+        setIsRegistered(!isRegistered);
       })
       .catch((error) => console.log(error));
   };
@@ -109,7 +108,7 @@ const RegisterForm = ({setIsRegistered,isRegistered,isLoginModal,onClose}) => {
           type="submit"
           className="w-full py-2 bg-[#407bff] text-white rounded-lg "
         >
-          Login
+          Register
         </button>
         {
              !isLoginModal ?

@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased nunito`}
       >
       <StoreProvider>
-          <Suspense fallback={<Loader />}>
+          <Suspense>
           <Header data={data}/>
           <div className="p-5 md:px-12 bg-[#F2F3F7] py-7">
             {children}

@@ -18,7 +18,7 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 const Header = ({data}) => {
-    const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList,isLoginModal,setIsLoginModal} = useStore();
+    const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList,isLoginModal,setIsLoginModal,setToken,setHasToken} = useStore();
     const [scroll,setScroll] = useState(0);
     const [keyword,setKeyword] = useState('');
     const [searchedItem,setSearchedItem] = useState([]);
@@ -90,7 +90,9 @@ const Header = ({data}) => {
    const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    setEmail(null)
+    setToken(null);
+    setHasToken(false)
+    setEmail(null);
    }
 
     return (
@@ -166,21 +168,21 @@ const Header = ({data}) => {
            }
            
            <Toaster 
-       toastOptions={{
-        className: '',
-        style: {
-        background : '#161616',
-        padding: '10px 16px 10px 16px',
-        color: '#C7C6D3',
-        },
-    }}
-    containerStyle={{
-        top: 20,
-        left: 50,
-        bottom: 20,
-        // right: 20,
-      }}
-      />
+            toastOptions={{
+                className: '',
+                style: {
+                background : '#161616',
+                padding: '10px 16px 10px 16px',
+                color: '#C7C6D3',
+                },
+            }}
+            containerStyle={{
+                top: 20,
+                left: 50,
+                bottom: 20,
+                // right: 20,
+            }}
+            />
         </div>
     );
 };

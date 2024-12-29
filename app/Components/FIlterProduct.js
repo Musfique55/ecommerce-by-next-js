@@ -24,18 +24,12 @@ const FilterProduct = ({products,setFilteredItems}) => {
     const contentRef = useRef(null);
 
      useEffect(() => {
-         let maximum = 0;
-         if(products?.data){
-            let minPrice = products?.data ? products?.data[0]?.retails_price : 0;
-              for(let i = 0; i < products?.data.length;i++){
-                if(products.data[i].retails_price > minPrice){
-                  maximum = products.data[i].retails_price;
-                }
-                minPrice = products.data[i].retails_price;
-              }
-            }
-            setRange([0, maximum]);
-            setMax(maximum)
+      let maximum = 0;
+       if(products?.data){
+             maximum = Math.max(...products?.data.map(item => item.retails_price,-Infinity));
+               setRange([0, maximum]);
+               setMax(maximum)
+       }      
     },[products?.data])
     
         useEffect(() => {
@@ -43,7 +37,7 @@ const FilterProduct = ({products,setFilteredItems}) => {
              return item.retails_price >= range[0] && item.retails_price <= range[1];
             })
             setFilteredItems(rangedProducts)
-        },[range,products?.data])
+        },[range,products?.data,setFilteredItems])
 
         useEffect(() => {
             if (contentRef.current) {

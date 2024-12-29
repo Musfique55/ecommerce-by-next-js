@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 
 
 const CheckoutPage = () => {
-    const {getCartItems,setIsLoginModal} = useStore();
-    const [token, setToken] = useState(null);
+    const {getCartItems,setIsLoginModal,token,hasToken} = useStore();
+
 
     const router = useRouter();
     
@@ -16,29 +16,21 @@ const CheckoutPage = () => {
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
     const Subtotal = cartItems.reduce((acc,curr) => acc + curr.retails_price * curr.quantity,0);
 
-
     useEffect(() => {
-      if (typeof window !== 'undefined') {
-        const storedToken = localStorage.getItem('token');
-        setToken(storedToken);
-  
-        if (!storedToken) {
+
+        if (!hasToken && !token) {
           const intendedUrl = window.location.pathname;
           router.push(`/?redirect=${intendedUrl}&login=false`);
           setIsLoginModal(true);
         }
-      }
-    }, [router,setIsLoginModal]);
-  
-    if (!token) {
-      return null;
-    }
+      }, [token, router, setIsLoginModal,hasToken]);
+
 
 
     return (
-            <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid lg:grid-cols-3 relative pl-12'>
-            <div className='col-span-1 md:col-span-2 border-gray-300 border-r pr-5'>
-                <DeliveryForm cartItems={cartItems}/>
+            <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid lg:grid-cols-3 relative mt-32'>
+            <div className='col-span-1 md:col-span-2 border-gray-300 border-r '>
+                <DeliveryForm cartItems={cartItems} cartTotal={Subtotal}/>
             </div>
 
             {
@@ -104,11 +96,11 @@ const CheckoutPage = () => {
                 </div>
                 <div className="flex items-center justify-between text-sm font-medium">
                     <p>Shipping</p>
-                    <p>400৳</p>
+                    <p>200</p>
                 </div>
                 <div className='flex justify-between items-center font-medium text-gray-600 text-lg pb-12'>
                     <p>Total</p>
-                    <p>{(Subtotal + 400).toFixed(2)}৳</p>
+                    <p>{(Subtotal + 200).toFixed(2)}৳</p>
                 </div>
             </div>
                 : <p className='font-extrabold text-2xl text-center'>Cart is Empty</p>

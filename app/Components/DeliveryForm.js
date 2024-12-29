@@ -1,17 +1,21 @@
 "use client";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-const DeliveryForm = ({cartItems}) => {
+const DeliveryForm = ({cartItems,cartTotal}) => {
   const { data, error } = useSWR("https://restcountries.com/v3.1/all", fetcher);
+  const date = new Date().toISOString();
+
   const [payment, setPayment] = useState("cod");
   const [isCod,setIsCod] = useState(false);
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
-  // const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
+  const user = JSON.parse(localStorage.getItem('user'));
   const router = useRouter(); 
   const [userEmail, setUserEmail] = useState(null);
+  const token = localStorage.getItem('token');
 
   
   const [formData, setFormData] = useState({
@@ -31,15 +35,62 @@ const DeliveryForm = ({cartItems}) => {
     billApartment : '',
     billCity : '',
     billPostalCode : '',
-    billPhone : ''
+    billPhone : '',
   });
-  
+
+
+  const orderSchema = {
+    pay_mode: "Cash",
+    paid_amount: 0,
+    sub_total: cartTotal + 200,
+    vat: 0,
+    tax: 0,
+    discount: 0,
+    product: cartItems.map((item) => ({
+      product_id: item.id,
+      qty: item.quantity,
+      price: item.retails_price,
+      mode: 1,
+      size: 1,
+      sales_id: 3,
+      imei_id: item?.imeis ? item?.imeis[0].id : null,
+    })),
+    delivery_method_id: 1,
+    delivery_info_id:1,
+    delivery_customer_name: "",
+    delivery_customer_address: "",
+    delivery_customer_phone: "",
+    delivery_fee: 200,
+    payment_method: [
+      {
+        payment_type_category_id: 103,
+        payment_type_id: 99,
+        payment_amount: cartTotal + 200
+      }
+    ],
+    variants: [],
+    imeis: cartItems.map((item) => {
+      if(item?.imeis && item?.imeis.length > 0){
+        return parseInt(item?.imeis[0].imei)
+      }else{
+        return null;
+      }
+    }),
+    created_at: date,
+    customer_id: user?.id || null,
+    customer_name: `${formData.firstName}${formData.lastName}`,
+    customer_phone: formData.phone,
+    sales_id: 3,
+    user_id: 3,
+    wholeseller_id:1,
+    status: 3
+  };
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
 
   const  handlePayment = (e) => {
     setPayment(e.target.value)
@@ -50,7 +101,6 @@ const DeliveryForm = ({cartItems}) => {
   };
 
   useEffect(() => {
-    // This will only run on the client side after the component has mounted
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setUserEmail(user?.email || null);
@@ -60,7 +110,13 @@ const DeliveryForm = ({cartItems}) => {
   const handleOrderComplete = (e) => {
     e.preventDefault();
    if(cartItems.length > 0){
-     console.log("handleOrderComplete");
+     axios.post(`https://www.outletexpense.xyz/api/public/ecommerce-save-sales`,orderSchema)
+     .then(res => {
+      console.log(res.data);
+     })
+     .catch(err => {
+      console.log(err);
+     })
    }else{
      alert('Add Some Products First to the cart')
      router.push('/')
@@ -69,7 +125,7 @@ const DeliveryForm = ({cartItems}) => {
 
 
   return (
-    <div className="smx-auto bg-white  rounded-lg ">
+    <div className=" bg-white p-10 rounded-tl-lg rounded-bl-lg ">
       {
         userEmail ? <div className="border-b">
         <div className="flex items-center  cursor-pointer">
@@ -190,8 +246,8 @@ const DeliveryForm = ({cartItems}) => {
         <div className="my-6 ">
           <h3 className="text-xl font-bold mb-2">Shipping method</h3>
           <div className="bg-[#F0F7FF] border border-blue-400 p-3 rounded-lg">
-            <span>BDT 400 depending on location</span>
-            <span className="float-right font-bold">৳400.00</span>
+            <span>BDT 200 depending on location</span>
+            <span className="float-right font-bold">200.00</span>
           </div>
         </div>
 

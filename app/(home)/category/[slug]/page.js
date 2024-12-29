@@ -29,6 +29,8 @@ const Page = ({ params }) => {
   // const colors = [...new Set(items.map((item) => item.color))];
   // const brands = [...new Set(items.map(item  => item.brand_name))];
   const contentRef = useRef(null);
+
+  console.log(products?.data);
   
 
   const pages = [];
