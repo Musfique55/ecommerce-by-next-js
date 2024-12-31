@@ -17,6 +17,7 @@ import { IoLocationOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
+import { userId } from '../(home)/page';
 const Header = ({data}) => {
     const {getCartItems,refetch,setRefetch,setOpenCart,openCart,getWishList,isLoginModal,setIsLoginModal,setToken,setHasToken} = useStore();
     const [scroll,setScroll] = useState(0);
@@ -70,9 +71,13 @@ const Header = ({data}) => {
    },[scroll])
 
    const searchedItems = () => {
+    
+    // console.log(payload);
     if(keyword){
-        axios.post('https://www.outletexpense.xyz/api/public/search-product',{keyword})
-        .then(res => setSearchedItem(res.data.data.data))
+        axios.post(`https://www.outletexpense.xyz/api/public/search-product`,{keyword, user_id:userId})
+        .then(res => {
+            setSearchedItem(res.data.data.data)
+        })
         .catch(err => console.log(err))
     }
    }
@@ -105,7 +110,7 @@ const Header = ({data}) => {
                 <button className='bg-[#1A1A7E] text-white px-6 text-sm rounded-md'>Search</button>
             </div>
             <div className='hidden md:hidden lg:flex items-center gap-4 mr-10'>
-                <Link target='_blank' href={'https://www.google.com/maps/search/?api=1&query=Jamuna+Future+Park+Level+4,+Block+C+Shop+19C+KA+244,+Kuril+Progoti+Soroni+1229'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</Link>
+                <Link  href={'/find-our-store'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</Link>
                 
                 <Link target='_blank' href={'https://www.facebook.com/brothersmobile520'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><FaFacebook /> Facebook Page</Link>
             </div>

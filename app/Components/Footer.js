@@ -57,9 +57,6 @@ const Footer = ({data}) => {
                     <div>
                     <h3 className="text-lg font-semibold mb-3">Resources</h3>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                        <li><a href="#">Events</a></li>
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">Support</a></li>
                     </ul>

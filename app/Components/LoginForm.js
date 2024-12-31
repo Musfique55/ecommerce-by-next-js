@@ -3,33 +3,29 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import useStore from "../CustomHooks/useStore";
 
-const LoginForm = ({ isRegistered,setLoading, setIsRegistered, isLoginModal,onClose,setReload }) => {
+const LoginForm = ({ isRegistered,setIsRegistered, isLoginModal,onClose,setReload }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+
+   const {setToken} = useStore();
    const router = useRouter(); 
    const searchParams = useSearchParams();
    const intendedUrl = searchParams.get('redirect');
-  //  console.log(intendedUrl);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API}/customer-login`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+    axios.post(`${process.env.NEXT_PUBLIC_API}/customer-login`, formData)
       .then((res) => {
-        setLoading(false);
         if (res.data.token) {
           setFormData({
             email: "",
@@ -42,6 +38,7 @@ const LoginForm = ({ isRegistered,setLoading, setIsRegistered, isLoginModal,onCl
             router.push('/');
           }
           onClose();
+          setToken(res.data.token);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.customer));
         }
@@ -51,7 +48,7 @@ const LoginForm = ({ isRegistered,setLoading, setIsRegistered, isLoginModal,onCl
   return (
     <div>
       <form
-        className="w-full   space-y-4 bg-transparent"
+        className="w-full space-y-4 bg-transparent"
         onSubmit={handleSubmit}
       >
         {/* Email */}
