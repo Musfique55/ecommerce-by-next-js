@@ -72,7 +72,6 @@ const Header = ({data}) => {
 
    const searchedItems = () => {
     
-    // console.log(payload);
     if(keyword){
         axios.post(`https://www.outletexpense.xyz/api/public/search-product`,{keyword, user_id:userId})
         .then(res => {

@@ -21,7 +21,7 @@ const CheckoutPage = () => {
             router.push(`/?redirect=${intendedUrl}&login=false`);
             setIsLoginModal(true);
         }
-      }, [router, setIsLoginModal]);
+      }, [router, setIsLoginModal,token]);
 
  
 

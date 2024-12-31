@@ -38,9 +38,9 @@ const ReadyForOrder = () => {
             className="trending-swiper"
           >
             {
-            products?.data.data &&
-            products?.data.data.length > 0 ? (
-              products.data.data.map((product) => (
+            products?.data &&
+            products?.data.length > 0 ? (
+              products.data.map((product) => (
                 <SwiperSlide key={product.id} className="select-none">
                   <Link
                     href={`products/${product.id}`}
