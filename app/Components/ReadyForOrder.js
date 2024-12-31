@@ -9,12 +9,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import '../globals.css';
+import useSWR from 'swr';
+import { fetcher, userId } from '../(home)/page';
 
 
 
-const ReadyForOrder = ({products}) => {
+const ReadyForOrder = () => {
   const { handleCart, handleBuy } = useStore();
-  
+  const {data : products} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/products/${userId}?page=1&limit=12`,fetcher)
 
 
   return (

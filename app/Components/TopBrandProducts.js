@@ -7,13 +7,14 @@ import Heading from "../CustomHooks/heading";
 import useStore from "../CustomHooks/useStore";
 import Link from "next/link";
 import useSWR from "swr";
-import { fetcher } from "../(home)/page";
+import { fetcher, userId } from "../(home)/page";
 
-const TopBrandProducts = ({brands }) => {
+const TopBrandProducts = ({brands}) => {
   const [tabIndex, setTabIndex] = useState(0);
   const { handleCart } = useStore();
+  // const {data : brands} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/brands/${userId}`,fetcher)
   const {data : pdcByBrands,isLoading} =  useSWR(
-    `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${tabIndex === 0 ? 0 : brands[tabIndex - 1]?.id}`,fetcher
+    `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${tabIndex === 0 ? 0 : brands?.data[tabIndex - 1]?.id}`,fetcher
   );
 
   return (
@@ -31,7 +32,7 @@ const TopBrandProducts = ({brands }) => {
           >
             All
           </Tab>
-          {brands?.slice(0, 6).map((brand, index) => (
+          {brands?.data.slice(0, 6).map((brand, index) => (
             <Tab
               key={brand.id}
               className={`text-sm cursor-pointer outline-none ${
@@ -45,7 +46,7 @@ const TopBrandProducts = ({brands }) => {
           ))}
         </TabList>
 
-        {[null, ...brands?.slice(0, 6)].map((_, index) => (
+        {[null, ...brands?.data.slice(0, 6)].map((_, index) => (
           <TabPanel key={index}>
             {isLoading ? (
               <p className="text-center">Loading...</p>
@@ -59,7 +60,6 @@ const TopBrandProducts = ({brands }) => {
                       className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-lg"
                     >
                       <div className="flex justify-center relative">
-                        {console.log(product.image_path)}
                         
                         {product.image_path ? (
                           <Image

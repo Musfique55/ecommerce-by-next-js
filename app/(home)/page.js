@@ -1,24 +1,17 @@
-import NewArrival from '../Components/NewArrival';
+
 import HeroSlider from "../Components/HeroSlider";
 import BannerSection from '../Components/BannerSection';
 import FeaturedCategories from '../Components/FeaturedCategories';
 import OurFeatures from '../Components/OurFeatures';
 import Brands from '../Components/Brands';
-import dynamic from 'next/dynamic';
+import ReadyForOrder from "../Components/ReadyForOrder";
+import FeaturedProducts from "../Components/FeaturedProducts";
+import NewArrival from "../Components/NewArrival";
+import TopBrandProducts from "../Components/TopBrandProducts";
+
 export const userId = 135;
 export const fetcher = (url) => fetch(url).then(res => res.json());
 
-const ReadyForOrder = dynamic(() => import('../Components/ReadyForOrder'), {
-  ssr: false,
-});
-
-const FeaturedProducts = dynamic(() => import('../Components/FeaturedProducts'), {
-  ssr: false,
-});
-
-const TopBrandProducts = dynamic(() => import('../Components/TopBrandProducts'), {
-  ssr: false,
-});
 
 
 export default async function Home() {
@@ -42,22 +35,22 @@ export default async function Home() {
   });
   const categories = await categoriesRes.json();
 
-  const bestSellersRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,{
-    cache : 'no-cache'
-  });
-  const bestSellers = await bestSellersRes.json();
+  // const bestSellersRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,{
+  //   cache : 'no-cache'
+  // });
+  // const bestSellers = await bestSellersRes.json();
 
 
-  const bestDealsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,{
-    cache : 'no-cache'
-  });
-  const bestDeals = await bestDealsRes.json();
+  // const bestDealsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,{
+  //   cache : 'no-cache'
+  // });
+  // const bestDeals = await bestDealsRes.json();
 
 
-  const newArrivalsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,{
-    cache : 'no-cache'
-  });
-  const newArrivals = await newArrivalsRes.json();
+  // const newArrivalsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,{
+  //   cache : 'no-cache'
+  // });
+  // const newArrivals = await newArrivalsRes.json();
 
 
   const brandsRes = await fetch(`${process.env.NEXT_PUBLIC_API}/public/brands/${userId}`,{
@@ -71,11 +64,11 @@ export default async function Home() {
       <HeroSlider slider={slider} banner={banner}/>
       <OurFeatures />
       <FeaturedCategories categories={categories}/>
-      <ReadyForOrder products={products}/> 
-      <FeaturedProducts bestSellers={bestSellers} bestDeals={bestDeals} />
+      <ReadyForOrder />  
+      <FeaturedProducts />
       <BannerSection banner={banner}/>
-      <NewArrival newArrivals={newArrivals} banner={banner}/> 
-      <TopBrandProducts products={products} brands={brands.data}/> 
+      <NewArrival banner={banner}/> 
+      <TopBrandProducts brands={brands}/> 
       <Brands brands={brands}/>      
     </>
   );

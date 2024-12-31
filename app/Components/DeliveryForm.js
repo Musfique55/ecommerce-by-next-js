@@ -12,10 +12,9 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
   const [payment, setPayment] = useState("cod");
   const [isCod,setIsCod] = useState(false);
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user,setUser] = useState(null); 
   const router = useRouter(); 
   const [userEmail, setUserEmail] = useState(null);
-  const token = localStorage.getItem('token');
 
   
   const [formData, setFormData] = useState({
@@ -106,6 +105,15 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
       setUserEmail(user?.email || null);
     }
   }, []); 
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
 
   const handleOrderComplete = (e) => {
     e.preventDefault();

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
-const LoginForm = ({ isRegistered, setIsRegistered, isLoginModal,onClose,setReload }) => {
+const LoginForm = ({ isRegistered,setLoading, setIsRegistered, isLoginModal,onClose,setReload }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,12 +13,14 @@ const LoginForm = ({ isRegistered, setIsRegistered, isLoginModal,onClose,setRelo
    const router = useRouter(); 
    const searchParams = useSearchParams();
    const intendedUrl = searchParams.get('redirect');
+  //  console.log(intendedUrl);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/customer-login`, formData, {
@@ -27,6 +29,7 @@ const LoginForm = ({ isRegistered, setIsRegistered, isLoginModal,onClose,setRelo
         },
       })
       .then((res) => {
+        setLoading(false);
         if (res.data.token) {
           setFormData({
             email: "",

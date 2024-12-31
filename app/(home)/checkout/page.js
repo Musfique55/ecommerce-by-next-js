@@ -3,27 +3,28 @@ import DeliveryForm from '@/app/Components/DeliveryForm';
 import useStore from '@/app/CustomHooks/useStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 
 const CheckoutPage = () => {
-    const {getCartItems,setIsLoginModal,token,hasToken} = useStore();
-
-
+    const {getCartItems,setIsLoginModal,hasToken,token,loading} = useStore();
     const router = useRouter();
     
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
     const Subtotal = cartItems.reduce((acc,curr) => acc + curr.retails_price * curr.quantity,0);
 
+    // console.log(token);
+
     useEffect(() => {
 
-        if (!hasToken && !token) {
+        if (!hasToken && !token && loading) {
           const intendedUrl = window.location.pathname;
           router.push(`/?redirect=${intendedUrl}&login=false`);
           setIsLoginModal(true);
+          return;
         }
-      }, [token, router, setIsLoginModal,hasToken]);
+      }, [router, setIsLoginModal,hasToken,token,loading]);
 
 
 

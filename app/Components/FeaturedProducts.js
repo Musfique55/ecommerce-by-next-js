@@ -5,10 +5,14 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import Image from 'next/image';
 import Link from 'next/link';
 import useStore from '../CustomHooks/useStore';
+import useSWR from 'swr';
+import { fetcher, userId } from '../(home)/page';
 
-const FeaturedProducts = ({bestSellers,bestDeals})  => {
+const FeaturedProducts = ()  => {
   const [index, setIndex] = useState(0);
   const { handleCart,handleBuy } = useStore();
+  const {data : bestSellers} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,fetcher);
+  const {data : bestDeals} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,fetcher);
   
   return (
       <div className='mt-20'>

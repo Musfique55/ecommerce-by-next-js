@@ -10,22 +10,24 @@ const StoreProvider = ({children}) => {
     const [cartItems,setCartItems] = useState([]);
     const [isLoginModal,setIsLoginModal] = useState(false); 
     const [token,setToken] = useState(null);
-    const [hasToken,setHasToken] = useState(false);    
+    const [hasToken,setHasToken] = useState(false);
+    const [loading,setLoading] = useState(true)    
     useEffect(() => {
         setIsMounted(true);
     },[])
 
-
-    
+ 
     const router = useRouter(); 
     
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if(storedToken){
+            setLoading(false);
             setToken(storedToken);
             setHasToken(true);
         }else{
             setToken(null);
+            // setLoading(false);
         }
     },[])
 
@@ -129,7 +131,7 @@ const StoreProvider = ({children}) => {
     }
 
     
-    const values = {handleCart,getCartItems,refetch,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete,isLoginModal,setIsLoginModal,token,setToken,hasToken,setHasToken}
+    const values = {handleCart,getCartItems,refetch,openCart,setOpenCart,reload,handleIncQuantity,handleDncQuantity,cartItems,setRefetch,handleCartItemDelete,handleWishlist,getWishList,handleBuy,handleWishlistDelete,isLoginModal,setIsLoginModal,token,setToken,hasToken,setHasToken,loading,setLoading}
     
     return (
         <storeContext.Provider value={values}>

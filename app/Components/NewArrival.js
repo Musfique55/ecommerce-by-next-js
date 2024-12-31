@@ -1,18 +1,20 @@
 'use client'
-import React, { Suspense } from 'react';
+import React from 'react';
 import Heading from '../CustomHooks/heading';
 import useStore from '../CustomHooks/useStore';
 import Link from 'next/link';
 import SubHeading from '../CustomHooks/subHeading';
 import Image from 'next/image';
+import useSWR from 'swr';
+import { fetcher, userId } from '../(home)/page';
 
 
-const NewArrival = ({newArrivals,banner}) => {
+const NewArrival = ({banner}) => {
     const {handleCart,handleBuy} = useStore();
+    const {data : newArrivals} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,fetcher)
 
 
     return (
-      <Suspense fallback={'Loading...'}>
         <div className="mt-12">
           <Heading title={'New Arrival'}/>
           <SubHeading subheading={'Gadgets'}/>
@@ -23,7 +25,7 @@ const NewArrival = ({newArrivals,banner}) => {
                 >
                     
                    
-                    { banner.data &&
+                    { banner?.data &&
                       banner?.data.length > 0 && banner?.data && banner?.data[4] && <Image
                       src={banner?.data && banner?.data[4] && banner.data[4]?.image_path}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -103,7 +105,6 @@ const NewArrival = ({newArrivals,banner}) => {
                 </div>
             </div>
         </div>
-        </Suspense>
     );
 };
 

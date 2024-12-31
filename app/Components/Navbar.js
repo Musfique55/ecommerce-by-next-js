@@ -24,7 +24,7 @@ const Navbar = ({data}) => {
                 <div className='flex justify-between items-center flex-1'>
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
-                        data?.data.slice(0,9).map((item,idx) => {
+                        data?.data.slice(0,7).map((item,idx) => {
                             return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`} className={`text-white text-[13px] text-nowrap font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
                         })
                     }
