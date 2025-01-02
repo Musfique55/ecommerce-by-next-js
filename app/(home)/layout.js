@@ -21,7 +21,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Brother Electronics",
+  title: "Brothers Mobile & Accessories",
   description: "Get all kind of next gen devices",
   icons : {
     icon : '/favicon-32x32.png'

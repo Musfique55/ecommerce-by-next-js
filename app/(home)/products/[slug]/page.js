@@ -200,7 +200,7 @@ const Page = ({ params }) => {
             {/* discount ribon */}
           {
               product.discount ?
-              <p className="text-white bg-[#178489] rounded-md  absolute py-1 
+              <p className="text-gray-300 bg-[#1A1A7E] rounded-md  absolute py-1 
               px-[6px] text-sm -top-5 lg:top-3 left-12">SAVE {product.discount}%</p> : ''
           }
           <div className="flex justify-center space-x-2 mb-4 ">

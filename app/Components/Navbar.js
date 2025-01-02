@@ -25,7 +25,7 @@ const Navbar = ({data}) => {
                     <div className='flex items-center gap-5 border-l-2 border-gray-300'>
                     {
                         data?.data.slice(0,7).map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`} className={`text-white text-[13px] text-nowrap font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
+                            return <Link key={idx}  href={`/category/${encodeURIComponent(item?.category_id)}?category=${encodeURIComponent(item?.name)}&total=${encodeURIComponent(item?.product_count)}`} className={`text-white text-[13px] text-nowrap font-semibold  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
                         })
                     }
                     <Link href={'/'} className='flex items-center'>
@@ -51,7 +51,7 @@ const Navbar = ({data}) => {
                     <div className='flex gap-5 border-l-2 border-gray-300'>
                     {
                         data?.data.slice(0,6).map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`} className={`text-white text-nowrap  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
+                            return <Link key={idx}  href={`/category/${encodeURIComponent(item?.category_id)}?category=${encodeURIComponent(item?.name)}&total=${encodeURIComponent(item?.product_count)}`} className={`text-white text-nowrap  ${idx === 0 ? 'pl-5' : ''}`}>{item.name}</Link>
                         })
                     }
                     </div>
@@ -83,7 +83,7 @@ const Navbar = ({data}) => {
                     isOpen && <div className='bg-white flex flex-col space-y-3 text-black p-5 transition ease-in-out'>
                     {
                            data?.data.slice(0,6).map((item,idx) => {
-                                return <Link onClick={() => setIsOpen(!isOpen)} key={idx} href={`/category/${item.category_id}?category=${item.name}`} className={`text-gray-600 text-nowrap dark:text-black `}>{item.name}</Link>
+                                return <Link onClick={() => setIsOpen(!isOpen)} key={idx}  href={`/category/${encodeURIComponent(item?.category_id)}?category=${encodeURIComponent(item?.name)}&total=${encodeURIComponent(item?.product_count)}`} className={`text-gray-600 text-nowrap dark:text-black `}>{item.name}</Link>
                             })
                         }
                     </div>

@@ -75,7 +75,7 @@ const CartItems = () => {
                   
                   <div className="space-y-1 font-semibold">
                     <p>{item?.name}</p>
-                    <p>{item?.retails_price} ৳</p>
+                    <p>{item?.discount ? item?.retails_price - ((item?.retails_price * item.discount) / 100).toFixed(0) : item?.retails_price} ৳</p>
                     
                     <div className="flex items-center border border-gray-300 rounded w-fit">
                       <input
@@ -123,7 +123,7 @@ const CartItems = () => {
             <span className="text-[#4EB0BE] font-normal">
               {" "}
               {(items.reduce(
-                (prev, curr) => prev + curr?.retails_price * curr.quantity,
+                (prev, curr) => prev + ((curr?.discount ?  curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)  : curr?.retails_price)) * curr.quantity,
                 0
               )).toFixed(2)}
 

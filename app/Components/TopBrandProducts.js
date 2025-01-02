@@ -14,7 +14,7 @@ const TopBrandProducts = ({brands}) => {
   const { handleCart } = useStore();
   // const {data : brands} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/brands/${userId}`,fetcher)
   const {data : pdcByBrands,isLoading} =  useSWR(
-    `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${tabIndex === 0 ? 0 : brands?.data[tabIndex - 1]?.id}`,fetcher
+    `${process.env.NEXT_PUBLIC_API}/public/brandwise-products/${tabIndex === 0 ? 0 : brands?.data[tabIndex - 1]?.id}/${userId}`,fetcher
   );
 
   return (
@@ -81,7 +81,7 @@ const TopBrandProducts = ({brands}) => {
                         )}
                         {
                               product.discount ?
-                              <p className="text-white bg-[#178489] rounded-md  absolute py-1 
+                              <p className="text-gray-300 bg-[#1A1A7E] rounded-md  absolute py-1 
                               px-[6px] text-sm top-0 left-0">SAVE {product.discount}%</p> : ''
                           }
                       </div>

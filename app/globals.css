@@ -157,6 +157,6 @@ body {
 @media only screen and (max-width: 600px) {
   .trending-swiper img{
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
