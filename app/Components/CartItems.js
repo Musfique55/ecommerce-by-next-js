@@ -123,9 +123,9 @@ const CartItems = () => {
             <span className="text-[#4EB0BE] font-normal">
               {" "}
               {(items.reduce(
-                (prev, curr) => prev + ((curr?.discount ?  curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)  : curr?.retails_price)) * curr.quantity,
-                0
-              )).toFixed(2)}
+              (prev, curr) => prev + ((curr?.discount ?  (curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)) * curr.quantity  : curr?.retails_price * curr.quantity)),
+              0
+            )).toFixed(2)}
 
               ৳
             </span>

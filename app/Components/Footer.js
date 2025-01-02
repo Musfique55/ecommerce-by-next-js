@@ -25,9 +25,14 @@ const Footer = ({data}) => {
                     </p>
                     <p className="mt-4 flex items-center">
                         <FaPhone className="mr-2 text-xl" /> 
-                        <span className="text-lg font-semibold">(808) 555-0111</span>
+                        <span className="text-lg font-semibold">+8801402086520</span>
                     </p>
                     <p className="text-sm mt-1">Got Questions? Call us 24/7</p>
+                    <div className="flex space-x-4 mt-3 md:mt-0">
+                        <a href="" className="text-gray-500 hover:text-white text-xl"><FaTwitter /></a>
+                        <a href="#" className="text-gray-500 hover:text-white text-xl"><FaLinkedin /></a>
+                        <Link target='_blank' href="https://www.facebook.com/brothersmobile520" className="text-gray-500 hover:text-white text-xl"><FaFacebookF /></Link>
+                    </div>
                     </div>
 
                     {/* Center Section - Links */}
@@ -36,7 +41,7 @@ const Footer = ({data}) => {
                     <div className="space-y-2  flex flex-col justify-start">
                     {
                         data?.data.slice(0,6).map((item,idx) => {
-                            return <Link key={idx} href={`/category/${item.category_id}?category=${item.name}`}  className={`text-white text-sm `}>{item.name}</Link>
+                            return <Link key={idx} href={`/category/${encodeURIComponent(item?.category_id)}?category=${encodeURIComponent(item?.name)}&total=${encodeURIComponent(item?.product_count)}`}  className={`text-white text-sm `}>{item.name}</Link>
                         })
                     }
                         
@@ -65,13 +70,9 @@ const Footer = ({data}) => {
 
                 {/* Bottom Section */}
                 <div className="mt-10 border-t pt-5 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row justify-between items-center">
+                    <div className="flex flex-col md:flex-row justify-center items-center">
                     <p className="text-sm text-white">&copy; 2024 Squad Innovators. All rights reserved.</p>
-                    <div className="flex space-x-4 mt-3 md:mt-0">
-                        <a href="#" className="text-gray-500 hover:text-white text-xl"><FaTwitter /></a>
-                        <a href="#" className="text-gray-500 hover:text-white text-xl"><FaLinkedin /></a>
-                        <a href="#" className="text-gray-500 hover:text-white text-xl"><FaFacebookF /></a>
-                    </div>
+                    
                     </div>
                 </div>
             </footer>

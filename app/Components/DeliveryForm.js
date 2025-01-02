@@ -62,8 +62,8 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
     delivery_fee: 200,
     payment_method: [
       {
-        payment_type_category_id: 103,
-        payment_type_id: 99,
+        payment_type_category_id: 142,
+        payment_type_id: 141,
         payment_amount: cartTotal + 200
       }
     ],

@@ -34,7 +34,10 @@ const CartPage = () => {
 
 
     useEffect(() => {
-        const total = cartItems.reduce((acc, curr) => acc + curr?.retails_price * curr.quantity, 0);
+        const total = (cartItems.reduce(
+            (prev, curr) => prev + ((curr?.discount ?  (curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)) * curr.quantity  : curr?.retails_price * curr.quantity)),
+            0
+          )).toFixed(2);
         setCartTotal(total);
     }, [cartItems]);
 
@@ -42,7 +45,7 @@ const CartPage = () => {
         e.preventDefault();
         const zip = e.target.zipcode.value;
         setZipCode(zip);
-        setShippingCost(400);
+        setShippingCost(200);
     } 
 
     const handleClearCart = () => {
@@ -102,7 +105,7 @@ const CartPage = () => {
                                 </td>
                                
                                 <td className='font-semibold text-center align-middle'>
-                                    {item?.retails_price} ৳
+                                    {item?.discount ? item?.retails_price - ((item?.retails_price * item.discount) / 100).toFixed(0) : item?.retails_price} ৳
                                 </td>
                                 <td className='text-center align-middle'>
                                 <div className="flex mx-auto items-center border border-gray-300 rounded w-fit">
@@ -133,7 +136,7 @@ const CartPage = () => {
                                 </div>
                                 </td>
                                 <td className='font-semibold text-center align-middle'>
-                                    {item?.quantity * item?.retails_price} ৳
+                                    {(item?.discount ? item?.retails_price - ((item?.retails_price * item.discount) / 100).toFixed(0) : item?.retails_price) * item?.quantity } ৳
                                 </td>
                                 <td className='text-center align-middle px-4'>
                                     <IoClose onClick={() => handleCartItemDelete(item?.id)} className='cursor-pointer'/>
@@ -237,7 +240,7 @@ const CartPage = () => {
 
                         </form>
                             <p className='text-sm mt-8'>There is one shipping rate available for {zipCode || ''} Bangladesh.</p>
-                            <li className='text-sm mt-8'>BDT 400 depending on location at BDT 400.00</li>
+                            <li className='text-sm mt-8'>BDT 200 depending on location at BDT 200.00</li>
                     </div>
 
                     {/* cart totals */}
@@ -245,7 +248,7 @@ const CartPage = () => {
                         <h3 className='text-[#4D5959]  text-lg font-semibold'>Cart Totals</h3>
                         <div className='border border-gray-300 font-semibold p-5 text-[#4D5959] flex gap-20 text-base mt-10'>
                             <p>Cart Totals</p>
-                            <p>{shippingCost ?  cartTotal + shippingCost : cartTotal.toFixed(2)} ৳</p>
+                            <p>{shippingCost ?  cartTotal + shippingCost : cartTotal} ৳</p>
                         </div>
                         <p className='text-[#575E63] text-sm mt-4'>* The final price with your coupon code will apply in Checkout page</p>
                         <p className='text-[#575E63] text-sm mt-4'>

@@ -12,7 +12,10 @@ const CheckoutPage = () => {
     
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
-    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.retails_price * curr.quantity,0);
+    const Subtotal = (cartItems.reduce(
+        (prev, curr) => prev + ((curr?.discount ?  (curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)) * curr.quantity  : curr?.retails_price * curr.quantity)),
+        0
+      )).toFixed(2) ;
 
 
     useEffect(() => {
@@ -76,7 +79,7 @@ const CheckoutPage = () => {
                                     <h3 className='w-[225px] text-wrap'>{item.name}</h3>
                                    
                                 </div>
-                                <p>{item.retails_price} ৳</p>
+                                <p>{item?.discount ? item?.retails_price - ((item?.retails_price * item.discount) / 100).toFixed(0) : item?.retails_price} ৳</p>
                             </div>
                         })     
                    
@@ -98,7 +101,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className='flex justify-between items-center font-medium text-gray-600 text-lg pb-12'>
                     <p>Total</p>
-                    <p>{(Subtotal + 200).toFixed(2)}৳</p>
+                    <p>{(parseInt(Subtotal) + 200).toFixed(2)}৳</p>
                 </div>
             </div>
                 : <p className='font-extrabold text-2xl text-center'>Cart is Empty</p>
