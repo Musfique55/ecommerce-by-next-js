@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -120,9 +121,11 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
    if(cartItems.length > 0){
      axios.post(`https://www.outletexpense.xyz/api/public/ecommerce-save-sales`,orderSchema)
      .then(res => {
-      console.log(res.data);
+      toast.success('order placed successfully');
+      router.push('/');
      })
      .catch(err => {
+      toast.error('error occured try again');
       console.log(err);
      })
    }else{
