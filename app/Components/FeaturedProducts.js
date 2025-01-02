@@ -83,10 +83,10 @@ const FeaturedProducts = ()  => {
                         </div>  
                     </Link>
                      <div className='flex flex-col gap-2 items-center md:flex-row'>
-                      <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                      <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] text-nowrap border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                       <button
                           onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                          className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                          className="bg-[#1A1A7E] border text-nowrap border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
                           >
                           Add to Cart
                       </button>
@@ -146,10 +146,10 @@ const FeaturedProducts = ()  => {
                       </div>  
                     </Link>
                      <div className='flex flex-col gap-2 items-center md:flex-row'>
-                      <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
+                      <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] text-nowrap border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
                       <button
                           onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                          className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
+                          className="bg-[#1A1A7E] border border-transparent text-xs text-nowrap text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
                           >
                           Add to Cart
                       </button>

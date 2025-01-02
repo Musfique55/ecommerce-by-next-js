@@ -33,20 +33,22 @@ const OurFeatures = () => {
     <section className="py-8">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {services.map((service, index) => (
-        <Link href={service.link} target='_blank'  key={index}>
-          <div
-           
-            className="flex items-start gap-4 rounded-lg border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
-          >
-            <div className="rounded-full bg-[#1A1A7E] p-3 text-white">
-              <service.icon className="h-6 w-6" />
-            </div>
-            <div className="space-y-1">
-              <h3 className="font-semibold text-gray-900">{service.title}</h3>
-              <p className="text-sm text-gray-500">{service.description}</p>
-            </div>
-          </div>
-        </Link>
+         <Link 
+         href={service.link} 
+         target="_blank" 
+         key={index}
+         className="block group"
+       >
+         <div className="flex items-start gap-4 rounded-lg border bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:scale-[1.02] h-[110px]">
+           <div className="rounded-full bg-[#1A1A7E] p-3 text-white shrink-0 group-hover:bg-[#15155E] transition-colors">
+             <service.icon className="h-6 w-6" />
+           </div>
+           <div className="space-y-2 flex-1">
+             <h3 className="font-semibold text-gray-900 line-clamp-1">{service.title}</h3>
+             <p className="text-sm text-gray-500 line-clamp-3">{service.description}</p>
+           </div>
+         </div>
+       </Link>
           
         ))}
       </div>

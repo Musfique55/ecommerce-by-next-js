@@ -31,9 +31,9 @@ const ReadyForOrder = () => {
             loop={true}
             modules={[Navigation]}
             breakpoints={{
-              640: { slidesPerView: 1, spaceBetween: 10 },
-              768: { slidesPerView: 3, spaceBetween: 40 },
-              1024: { slidesPerView: 6, spaceBetween: 8 },
+              640: { slidesPerView: 2, spaceBetween: 10 },
+              768: { slidesPerView: 3, spaceBetween: 10 },
+              1024: { slidesPerView: 6, spaceBetween: 10 },
             }}
             className="trending-swiper"
           >
@@ -42,57 +42,76 @@ const ReadyForOrder = () => {
             products?.data.length > 0 ? (
               products.data.map((product) => (
                 <SwiperSlide key={product.id} className="select-none">
-                  
-                    <Link href={`products/${product.id}`} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-2xl">
-                      <div className='flex justify-center relative'>
-                      {
-                        product?.image_path ? 
-                        <Image
-                        src={product?.image_path}
-                        height={145}
-                        width={145}
-                        alt={product?.name}
-                        quality={75}
-                      />
-                        : <Image
-                        src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
-                        height={145}
-                        width={145}
-                        alt="mobile-phone"
-                        quality={75}
-                      />
-                      }
-                      {
-                            product.discount ?
-                            <p className="text-gray-300 bg-[#1A1A7E] rounded-md  absolute py-1 
-                            px-[6px] text-sm top-0 left-0">SAVE {product.discount}%</p> : ''
-                        }
-                      </div>
-                      
-                      <h3 className="text-sm font-medium mt-5 mb-2 text-black">
-                        {product?.name}
-                      </h3>
+      <Link 
+        href={`products/${product.id}`} 
+        className="block bg-white border-gray-200 border rounded-2xl h-[420px]" // Fixed height
+      >
+        <div className="p-4 h-full flex flex-col">
+          {/* Image Container - Fixed height */}
+          <div className="relative h-[145px] flex items-center justify-center mb-4">
+            <Image
+              src={product?.image_path || 'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
+              height={145}
+              width={145}
+              alt={product?.name || 'mobile-phone'}
+              quality={75}
+              style={{objectFit: 'contain'}}
+              className="object-contain"
+            />
+            {product.discount && (
+              <p className="text-gray-300 bg-[#1A1A7E] rounded-md absolute py-1 
+                px-[6px] text-sm top-0 left-0">
+                SAVE {product.discount}%
+              </p>
+            )}
+          </div>
 
-                      <div className='mb-2'>
-                      {
-                        product?.discount ? <div className="text-nowrap flex gap-2 justify-center items-center">
-                        <span className="text-xs font-bold text-[#1A1A7E] line-through">{product?.retails_price} ৳</span>
-                        <span className="text-sm font-bold text-[#1A1A7E]">{product?.retails_price - ((product?.retails_price * product.discount) / 100).toFixed(0)} ৳</span>
-                      </div> :
-                      <span className="text-sm font-bold text-[#1A1A7E]">{product?.retails_price} ৳</span>
-                      }
-                      </div>  
-                     <div className='flex flex-col gap-2 items-center md:flex-row'>
-                      <button onClick={() => {handleBuy(product,1)}} className="border-[#1A1A7E] border text-xs text-[#1A1A7E] w-full px-[2px] py-1 rounded-md font-semibold  transition-colors">Buy Now</button>
-                      <button
-                          onClick={(e) => {e.preventDefault(),handleCart(product,1)}}
-                          className="bg-[#1A1A7E] border border-transparent text-xs text-white w-full px-[2px] py-1 rounded-md font-semibold  transition-colors"
-                          >
-                          Add to Cart
-                      </button>
-                     </div>
-                  </Link>
-                </SwiperSlide>
+          {/* Product Info - Flex grow to take remaining space */}
+          <div className="flex flex-col flex-grow">
+            <h3 className="text-sm font-medium mb-2 text-black line-clamp-2 flex-grow">
+              {product?.name}
+            </h3>
+
+            {/* Price Section */}
+            <div className="mb-4">
+              {product?.discount ? (
+                <div className="flex gap-2 justify-center items-center">
+                  <span className="text-xs font-bold text-[#1A1A7E] line-through">
+                    {product?.retails_price} ৳
+                  </span>
+                  <span className="text-sm font-bold text-[#1A1A7E]">
+                    {product?.retails_price - ((product?.retails_price * product.discount) / 100).toFixed(0)} ৳
+                  </span>
+                </div>
+              ) : (
+                <span className="text-sm font-bold text-[#1A1A7E] block text-center">
+                  {product?.retails_price} ৳
+                </span>
+              )}
+            </div>
+
+            {/* Buttons - Fixed at bottom */}
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <button 
+                onClick={() => handleBuy(product, 1)}
+                className="border-[#1A1A7E] text-nowrap border text-xs text-[#1A1A7E] w-full px-2 py-1.5 rounded-md font-semibold transition-colors hover:bg-[#1A1A7E] hover:text-white"
+              >
+                Buy Now
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleCart(product, 1)
+                }}
+                className="bg-[#1A1A7E] text-nowrap border border-transparent text-xs text-white w-full px-2 py-1.5 rounded-md font-semibold transition-colors hover:bg-[#151562]"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </SwiperSlide>
               ))
             ) : (
               <p>No products found</p>

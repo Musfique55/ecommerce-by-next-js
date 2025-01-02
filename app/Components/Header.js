@@ -102,16 +102,16 @@ const Header = ({data}) => {
     return (
         <div className={` w-full z-50 fixed text-white  transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${scroll > 0 ? ' shadow-lg' : ''}`}>
             {/* desktop menu */}
-           <div className='flex justify-between bg-white text-black p-3 md:px-12'>
+           <div className='flex gap-3 items-center bg-white text-black p-3 md:px-12'>
            <Link href={'/'}><Image src={companyLogo} alt='company-logo' height={100} width={100} className='w-auto h-auto'/></Link>
             <div className='hidden md:flex lg:flex gap-2 flex-1'>
-                <input onChange={(e) => setKeyword(e.target.value)} value={keyword}  type="text" placeholder='Search for Products' className='border ml-8 px-2 py-1 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white text-sm rounded-md'/>
+                <input onChange={(e) => setKeyword(e.target.value)} value={keyword}  type="text" placeholder='Search for Products' className='border  p-2 md:w-[20rem] lg:w-[28rem] outline-none text-black bg-white text-sm rounded-md'/>
                 <button className='bg-[#1A1A7E] text-white px-6 text-sm rounded-md'>Search</button>
             </div>
-            <div className='hidden md:hidden lg:flex items-center gap-4 mr-10'>
-                <Link  href={'/find-our-store'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</Link>
+            <div className='hidden md:hidden lg:flex items-center  gap-4 '>
+                <Link  href={'/find-our-store'} className='flex items-center text-nowrap gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><span><IoLocationOutline /></span> Store Location</Link>
                 
-                <Link target='_blank' href={'https://www.facebook.com/brothersmobile520'} className='flex items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><FaFacebook /> Facebook Page</Link>
+                <Link target='_blank' href={'https://www.facebook.com/brothersmobile520'} className='flex text-nowrap items-center gap-1 border py-1 px-2 rounded-md text-sm border-[#1A1A7E]'><FaFacebook /> Facebook Page</Link>
             </div>
             <div className='flex items-center gap-3 text-black relative'>
                {
