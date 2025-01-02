@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import relatedProducts from '/products.json'
 import useStore from "@/app/CustomHooks/useStore";
 import {  FaWhatsapp } from "react-icons/fa6";
 import { Landmark } from "lucide-react";
@@ -225,7 +224,7 @@ const Page = ({ params }) => {
         </div>
 
         <div>
-          <h1 className="text-base lg:text-2xl font-bold mb-2 text-nowrap">{product?.name}</h1>
+          <h1 className="text-base lg:text-2xl font-bold mb-2 lg:text-nowrap">{product?.name}</h1>
           
           <div className="mb-4 flex items-center ">
             {
@@ -440,9 +439,9 @@ const Page = ({ params }) => {
 
     </div>
       
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:gap-8">
       <div className="col-span-2">
-        <div className="flex space-x-4 bg-gray-100 w-fit mb-5 p-2 rounded-lg">
+        <div className="flex space-x-2 lg:space-x-4 bg-gray-100 w-fit mb-5 p-2 rounded-lg">
           {['Specification', 'Description', 'Warranty'].map((tab) => (
             <Link
             key={tab}
@@ -533,7 +532,7 @@ const Page = ({ params }) => {
 
       {/* recent viewed items */}
 
-         <div className="w-full max-w-md h-fit mb-2 mt-4 mx-auto bg-white shadow-md  rounded-lg p-4">
+         <div className="w-full h-fit mb-2 mt-4 mx-auto bg-white shadow-md  rounded-lg p-4">
           <p className="text-xl text-center font-semibold border-b pb-1 mb-4">Recently Viewed</p>
           <div className="flex flex-col space-y-5">
             {recentItems.length > 0 ? (

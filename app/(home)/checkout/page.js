@@ -20,7 +20,8 @@ const CheckoutPage = () => {
 
     useEffect(() => {
         const intendedUrl = window.location.pathname;
-        if(!token){
+        const storedToken = localStorage.getItem('token');
+        if(!storedToken){
             router.push(`/?redirect=${intendedUrl}&login=false`);
             setIsLoginModal(true);
         }
