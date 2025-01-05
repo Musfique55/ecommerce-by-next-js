@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Loader from "@/app/Components/Loader";
 import FilterProduct from "@/app/Components/FIlterProduct";
+import { userId } from "../../page";
 
 
 
@@ -21,7 +22,7 @@ const Page = ({ params }) => {
   const limit = 20;
   const totalPage = Math.ceil(parseInt(searchedTotal) / limit);
   const {id} = params;
-  const {data : products,isLoading} = useSWR(`https://outletexpense.xyz/api/public/brandwise-products/${id}?page=${currentPage}&limit=${limit}`,fetcher);
+  const {data : products,isLoading} = useSWR(`https://outletexpense.xyz/api/public/brandwise-products/${id}/${userId}?page=${currentPage}&limit=${limit}`,fetcher);
   const [filteredItems, setFilteredItems] = useState([]);
   const { handleCart,handleBuy } = useStore();
   const [isChecked, setIsChecked] = useState(false);
@@ -148,9 +149,9 @@ const Page = ({ params }) => {
       }
     },[sortBy,products?.data])
 
-    console.log(products?.data);
+
     if(!products?.data.length > 0) {
-      return <p className="text-center">No product Avilable</p>
+      return <p className="text-center mt-40 text-black">No product Avilable</p>
     }
 
   return (

@@ -13,14 +13,13 @@ export default function Page() {
       {/* Address */}
       <div className="flex items-start gap-2">
         <MapPin className="text-[#0977AB] flex-shrink-0 mt-1" size={20} />
-        <p className="text-gray-600"> Shop-016C, Level-4, Block- A 
-        JAMUNA FUTURE PARK</p>
+        <p className="text-gray-600"> Shop - 09C, Block - C, Level 4, Jamuna Future Park,Dhaka</p>
       </div>
 
       {/* Phone */}
       <div className="flex items-center gap-2">
         <Phone className="text-[#0977AB]" size={20} />
-        <p className="text-gray-600">(808) 555-0111</p>
+        <p className="text-gray-600">+8801639147270</p>
       </div>
 
       {/* Hours */}

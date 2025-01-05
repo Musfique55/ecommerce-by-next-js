@@ -238,11 +238,11 @@ const Page = ({ params }) => {
             <span className="text-sm text-nowrap text-gray-800 ml-2 px-4 py-2 bg-gray-200 ">Status: {product?.status}</span>
           </div>
           <div className="mb-4 flex items-center flex-wrap lg:flex-nowrap gap-3">
-            <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center text-nowrap gap-2"><Landmark size={16}/> EMI Available <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
+            <p className="text-gray-800 text-sm  p-2 bg-gray-200 flex items-center text-nowrap gap-2"><Landmark size={16}/> EMI Available <Link target="_blank" href={'/Convenient Global EMI (for QR) (Updated- 05-01-22)(0)(0)(0).pdf'} className="text-blue-500 font-semibold">View Plans</Link></p>
             <p className="text-gray-800 text-sm text-nowrap bg-gray-200 p-2 "> Exchange <Link href={'/plans'} className="text-blue-500 font-semibold">View Plans</Link></p>
           </div>
           <Link
-            href="https://wa.me/+8809638668562" 
+            href="https://wa.me/+8801639147270" 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center w-fit space-x-3 text-sm px-4 py-1 text-white font-semibold rounded-md bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 hover:text-white transition-colors duration-200 mb-3"

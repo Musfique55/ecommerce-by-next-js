@@ -25,7 +25,7 @@ const Footer = ({data}) => {
                     </p>
                     <p className="mt-4 flex items-center">
                         <FaPhone className="mr-2 text-xl" /> 
-                        <span className="text-lg font-semibold">+8801402086520</span>
+                        <span className="text-lg font-semibold">+8801639147270</span>
                     </p>
                     <p className="text-sm mt-1">Got Questions? Call us 24/7</p>
                     <div className="flex space-x-4 mt-3 md:mt-0">
@@ -64,6 +64,7 @@ const Footer = ({data}) => {
                     <ul className="space-y-2 text-sm">
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">Support</a></li>
+                        <li><Link target='_blank' href={'/Convenient Global EMI (for QR) (Updated- 05-01-22)(0)(0)(0).pdf'}>Emi Policy</Link></li>
                     </ul>
                     </div>
                 </div>

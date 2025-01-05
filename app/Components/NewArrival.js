@@ -7,11 +7,12 @@ import SubHeading from '../CustomHooks/subHeading';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { fetcher, userId } from '../(home)/page';
+import CardSkeleton from './CardSkeleton';
 
 
 const NewArrival = ({banner}) => {
     const {handleCart,handleBuy} = useStore();
-    const {data : newArrivals} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,fetcher)
+    const {data : newArrivals,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/new-arrivals/${userId}`,fetcher)
 
 
     return (
@@ -43,6 +44,15 @@ const NewArrival = ({banner}) => {
                 {/* products */}
                 <div className="col-span-1 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10 md:col-span-3 lg:col-span-4">
                 {
+
+                    isLoading ?
+                    <div className='col-span-4 grid grid-cols-4 gap-5 '>
+                      {
+                        Array.from({length : 8}).map((_,idx) => {
+                          return  <CardSkeleton key={idx} />
+                      })
+                      }
+                      </div>  :
                     newArrivals?.data.length > 0 ? 
                     newArrivals?.data.map((product,idx) => {
                          return (

@@ -36,7 +36,7 @@ const Navbar = ({data}) => {
                     </div>
                     <div > 
                     <p className='flex items-center text-[13px] gap-2'><span><FaPhoneAlt className='text-white' /></span>
-                    +8801402086520</p>
+                    +8801639147270</p>
                     </div>
                 </div>
             </div>

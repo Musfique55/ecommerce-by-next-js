@@ -62,7 +62,7 @@ const LoginForm = ({ isRegistered,setIsRegistered, isLoginModal,onClose,setReloa
             value={formData.email}
             onChange={handleChange}
             placeholder="Email"
-            className="input p-2 input-bordered border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl  bg-white"
+            className="input p-2 input-bordered  border-[#C1CFEF] border-[1px] w-full mb-[10px] focus:outline-none rounded-xl bg-white"
           />
         </div>
 

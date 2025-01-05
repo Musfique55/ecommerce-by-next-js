@@ -8,6 +8,7 @@ import useStore from "../CustomHooks/useStore";
 import Link from "next/link";
 import useSWR from "swr";
 import { fetcher, userId } from "../(home)/page";
+import CardSkeleton from "./CardSkeleton";
 
 const TopBrandProducts = ({brands}) => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -48,9 +49,14 @@ const TopBrandProducts = ({brands}) => {
 
         {[null, ...brands?.data.slice(0, 6)].map((_, index) => (
           <TabPanel key={index}>
-            {isLoading ? (
-              <p className="text-center">Loading...</p>
-            ) : (
+            { isLoading ?
+            <div className='flex gap-5  justify-center'>
+               {
+                Array.from({length : 6}).map((_,idx) => {
+                  return  <CardSkeleton key={idx} />
+               })
+              }
+               </div> : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
                 {pdcByBrands?.data.length > 0 ? (
                   pdcByBrands?.data.slice(0,12).map((product) => (

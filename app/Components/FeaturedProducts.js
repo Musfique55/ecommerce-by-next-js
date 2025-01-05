@@ -7,13 +7,14 @@ import Link from 'next/link';
 import useStore from '../CustomHooks/useStore';
 import useSWR from 'swr';
 import { fetcher, userId } from '../(home)/page';
+import CardSkeleton from './CardSkeleton';
 
 const FeaturedProducts = ()  => {
   const [index, setIndex] = useState(0);
   const { handleCart,handleBuy } = useStore();
-  const {data : bestSellers} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,fetcher);
-  const {data : bestDeals} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,fetcher);
-  
+  const {data : bestSellers,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-sellers/${userId}`,fetcher);
+  const {data : bestDeals,isLoading: Loading} = useSWR(`${process.env.NEXT_PUBLIC_API}/public/best-deals/${userId}`,fetcher);
+
   return (
       <div className='mt-20'>
           <Heading title={"Featured Products"}/>
@@ -35,7 +36,17 @@ const FeaturedProducts = ()  => {
 
               <TabPanel>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {bestDeals?.data.length > 0 ? (
+              {
+               isLoading ?
+               <div className='flex gap-5  justify-center'>
+                  {
+                   Array.from({length : 6}).map((_,idx) => {
+                     return  <CardSkeleton key={idx} />
+                  })
+                 }
+                  </div>  :
+
+              bestDeals?.data.length > 0 ? (
                 bestDeals?.data.slice(0,12).map((product, idx) => {
                   return (
                     <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-2xl">
@@ -99,7 +110,16 @@ const FeaturedProducts = ()  => {
               </TabPanel>
               <TabPanel>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {bestSellers?.data.length > 0 ? (
+              {
+              Loading ?
+              <div className='flex gap-5  justify-center'>
+                 {
+                  Array.from({length : 6}).map((_,idx) => {
+                    return  <CardSkeleton key={idx} />
+                 })
+                }
+                 </div>  :
+              bestSellers?.data.length > 0 ? (
                 bestSellers?.data.slice(0,12).map((product, idx) => {
                   return (
                     <div key={idx} className="max-w-sm bg-white text-center border-gray-200 flex flex-col justify-between p-4 border rounded-2xl">

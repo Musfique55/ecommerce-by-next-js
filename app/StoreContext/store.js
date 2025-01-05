@@ -1,6 +1,7 @@
 'use client';
 import React, { createContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export const storeContext = createContext(null);
 const StoreProvider = ({children}) => {
@@ -36,11 +37,15 @@ const StoreProvider = ({children}) => {
         setRefetch(true);
         const cartItems =JSON.parse(localStorage.getItem('cart')) || [];
         const existingProducts = cartItems.find(product => product.id === item.id);
-        if(existingProducts){
-            existingProducts.quantity += quantity;
+        if(item.status !== "Stock out" && item.status){
+            if(existingProducts){
+                existingProducts.quantity += quantity;
+            }else{
+                const itemWithQty = {...item,'quantity' : quantity}
+                cartItems.push(itemWithQty);
+            }
         }else{
-            const itemWithQty = {...item,'quantity' : quantity}
-            cartItems.push(itemWithQty);
+            toast.error('Out of stock!')
         }
         localStorage.setItem('cart',JSON.stringify(cartItems));
     }
