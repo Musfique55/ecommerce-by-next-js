@@ -72,7 +72,6 @@ const CartPage = () => {
                     {
                        cartItems.length > 0  ?
                         cartItems.map((item,idx) => {
-                            console.log(item);
                             return <tr key={idx} className='text-black  justify-items-center items-center  border-gray-300 border-t-0 border'>
                                 
                                 <td className=' flex gap-10 align-middle'>

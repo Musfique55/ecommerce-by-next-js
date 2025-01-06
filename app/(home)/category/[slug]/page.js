@@ -47,7 +47,6 @@ const Page = ({ params }) => {
     }
   },[products])
 
-  // console.log(products.data);
  
     // useEffect(() => {
     //   if(selectedBrand){
@@ -92,7 +91,6 @@ const Page = ({ params }) => {
     }
 
   //   sorting
-  // console.log(selectedBrand);
 
   const handlePageInc = () => {
     if(currentPage < totalPage){

@@ -69,7 +69,6 @@ const Page = ({ params }) => {
   // },[])
 
   // const matchWithCart = cartItems.filter(item => item.title === product.title);
-  // console.log(matchWithCart);
 
   const [selectedColor, setSelectedColor] = useState('Space Black')
   const [selectedStorage, setSelectedStorage] = useState('');
@@ -109,7 +108,6 @@ const Page = ({ params }) => {
   //     setImageIndex(0);
   //   }
 
-  //  console.log(product);
   
   // isLoading && <p>Loading....</p>
   

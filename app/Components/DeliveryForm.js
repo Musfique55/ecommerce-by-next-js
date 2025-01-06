@@ -18,7 +18,7 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
   const router = useRouter(); 
   const [userEmail, setUserEmail] = useState(null);
 
-  console.log(data);
+
   
   const [formData, setFormData] = useState({
     country: "Bangladesh",

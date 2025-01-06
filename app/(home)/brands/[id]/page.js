@@ -33,7 +33,6 @@ const Page = ({ params }) => {
   const contentRef = useRef(null);
   
   // const maxPrice = products?.data ? products.data.filter((item) => {
-  //   console.log(item);
   //   return item.retails_price > minPrice;
   // }) : 0;
 
@@ -104,7 +103,6 @@ const Page = ({ params }) => {
     }
 
   //   sorting
-  // console.log(selectedBrand);
 
   const handlePageInc = () => {
     if(currentPage < totalPage){
