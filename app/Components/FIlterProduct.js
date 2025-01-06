@@ -130,15 +130,15 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isExpanded ? contentHeight : 0 }}
               >
                 <div>
-                    <input type="checkbox" name="in-stock" id="in-stock" />
+                    <input type="checkbox" name="in-stock" id="in-stock" className='bg-white'/>
                     <label htmlFor="in-stock" className="ml-2 text-base">In Stock</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="online-order" id="online-order" />
+                    <input type="checkbox" name="online-order" id="online-order" className='bg-white'/>
                     <label htmlFor="online-order" className="ml-2 text-base">Online Order</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="pre-order" id="pre-order" />
+                    <input type="checkbox" name="pre-order" id="pre-order" className='bg-white'/>
                     <label htmlFor="pre-order" className="ml-2 text-base">Pre Order</label>
                     </div>
               </div>
@@ -167,15 +167,15 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isStorageExpanded ? contentHeight : 0 }}
               >
                 <div>
-                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <input type="checkbox" name="in-stock" id="12/128"  className="bg-white"/>
                     <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="online-order" id="12/256" />
+                    <input type="checkbox" name="online-order" id="12/256" className="bg-white" />
                     <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <input type="checkbox" name="pre-order" id="16/512"  className="bg-white"/>
                     <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
                     </div>
               </div>
@@ -203,15 +203,15 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isTypeExpanded ? contentHeight : 0 }}
               >
                 <div>
-                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <input type="checkbox" name="in-stock" id="12/128"  className="bg-white"/>
                     <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="online-order" id="12/256" />
+                    <input type="checkbox" name="online-order" id="12/256"  className="bg-white"/>
                     <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <input type="checkbox" name="pre-order" id="16/512"  className="bg-white"/>
                     <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
                     </div>
               </div>
@@ -239,15 +239,15 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isSizeExpanded ? contentHeight : 0 }}
               >
                 <div>
-                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <input type="checkbox" name="in-stock" id="12/128"  className="bg-white"/>
                     <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="online-order" id="12/256" />
+                    <input type="checkbox" name="online-order" id="12/256"  className="bg-white"/>
                     <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <input type="checkbox" name="pre-order" id="16/512"  className="bg-white"/>
                     <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
                     </div>
               </div>
@@ -275,15 +275,15 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isRepairExpanded ? contentHeight : 0 }}
               >
                 <div>
-                    <input type="checkbox" name="in-stock" id="12/128" />
+                    <input type="checkbox" name="in-stock" id="12/128"  className="bg-white"/>
                     <label htmlFor="12/128" className="ml-2 text-base">12/128</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="online-order" id="12/256" />
+                    <input type="checkbox" name="online-order" id="12/256"  className="bg-white"/>
                     <label htmlFor="12/256" className="ml-2 text-base">12/256</label>
                     </div>
                     <div>
-                    <input type="checkbox" name="pre-order" id="16/512" />
+                    <input type="checkbox" name="pre-order" id="16/512"  className="bg-white"/>
                     <label htmlFor="16/512" className="ml-2 text-base">16/512</label>
                     </div>
               </div>
@@ -311,7 +311,7 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isWarrantyExpanded ? contentHeight : 0 }}
               >
                   <div>
-                    <input type="checkbox" name="in-stock" id="official" />
+                    <input type="checkbox" name="in-stock" id="official"  className="bg-white"/>
                     <label htmlFor="official" className="ml-2 text-base">Official</label>
                   </div>
                     
@@ -340,11 +340,11 @@ const FilterProduct = ({products,setFilteredItems}) => {
                 style={{ maxHeight: isNetworkExpanded ? contentHeight : 0 }}
               >
                   <div>
-                    <input type="checkbox" name="wifi" id="wifi" />
+                    <input type="checkbox" name="wifi" id="wifi"  className="bg-white"/>
                     <label htmlFor="wifi" className="ml-2 text-base">Wifi</label>
                   </div>
                   <div>
-                    <input type="checkbox" name="LTE" id="lte" />
+                    <input type="checkbox" name="LTE" id="lte"  className="bg-white"/>
                     <label htmlFor="lte" className="ml-2 text-base">LTE</label>
                   </div>
                     

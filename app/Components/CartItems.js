@@ -82,7 +82,7 @@ const CartItems = () => {
                         type="number"
                         value={item.quantity}
                         min={1}
-                        className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
+                        className="w-12 h-10 bg-white text-center border-none focus:outline-none no-arrows"
                       />
                       <div className="flex flex-col justify-between ">
                         <button
@@ -117,7 +117,7 @@ const CartItems = () => {
         </div>
         <div className="p-5">
           <p>Special instructions for seller</p>
-          <textarea rows={3} className="border outline-none w-full"></textarea>
+          <textarea rows={3} className="border bg-white outline-none w-full"></textarea>
           <h5 className="flex justify-between items-center text-black font-bold text-lg">
             Subtotal :{" "}
             <span className="text-[#4EB0BE] font-normal">
@@ -142,7 +142,7 @@ const CartItems = () => {
             <input
               onChange={(e) => setIsChecked(e.target.checked)}
               type="checkbox"
-              className="cursor-pointer"
+              className="cursor-pointer bg-white"
             />
             <label>I agree with the terms and conditions.</label>
           </div>

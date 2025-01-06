@@ -186,7 +186,7 @@ const CartPage = () => {
                                     type="number"
                                     value={ item?.quantity}
                                     min={1}
-                                    className="w-12 h-10  text-center border-none focus:outline-none no-arrows"
+                                    className="w-12 h-10  text-center border-none focus:outline-none no-arrows bg-white"
                                     />
                                     <div className="flex flex-col justify-between ">
                                     <button
@@ -255,7 +255,7 @@ const CartPage = () => {
                         * All charges are billed in BDT. While the content of your cart is currently displayed in BDT, the checkout will use BDT at the most current exchange rate.</p>
 
                         <div className='flex gap-1 mt-5'>
-                            <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} />
+                            <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} className='bg-white'/>
                             <label >I agree with the terms and conditions.</label>
                         </div>
                         <Image 

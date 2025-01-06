@@ -25,13 +25,8 @@ const Page = ({ params }) => {
   const { handleCart,handleBuy } = useStore();
   const [isChecked, setIsChecked] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  // const [selectedBrand,setSelectedBrand] = useState('');
-  // const colors = [...new Set(items.map((item) => item.color))];
-  // const brands = [...new Set(items.map(item  => item.brand_name))];
   const contentRef = useRef(null);
 
-  console.log(products?.data);
-  
 
   const pages = [];
 
@@ -247,7 +242,7 @@ const Page = ({ params }) => {
           
           {
             pages.length > 0 && 
-            <div className="flex justify-between items-center mt-10 pagination gap-3 bg-white rounded-md p-2">
+            <div className="flex justify-between items-center mt-10 pagination gap-3 bg-white rounded-md p-2 text-black">
               <div className="flex gap-3 items-center">
                   <button onClick={handlePageDcrmnt} className="text-lg  py-1 px-[8px] outline-none rounded-md hover:text-white hover:bg-[#0977AB]">Prev</button>
                 {

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
+import { userId } from "../(home)/page";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const DeliveryForm = ({cartItems,cartTotal}) => {
@@ -17,6 +18,7 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
   const router = useRouter(); 
   const [userEmail, setUserEmail] = useState(null);
 
+  console.log(data);
   
   const [formData, setFormData] = useState({
     country: "Bangladesh",
@@ -81,7 +83,7 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
     customer_name: `${formData.firstName}${formData.lastName}`,
     customer_phone: formData.phone,
     sales_id: 3,
-    user_id: 3,
+    user_id: userId,
     wholeseller_id:1,
     status: 3
   };

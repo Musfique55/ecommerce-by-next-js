@@ -633,7 +633,7 @@ const Page = ({ params }) => {
               value={quantity}
               min={quantity}
               max={2}
-              className="w-12 h-10 text-center border-none focus:outline-none no-arrows"
+              className="w-12 h-10 bg-white text-center border-none focus:outline-none no-arrows"
             />
             <div className="flex flex-col justify-between">
               <button onClick={() =>  setQuantity(quantity + 1)} className="px-2 border-b border-l border-gray-300">▲</button>
