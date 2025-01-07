@@ -23,10 +23,10 @@ export default function Component() {
             <div className="h-14 w-14 overflow-hidden rounded-full border-2 border-white">
                <Link target='_blank' href={'tel:01639-147270'}>
                <Image
-                src="https://i.ibb.co.com/G0hCYcP/Whats-App-Image-2024-11-17-at-16-43-48-d3e0b3fd.jpg"
+                src="/download__4_-removebg-preview-removebg-preview (1).png"
                 alt="Profile"
-                height={100}
-                width={100}
+                fill={true}
+                style={{objectFit : 'contain'}}
               />
                </Link> 
              

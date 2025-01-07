@@ -38,13 +38,15 @@ const FeaturedProducts = ()  => {
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {
                isLoading ?
-               <div className='flex gap-5  justify-center'>
+               <div className='col-span-6 flex gap-5 justify-center'>
                   {
                    Array.from({length : 6}).map((_,idx) => {
-                     return  <CardSkeleton key={idx} />
+                     return <div key={idx} >
+                       <CardSkeleton  />
+                     </div>
                   })
                  }
-                  </div>  :
+                  </div>   :
 
               bestDeals?.data.length > 0 ? (
                 bestDeals?.data.slice(0,12).map((product, idx) => {
@@ -112,13 +114,15 @@ const FeaturedProducts = ()  => {
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {
               Loading ?
-              <div className='flex gap-5  justify-center'>
-                 {
-                  Array.from({length : 6}).map((_,idx) => {
-                    return  <CardSkeleton key={idx} />
-                 })
-                }
-                 </div>  :
+              <div className='col-span-6 flex gap-5 justify-center'>
+                  {
+                   Array.from({length : 6}).map((_,idx) => {
+                     return <div key={idx} >
+                       <CardSkeleton  />
+                     </div>
+                  })
+                 }
+                  </div>  :
               bestSellers?.data.length > 0 ? (
                 bestSellers?.data.slice(0,12).map((product, idx) => {
                   return (
