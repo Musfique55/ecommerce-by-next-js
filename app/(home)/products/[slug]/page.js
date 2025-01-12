@@ -132,7 +132,7 @@ const Page = ({ params }) => {
             <>
               <ReactImageMagnify {...{
                 smallImage: {
-                    alt: 'Wristwatch by Ted Baker London',
+                    alt: product?.title,
                     // isFluidWidth: true,
                     height: 300,
                     width : 300,
@@ -150,7 +150,7 @@ const Page = ({ params }) => {
             <>
               <ReactImageMagnify {...{
                 smallImage: {
-                    alt: 'Wristwatch by Ted Baker London',
+                    alt: product?.title,
                     // isFluidWidth: true,
                     height: 300,
                     width : 300,
@@ -173,14 +173,14 @@ const Page = ({ params }) => {
                ( <Image 
                     height={200} 
                     width={200} 
-                    alt="product" 
+                    alt={product?.title} 
                     src={product?.images[imageIndex]} 
                 />
             ) : product?.image_path ? (
                 <Image 
                     height={200} 
                     width={200} 
-                    alt="product" 
+                    alt={product?.title} 
                     src={product?.image_path} 
                 />
             ) : (
@@ -188,7 +188,7 @@ const Page = ({ params }) => {
               src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
               height={200} 
               width={200} 
-              alt="mobile-phone"
+              alt={product?.title}
               quality={75}
             />
             )
