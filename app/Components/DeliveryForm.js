@@ -55,7 +55,7 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
       mode: 1,
       size: 1,
       sales_id: 3,
-      imei_id: item?.imeis ? item?.imeis[0].id : null,
+      imei_id: item?.imeis ? item?.imeis[0]?.id : null,
     })),
     delivery_method_id: 1,
     delivery_info_id:1,

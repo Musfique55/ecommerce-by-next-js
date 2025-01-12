@@ -64,7 +64,16 @@ const CartItems = () => {
                     height={100}
                     width={100}
                   />
-                    :  <Image
+                    : 
+                    item?.images.length > 0 ?
+                    <Image
+                    src={item.images[0]}
+                    alt="cart-products"
+                    height={100}
+                    width={100}
+                    />
+                    :
+                    <Image
                     src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
                     height={100}
                     width={100}
