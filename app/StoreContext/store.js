@@ -44,6 +44,7 @@ const StoreProvider = ({children}) => {
                 const itemWithQty = {...item,'quantity' : quantity}
                 cartItems.push(itemWithQty);
             }
+            toast.success('Item added to cart successfully');
         }else{
             toast.error('Out of stock!')
         }
