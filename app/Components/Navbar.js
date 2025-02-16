@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { RiMenu4Fill } from "react-icons/ri";
-import CategoryPopup from './CategoryPopup';
 import { FaPhoneAlt } from 'react-icons/fa';
 
 const Navbar = ({data}) => {
@@ -15,7 +14,7 @@ const Navbar = ({data}) => {
     return (
         <div className='relative'>
         {/* desktop menu */}
-            <div className='border-t w-full bg-gradient-to-r from-[#141129]  to-[#040209] text-white z-40 py-3 px-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
+            <div className=' w-full bg-black border-t text-white z-40 py-3 px-5 hidden items-center gap-10 md:px-12 md:hidden lg:flex'>
                 
                 <div onMouseEnter={() => setIsHovered(true)}  className='flex items-center gap-3'>
                     <Link href={'/'} className='font-semibold text-[13px]'>Home</Link>

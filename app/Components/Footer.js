@@ -2,7 +2,7 @@
 import React from 'react';
 import { FaFacebookF, FaLinkedin, FaPhone, FaTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
-import companyLogo from '/app/assets/download__4_-removebg-preview-removebg-preview (1).png';
+import companyLogo from '/app/assets/WhatsApp Image 2024-12-10 at 19.23.01_515d1d11.jpg';
 import Link from 'next/link';
 const Footer = ({data}) => {
     return (
@@ -14,7 +14,7 @@ const Footer = ({data}) => {
                     <button className='bg-[#1A1A7E] text-white p-2 rounded-sm'>Subscribe</button>
                 </div> */}
             </div>
-            <footer className="bg-gradient-to-r from-[#141129]  to-[#040209] text-white py-10 px-5 md:px-12">
+            <footer className="bg-black text-white py-10 px-5 md:px-12">
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
                     {/* Left Section - Company Info */}
                     <div className="col-span-2 space-y-3">

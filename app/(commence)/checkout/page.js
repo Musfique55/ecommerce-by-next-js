@@ -14,7 +14,10 @@ const CheckoutPage = () => {
     
     const cartItems = getCartItems();
     const quantity = cartItems.reduce((acc,curr) => acc + curr.quantity,0);
-    const Subtotal = cartItems.reduce((acc,curr) => acc + curr.retails_price * curr.quantity,0);
+    const Subtotal = (cartItems.reduce(
+        (prev, curr) => prev + ((curr?.discount ?  (curr?.retails_price - ((curr?.retails_price * curr.discount) / 100).toFixed(0)) * curr.quantity  : curr?.retails_price * curr.quantity)),
+        0
+      )).toFixed(2) ;
 
 
     useEffect(() => {
@@ -37,11 +40,12 @@ const CheckoutPage = () => {
       return null;
     }
 
-    console.log(cartItems);
+
+
     return (
             <div className='text-black flex flex-col-reverse md:flex-col-reverse lg:grid  lg:grid-cols-3 relative'>
             <div className='col-span-1 md:col-span-2 border-gray-300 border-r p-5 md:pl-12 md:py-12'>
-                <DeliveryForm cartItems={cartItems}/>
+                <DeliveryForm cartItems={cartItems} cartTotal={Subtotal}/>
             </div>
 
             {
@@ -56,7 +60,7 @@ const CheckoutPage = () => {
                                     <div className='relative  p-2 '>
                                     {
                                        item?.images?.length > 0 ? (
-                                        <img
+                                        <Image
                                             height={80} 
                                             width={80} 
                                             alt="product" 
@@ -64,7 +68,7 @@ const CheckoutPage = () => {
                                             className="border border-gray-300" 
                                         />
                                     ) : item?.image_path ? (
-                                        <img 
+                                        <Image 
                                             height={80} 
                                             width={80} 
                                             alt="product" 
@@ -72,7 +76,7 @@ const CheckoutPage = () => {
                                             className="border border-gray-300" 
                                         />
                                     ) : (
-                                        <img
+                                        <Image
                             src={'https://i.ibb.co.com/vwGWVVb/Pixel-7-Pro-Hazel-6784.jpg'}
                             height="200"
                             width="200"

@@ -1,19 +1,24 @@
 "use client";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import useSWR from "swr";
+import { fetcher, userId } from "../(home)/page";
+import Image from "next/image";
+import Modal from "./Modal";
+import PaymentMethodForm from "./PaymentMethodForm";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-const DeliveryForm = ({cartItems}) => {
-  const { data, error } = useSWR("https://restcountries.com/v3.1/all", fetcher);
-  const [payment, setPayment] = useState("cod");
-  const [isCod,setIsCod] = useState(false);
+const DeliveryForm = ({cartItems,cartTotal}) => {
+  const { data : paymentMethods, error } = useSWR(`${process.env.NEXT_PUBLIC_API}/payment-type-list/${userId}`, fetcher);
+  const date = new Date().toISOString();
+  const [showPaymentModal,setShowPaymentModal] = useState(false);
+  const [payment, setPayment] = useState("Cash");
+  const [isCod,setIsCod] = useState(true);
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
-  // const userEmail = JSON.parse(localStorage.getItem('user'))?.email || null;
+  const [user,setUser] = useState(null); 
   const router = useRouter(); 
   const [userEmail, setUserEmail] = useState(null);
-
-  
   const [formData, setFormData] = useState({
     country: "Bangladesh",
     email : userEmail || '',
@@ -31,15 +36,80 @@ const DeliveryForm = ({cartItems}) => {
     billApartment : '',
     billCity : '',
     billPostalCode : '',
-    billPhone : ''
+    billPhone : '',
+  });
+  // const [dueAmount,setDueAmount] = useState(0);
+  const [selectedMethodId,setSelectedMethodId] = useState(null);
+
+  
+
+  const handleClose = () => setShowPaymentModal(false);
+
+
+  const [orderSchema, setOrderSchema] = useState({
+    pay_mode: payment,
+    paid_amount: 0,
+    sub_total: Number(cartTotal) + 200,
+    vat: 0,
+    tax: 0,
+    discount: 0,
+    product: cartItems.map((item) => ({
+      product_id: item.id,
+      qty: item.quantity,
+      price: item.retails_price,
+      mode: 1,
+      size: 1,
+      sales_id: 3,
+      imei_id: item?.imeis ? item?.imeis[0]?.id : null,
+    })),
+    delivery_method_id: 1,
+    delivery_info_id: 1,
+    delivery_customer_name: formData.firstName + formData.lastName,
+    delivery_customer_address: formData.address || formData.billAddress,
+    delivery_customer_phone: formData.phone || formData.billPhone,
+    delivery_fee: 200,
+    payment_method: [
+      {
+        payment_type_category_id: "",
+        payment_type_id: "",
+        payment_amount: 0,
+      },
+    ],
+    variants: [],
+    imeis: cartItems.map((item) => {
+      if (item?.imeis && item?.imeis.length > 0) {
+        return parseInt(item?.imeis[0].imei);
+      } else {
+        return null;
+      }
+    }),
+    created_at: date,
+    customer_id: user?.id || null,
+    customer_name: `${formData.firstName} + ${formData.lastName}`,
+    customer_phone: formData.phone,
+    sales_id: userId,
+    user_id: userId,
+    wholeseller_id: 1,
+    status: 3,
   });
   
 
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const {name,value} = e.target;
+    setFormData({ ...formData, [name]: value });
+    setOrderSchema((prev) => ({
+      ...prev,
+      ['customer_name'] : `${formData.firstName}  ${formData.lastName}`,
+      ['delivery_customer_name'] : `${formData.firstName}  ${formData.lastName}`,
+      ['delivery_customer_address'] : formData.address || formData.billAddress,
+      ['delivery_customer_address'] : formData.address || formData.billAddress,
+      ['customer_phone'] :  formData.phone,
+      ['delivery_customer_phone'] : formData.billPhone  || formData.phone,
+      ['customer_id'] : user?.id,
+    }))
   };
 
-  
 
   const  handlePayment = (e) => {
     setPayment(e.target.value)
@@ -50,37 +120,96 @@ const DeliveryForm = ({cartItems}) => {
   };
 
   useEffect(() => {
-    // This will only run on the client side after the component has mounted
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setUserEmail(user?.email || null);
     }
   }, []); 
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
+
   const handleOrderComplete = (e) => {
     e.preventDefault();
    if(cartItems.length > 0){
-     console.log("handleOrderComplete");
+     axios.post(`${process.env.NEXT_PUBLIC_API}/public/ecommerce-save-sales`,orderSchema)
+     .then((res) => {
+       if(res.status === 200){
+        toast.success('order placed successfully');
+        localStorage.removeItem('cart');
+        setTimeout(() => {
+          router.push('/');
+        },2000)
+      }
+     })
+     .catch(err => {
+      toast.error('error occured try again');
+      console.log(err);
+     })
    }else{
      alert('Add Some Products First to the cart')
      router.push('/')
    }
   }
 
+  const handlePaymentMethod = (item) => {
+    setShowPaymentModal(true);
+    if(item.payment_type_category && item.payment_type_category.length > 0){
+      setPayment(item.payment_type_category[0].payment_category_name);
+      setSelectedMethodId(item.payment_type_category[0].id)
+    }else{
+      setPayment(item.value);
+      setSelectedMethodId(item.category_id);
+    }
+    setOrderSchema((prevSchema) => {
+      return {
+        ...prevSchema,
+        payment_method: [
+          {
+            payment_type_category_id: item.payment_type_category?.[0]?.id || item.category_id,
+            payment_type_id: item.payment_type_category?.[0]?.payment_type_id || item.id,
+            account_number : item.payment_type_category?.[0]?.account_number || item.account_number,
+          },
+        ],
+      };
+    });
+  };
+
+  const handleAmount = (e) => {
+    const amount = e.target.value;
+    const updatedMethod = [...orderSchema.payment_method];
+    const existingMethodIndex = updatedMethod.findIndex(item => item.payment_type_category_id === selectedMethodId);
+    updatedMethod[existingMethodIndex].payment_amount = parseInt(amount);
+  }
+  const handleRefId = (e) => {
+    const refId = e.target.value;
+    const updatedMethod = [...orderSchema.payment_method];
+    const existingMethodIndex = updatedMethod.findIndex(item => item.payment_type_category_id === selectedMethodId);
+    updatedMethod[existingMethodIndex].ref_id = refId;
+  }
+
+
+
 
   return (
-    <div className="smx-auto bg-white  rounded-lg ">
+    <div className=" bg-white p-10 rounded-tl-lg rounded-bl-lg ">
       {
         userEmail ? <div className="border-b">
         <div className="flex items-center  cursor-pointer">
            <p className="hover:text-blue-500 ">Account</p>
         </div>
         <p>{userEmail}</p>
-        </div> : <p>no user</p>
+        </div> : <p>No user</p>
         
       }
        
-      <h2 className="text-2xl font-bold my-4">Delivery</h2>
+      <h2 className="text-2xl font-semibold my-4">Delivery</h2>
       <form onSubmit={handleOrderComplete}>
         {/* Country/Region */}
         <div className="mb-4">
@@ -190,8 +319,8 @@ const DeliveryForm = ({cartItems}) => {
         <div className="my-6 ">
           <h3 className="text-xl font-bold mb-2">Shipping method</h3>
           <div className="bg-[#F0F7FF] border border-blue-400 p-3 rounded-lg">
-            <span>BDT 400 depending on location</span>
-            <span className="float-right font-bold">৳400.00</span>
+            <span>BDT 200 depending on location</span>
+            <span className="float-right font-bold">200.00</span>
           </div>
         </div>
 
@@ -202,13 +331,13 @@ const DeliveryForm = ({cartItems}) => {
         </p>
         <div className="mb-6 border border-gray-300 rounded-lg">
           <div className="space-y-3">
-            <label className={`flex px-3 py-2 items-center ${payment === 'cod' ? 'bg-[#F0F7FF] border border-blue-400' : ''}`}>
+            <label className={`flex px-3 py-2 items-center ${payment === 'Cash' ? 'bg-[#F0F7FF] border border-blue-400' : ''}`}>
               <input
                 type="radio"
                 name="payment"
-                value="cod"
-                checked={payment === "cod"}
-                onChange={(e) => {handlePayment(e);setIsCod(false)}}
+                value="Cash"
+                checked={payment === "Cash"}
+                onChange={(e) => {handlePayment(e);setIsCod(true)}}
                 className="mr-2 bg-white"
               />
               Payment Cash On Delivery
@@ -219,13 +348,27 @@ const DeliveryForm = ({cartItems}) => {
                 name="payment"
                 value="online"
                 className="mr-2 bg-white"
-                onChange={(e) => {handlePayment(e);setIsCod(true)}}
+                onChange={(e) => {handlePayment(e);setIsCod(false)}}
               />
               Pay By Credit Card / Mobile Banking / Net Banking
             </label>
           </div>
-          {isCod && <div className="p-3 text-black bg-[#F4F4F4]">
-            You wont be redirected to Payment Link immediately due to stock limitation at real time after your order is placed. Our team will call you with stock confirmation at real time and will be given a SSL Wireless Custom Mac BD Secure Payment Link. You can proceed with the payment then.
+          {!isCod && <div className="p-3 text-black bg-[#F4F4F4] flex flex-wrap gap-5">
+           { paymentMethods?.data?.data && paymentMethods.data.data.length > 0 ? 
+           paymentMethods.data.data.filter(item => item.type_name !== 'Cash').map((item) => {
+            return <div onClick={() => handlePaymentMethod(item)} key={item.id} className={`flex flex-col items-center justify-center gap-2 cursor-pointer ${item.payment_type_category[0].payment_category_name === payment ? 'bg-blue-200 p-2 rounded-lg' : ''}`}>
+                <Image 
+                src={item.icon_image}
+                alt={item.payment_type_category[0].payment_category_name}
+                height={40}
+                width={40}
+                className="rounded-md h-auto w-auto"
+                />
+                <h3 className="text-black">{item.payment_type_category[0].payment_category_name}</h3>
+            </div>
+           })
+           : <p className="text-black">You wont be redirected to Payment Link immediately due to stock limitation at real time after your order is placed. Our team will call you with stock confirmation at real time and will be given a SSL Wireless Custom Mac BD Secure Payment Link. You can proceed with the payment then.</p>
+           }
             </div>}
         </div>
 
@@ -276,13 +419,13 @@ const DeliveryForm = ({cartItems}) => {
               >
                 <option value="Bangladesh">Bangladesh</option>
                 <option value="">----</option>
-              {
+              {/* {
                 data.length > 0 ? 
                 data.map((country,idx) => {
                     return <option key={idx} value={country.name.common}>{country.name.common}</option>
                 })
                 :null
-              }
+              } */}
                 {/* Additional country options */}
               </select>
             </div>
@@ -383,10 +526,34 @@ const DeliveryForm = ({cartItems}) => {
         {/* Conditional Billing Address */}
         
        
-        <button className="w-full bg-[#592ff4] py-3 rounded-lg text-white mt-6">
+        <button className="w-full bg-[#FF8800] py-3 rounded-lg text-white mt-6">
           Complete Order
         </button>
       </form>
+
+
+      {
+        showPaymentModal && <Modal 
+          title={'Payment Info'}
+          content={
+          <PaymentMethodForm 
+          totalAmount={cartTotal}
+          methodName={payment}
+          selectedMethodId={selectedMethodId}
+          methods={paymentMethods.data.data}
+          firstValueFunction={handlePaymentMethod}
+          paymentMethodSelection={orderSchema.payment_method}
+          setOrderSchema={setOrderSchema}
+          // orderSchema={orderSchema}
+          onAmountUpdate={handleAmount}
+          onRefIdUpdate={handleRefId}
+          setSelectedMethodId={setSelectedMethodId}
+          onClose={handleClose}
+          />
+        }
+        onClose={handleClose}
+        />
+      }
     </div>
   );
 };
