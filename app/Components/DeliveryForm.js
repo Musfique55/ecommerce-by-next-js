@@ -356,15 +356,15 @@ const DeliveryForm = ({cartItems,cartTotal}) => {
           {!isCod && <div className="p-3 text-black bg-[#F4F4F4] flex flex-wrap gap-5">
            { paymentMethods?.data?.data && paymentMethods.data.data.length > 0 ? 
            paymentMethods.data.data.filter(item => item.type_name !== 'Cash').map((item) => {
-            return <div onClick={() => handlePaymentMethod(item)} key={item.id} className={`flex flex-col items-center justify-center gap-2 cursor-pointer ${item.payment_type_category[0].payment_category_name === payment ? 'bg-blue-200 p-2 rounded-lg' : ''}`}>
+            return <div onClick={() => handlePaymentMethod(item)} key={item.id} className={`flex flex-col items-center justify-center gap-2 cursor-pointer ${item.payment_type_category[0]?.payment_category_name === payment ? 'bg-blue-200 p-2 rounded-lg' : ''}`}>
                 <Image 
                 src={item.icon_image}
-                alt={item.payment_type_category[0].payment_category_name}
+                alt={item.payment_type_category[0]?.payment_category_name}
                 height={40}
                 width={40}
                 className="rounded-md h-auto w-auto"
                 />
-                <h3 className="text-black">{item.payment_type_category[0].payment_category_name}</h3>
+                <h3 className="text-black">{item.payment_type_category[0]?.payment_category_name}</h3>
             </div>
            })
            : <p className="text-black">You wont be redirected to Payment Link immediately due to stock limitation at real time after your order is placed. Our team will call you with stock confirmation at real time and will be given a SSL Wireless Custom Mac BD Secure Payment Link. You can proceed with the payment then.</p>
